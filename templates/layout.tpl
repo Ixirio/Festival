@@ -16,7 +16,11 @@
         <a href="#">Infos festival</a>
         <a href="#">test</a>
         {* connexion / inscription / espace user / espace admin *}
-        <a href="#" id="gauche">connexion</a>
+        <span>
+        <a href="#">connexion</a>
+        | 
+        <a href="#">inscription</a>
+        </span>
 
     </div>
 {/block}

@@ -6,4 +6,16 @@
 
     });
 
+    Flight::route('/login', function(){
+
+        Flight::render("login.tpl", array());
+
+    });
+
+    Flight::route('/register', function(){
+
+        Flight::render("register.tpl", array());
+
+    });
+
 ?>
