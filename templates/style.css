@@ -1,0 +1,20 @@
+.nav {
+    display: flex;
+    background-color: #1B1F3B;
+}
+
+.nav a{
+    margin: 10 auto;
+    color : #B0DB43;
+    text-decoration: none;
+}
+
+.nav a:hover{
+    transition: 0.7s;
+    color : #B14AED;
+}
+
+#gauche{
+    position: relative;
+    float: left;
+}
