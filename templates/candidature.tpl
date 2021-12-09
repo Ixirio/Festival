@@ -11,6 +11,9 @@
             <input type="text" name="groupeName" placeholder="Nom du groupe" value = "{$valeurs.groupName|escape|default:''}" />
             {$messages.groupName|default:''} 
         </div>
+        {*
+        Il faut tirer les différentes options d'une BDD contenant tous les départements je crois
+        *}
         Département d'origine :
         <select name="departement" id="departement">
             <option value="somme">Somme</option>
