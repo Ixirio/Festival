@@ -1,8 +1,7 @@
 <?php
-    $baseName = "m3104";
+    $baseName = "festival";
     $baseAdress = "localhost";
     $serverPort = "3306";
-    $username = "root";
-    $password = "admin";
-
+    $username = "festival";
+    $password = "root";
 ?>
