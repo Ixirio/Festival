@@ -9,14 +9,14 @@
     <form action="register" method="post" class="pure-form pure-form-stacked">
         <fieldset>
             <div class="pure-control-group">
-                {$messages.pseudo|default:''}
+                {$messages.name|default:''}
                 <label for="aligned-name">Pseudo</label>
-                <input type="text" name="pseudo" id="aligned-name" placeholder="Pseudo" value="{$valeurs.pseudo|escape|default:''}"/>
+                <input type="text" name="name" id="aligned-name" placeholder="Pseudo" value="{$valeurs.name|escape|default:''}"/>
             </div>
             <div class="pure-control-group">
-                {$messages.email|default:''}
+                {$messages.mail|default:''}
                 <label for="aligned-email">Email</label>
-                <input type="email" name="email" id="aligned-email" placeholder="Email" value="{$valeurs.email|escape|default:''}"/>
+                <input type="email" name="mail" id="aligned-mail" placeholder="Email" value="{$valeurs.mail|escape|default:''}"/>
             </div>
             <div class="pure-control-group">
                 {$messages.password|default:''}
