@@ -11,12 +11,22 @@
             <input type="text" name="groupeName" placeholder="Nom du groupe" value = "{$valeurs.groupName|escape|default:''}" />
             {$messages.groupName|default:''} 
         </div>
-        
-        {*  Département d'origine : menu déroulant
-            Type de scène : menu déroulant 
-        *}
-
-        <br>
+        Département d'origine :
+        <select name="departement" id="departement">
+            <option value="somme">Somme</option>
+            <option value="picardie">Picardie</option>
+            <option value="">ça va être long je crois on doit le faire via une base de données</option>
+            <option value="">La terre du milieu</option>
+            <option value="">Tatouine</option>
+            <option value="">Grand line</option>
+            <option value="">Namek</option>
+        </select>
+        Type de scène :
+        <select name="sceneType" id="sceneType">
+            <option value="tribute">Tribute</option>
+            <option value="acoustique_folk">Acoustique, Folk</option>
+            <option value="amplifie_rock">Amplifié, Rock</option>
+        </select>
 
         <p>Représentant du groupe :
             <div class="pure-control-group">
@@ -64,11 +74,42 @@
             <input type="text" name="yearOfCreation" placeholder="2010" value = "{$valeurs.yearOfCreation|escape|default:''}" />
             {$messages.yearOfCreation|default:''} 
         </div>
-        {*  Présentation du texte : zone de texte 500 caractères ou -
-            Expériences scéniques : zone de texte 500 caractères ou -
-            Site web ou facebook : Url 
-            Soundcloud : Url Facultatif
-            Youtube : Url Facultatif 
+
+        <div class="pure-control-group">
+                <label for="aligned-name">Présentation du texte </label>
+                <textarea rows="8" cols="50" name="textPresentation" placeholder="We're no strangers to love
+You know the rules and so do I
+A full commitment's what I'm thinking of
+You wouldn't get this from any other guy
+I just wanna tell you how I'm feeling
+Gotta make you understand
+Never gonna give you up
+Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:''}" ></textarea>
+        {$messages.textPresentation|default:''} 
+        </div>
+
+        <div class="pure-control-group">
+                <label for="aligned-name">Expériences scéniques </label>
+                <textarea rows="8" cols="50" name="scenicExperiences" placeholder="Une fois j'ai joué pour la kermesse de l'école primaire de mon village" value = "{$valeurs.scenicExperiences|escape|default:''}" ></textarea>
+        {$messages.scenicExperiences|default:''} 
+        </div>
+
+        <div class="pure-control-group">
+                <label for="aligned-name">Site Internet / Facebook </label>
+                <input type="url" name="website" placeholder="https://monsite.fr" value = "{$valeurs.website|escape|default:''}" />
+                {$messages.website|default:''} 
+        </div>
+        <div class="pure-control-group">
+                <label for="aligned-name">Soundcloud (Facultatif) </label>
+                <input type="url" name="soundcloud" placeholder="https://soundcloud.com" value = "{$valeurs.soundcloud|escape|default:''}" />
+                {$messages.soundcloud|default:''} 
+        </div>
+        <div class="pure-control-group">
+                <label for="aligned-name">Youtube (Facultatif) </label>
+                <input type="url" name="youtube" placeholder="https://youtube.com" value = "{$valeurs.youtube|escape|default:''}" />
+                {$messages.youtube|default:''} 
+        </div>
+        {* 
             Membres du groupe : Menu déroulant entre 1 et 8
             Afficher autant du formulaire suivant que la valeur choisie
             Je suis pas sûr si il faut créer les 8 et les afficher que si le nombre est supérieur à telle valeur ou si il faut en faire un et le dupliquer magiquement
@@ -85,8 +126,7 @@
         </div>
         <div class="pure-control-group">
                 <label for="aligned-name">Instrument(s) </label>
-                <input type="text" name="memberInstrument" placeholder="Kazoo, flûte à bec" value = "{$valeurs.memberInstrument|escape|default:''}" />
-                {$messages.memberInstrument|default:''} 
+                <input type="text" name="memberInstrument" placeholder="Kazoo, flûte à bec" value ="{$valeurs.memberInstrument|escape|default:''}"/>
         </div>
         {*
         Dépot de 3 fichiers MP3
@@ -110,12 +150,6 @@
             <input type="checkbox" name="producer" value = "{$valeurs.producer|escape|default:''}" />
             {$messages.producer|default:''} 
         </div>
-        
-        
-        
-
-
-
             
         </div>
         <div class="pure-controls">
