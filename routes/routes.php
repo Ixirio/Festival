@@ -57,7 +57,7 @@
         if (count($messages) > 0){
             Flight::render("register.tpl", array("valeurs" => $_POST, "messages" => $messages));
         } else {
-            $stmt -> execute(array(':pseudo' => $_POST['pseudo'], ':Email' => $_POST['email'], ':Motdepasse' => password_hash($_POST['password'], PASSWORD_DEFAULT)));
+            $stmt -> execute(array(':pseudo' => $_POST['pseudo'], ':Email' => $_POST['mail'], ':Motdepasse' => password_hash($_POST['password'], PASSWORD_DEFAULT)));
             Flight::render("success.tpl", array());
         }
 
@@ -76,35 +76,35 @@
     
         $messages = array();
     
-        $mail = $db -> prepare("SELECT Email FROM utilisateur WHERE Email = :mail");
-        $requete = $db -> prepare("SELECT * FROM utilisateur WHERE Email = :mail");
-    
-        if(empty(trim($form -> email))){
-            $messages['email'] = "Le champs email est obligatoire";
+        if(empty(trim($form -> login))){
+            $messages['login'] = "Le champ email est obligatoire";
             
         } else {
         
-            if (filter_var($form -> email, FILTER_VALIDATE_EMAIL)){
-    
-                $mail -> execute(array(":mail" => $form->email));
-    
-                if($mail -> rowCount() < 1){
-                    $messages['email'] = "Identifiant invalide";
-                }
+            if (filter_var($form -> login, FILTER_VALIDATE_EMAIL)){
+                $requete = $db -> prepare("SELECT * FROM users WHERE mail = :login");
+
+            } else {
+                $requete = $db -> prepare("SELECT * FROM users WHERE name = :login");
+            }
+            $requete -> execute(array(":login" => $form->login));
+            if($requete -> rowCount() < 1){
+                $messages['login'] = "Identifiant invalide";
             }
         }
-    
+
         if(empty(trim($form->password))){
-            
-            $messages['password'] = "Le champs mot de passe est obligatoire";
+            $messages['password'] = "Le champ mot de passe est obligatoire";
         } else {
             if(strlen($form->password) < 8 ){
-                $messages['password'] = "Le mot de passe doit faire + de 8 caractères !";
+                $messages['password'] = "Mot de passe invalide";
             } else {
-                $requete -> execute(array(":mail" => $form->email));
+                // $requete -> execute(array(":mail" => $form->email));
                 $requete = $requete->fetch();
-                if(!password_verify($form->password, $requete['Motdepasse'])){
-                    $messages['password'] = "Identifiant invalide !";
+
+                //if(!password_verify($form->password, $requete['pass'])){
+                if($form->password != $requete['pass']){
+                    $messages['password'] = "Identifiant ou mot de passe invalide !";
                 }
             }
         }
@@ -114,10 +114,10 @@
     
         } else {
             $_SESSION['utilisateur'] = array(
-                "pseudo" => $requete['Pseudo'], "email" => $requete['Email']);
+                "pseudo" => $requete['name'], "email" => $requete['mail']);
             Flight::render("index.tpl", array());
         }
-    
+
 
     });
 

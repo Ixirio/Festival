@@ -3,7 +3,7 @@
     require 'includes/flight/flight/Flight.php';
     require 'includes/smarty/libs/Smarty.class.php';
     require 'includes/pdo.php';
-
+    session_start();
     $db = new PDO(
         "mysql:host=$baseAdress; port=$serverPort; dbname=$baseName",
         "$username",

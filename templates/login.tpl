@@ -8,9 +8,9 @@
     <form action="login" method="post" class="pure-form pure-form-stacked">
         <fieldset>
             <div class="pure-control-group">
-                {$messages.email|default:''}
-                <label for="aligned-email">Email</label>
-                <input type="email" name="email" id="aligned-email" placeholder="Email" value="{$valeurs.email|escape|default:''}"/>
+                {$messages.login|default:''}
+                <label for="aligned-login">Email</label>
+                <input type="text" name="login" id="aligned-login" placeholder="mail/pseudo" value="{$valeurs.login|escape|default:''}"/>
             </div>
             <div class="pure-control-group">
                 {$messages.password|default:''}
