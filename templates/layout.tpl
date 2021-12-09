@@ -12,14 +12,14 @@
 <body>
 {block name=menu}
     <div class="nav">
-        <a href="#">Accueil</a>
-        <a href="#">Infos festival</a>
-        <a href="#">test</a>
+        <a href="./">Accueil</a>
+        <a href="./">Infos festival</a>
+        <a href="./">test</a>
         {* connexion / inscription / espace user / espace admin *}
         <span>
-        <a href="#">connexion</a>
+        <a href="login">connexion</a>
         | 
-        <a href="#">inscription</a>
+        <a href="register">inscription</a>
         </span>
 
     </div>
