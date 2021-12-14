@@ -112,17 +112,6 @@ Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:
                 <input type="url" name="youtube" placeholder="https://youtube.com" value = "{$valeurs.youtube|escape|default:''}" />
                 {$messages.youtube|default:''} 
         </div>
-        {* 
-            Membres du groupe : Menu déroulant entre 1 et 8
-            Afficher autant du formulaire suivant que la valeur choisie
-            Je suis pas sûr si il faut créer les 8 et les afficher que si le nombre est supérieur à telle valeur ou si il faut en faire un et le dupliquer magiquement
-        *}
-
-        <div id="cont1" 
-        
-        style="visibility: hidden;">
-        prout
-        </div>
         Membres du groupe :
         <select name="memberNumber" id="memberNumberSelect">
             <option value="1">1</option>
