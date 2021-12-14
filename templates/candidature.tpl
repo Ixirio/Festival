@@ -117,6 +117,26 @@ Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:
             Afficher autant du formulaire suivant que la valeur choisie
             Je suis pas sûr si il faut créer les 8 et les afficher que si le nombre est supérieur à telle valeur ou si il faut en faire un et le dupliquer magiquement
         *}
+
+        <div id="cont1" 
+        
+        style="visibility: hidden;">
+        prout
+        </div>
+        Membres du groupe :
+        <select name="memberNumber" id="memberNumberSelect">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        {*
+        Début du formulaire à répéter x fois
+        *}
         <div class="pure-control-group">
                 <label for="aligned-name">Nom </label>
                 <input type="text" name="memberName" placeholder="Pichard" value = "{$valeurs.memberName|escape|default:''}" />
@@ -132,12 +152,23 @@ Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:
                 <input type="text" name="memberInstrument" placeholder="Kazoo, flûte à bec" value ="{$valeurs.memberInstrument|escape|default:''}"/>
         </div>
         {*
-        Dépot de 3 fichiers MP3
-        Dépôt d'un PDF dossier de presse facultatif
-        Dépôt 2 photos avec résolution>300DPI
-        Dépôt fiche technique PDF  
-        Dépôt document SACEM PDF ou PDF liste noms/compositeurs/durée des morceaux
+        Fin du formulaire à répéter x fois
         *}
+        <form action="envoi" method="post" enctype="multipart/form-data">
+        Morceaux (Format MP3)
+        <input name="audio1" type="file">
+        <input name="audio2" type="file">       
+        <input name="audio3" type="file">    
+        PDF dossier de presse (facultatif)   
+        <input name="pdfpresse" type="file">  
+        Photos du groupe (résolution>300DPI) 
+        <input name="photo1" type="file">     
+        <input name="photo2" type="file">
+        PDF Fiche technique
+        <input name="fichetechnique" type="file">
+        Document SACEM PDF / PDF contenant la liste des noms, compositeurs et durées des morceaux.      
+        <input name="docSacem" type="file">
+
         <div class="pure-control-group">
             <label for="aligned-name">Statut associatif</label>
             <input type="checkbox" name="statutAssociatif" value = "{$valeurs.statutAssociatif|escape|default:''}" />
