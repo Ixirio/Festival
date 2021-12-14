@@ -14,11 +14,19 @@
     <div class="nav">
         <a href="./">Accueil</a>
         <a href="candidature">Candidature</a>
-        {* connexion / inscription / espace user / espace admin *}
-        <span>
-        <a href="login">connexion</a>
-        | 
-        <a href="register">inscription</a>
+
+        {if isset($utilisateur)}
+            
+            {if $utilisateur.admin = "1"}
+                <a href="./">Admin</a>
+            {else}
+                <a href="./">userSet</a>
+            {/if}
+        {else}
+            <span> 
+                <a href="login">connexion</a> | <a href="register">inscription</a>
+            <span>
+        {/if}
         </span>
 
     </div>
