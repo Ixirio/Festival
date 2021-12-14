@@ -18,7 +18,7 @@
         {if isset($utilisateur)}
             
             <span> 
-            {if $utilisateur.admin = "1"}
+            {if $utilisateur.admin == "1"}
                 {*<a href="./">Admin</a>*}
             {else}
                 {*<a href="./">userSet</a>*}

@@ -124,13 +124,15 @@ Flight::route('POST /login', function () {
 
     } else {
         $_SESSION['utilisateur'] = array("pseudo" => $requete['name'], "email" => $requete['mail'], "admin" => $admin);
-        Flight::render("index.tpl", array());
+        Flight::redirect("index.tpl", array());
     }
 
 });
 
 Flight::route('GET /candidature', function () {
+
     Flight::render("candidature.tpl", array());
+
 });
 
 Flight::route('POST /candidature', function () {
