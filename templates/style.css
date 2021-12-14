@@ -1,10 +1,15 @@
-.nav {
+div {
     display: flex;
+}
+
+.nav {
     background-color: #1B1F3B;
 }
 
 .nav a{
-    margin: 10 auto;
+    margin: auto;
+    float: right;
+    padding: 10px 10px 10px 10px;
     color : #B0DB43;
     text-decoration: none;
 }
@@ -14,7 +19,6 @@
     color : #B14AED;
 }
 
-#gauche{
-    position: relative;
-    float: left;
+.nav p{
+    color: #fff;
 }

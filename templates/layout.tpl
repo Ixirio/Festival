@@ -14,24 +14,21 @@
     <div class="nav">
         <a href="./">Accueil</a>
         <a href="candidature">Candidature</a>
-
+        <div>
         {if isset($utilisateur)}
             
-            <span> 
-            {if $utilisateur.admin == "1"}
+            {if $utilisateur.admin = "1"}
                 {*<a href="./">Admin</a>*}
             {else}
                 {*<a href="./">userSet</a>*}
             {/if}
             
-                <a href="logout">Deconnexion</a>
-            <span> 
+                <a href="login">Profil</a> <p> | </p> <a href="logout">Deconnexion</a>
         {else}
-            <span> 
-                <a href="login">connexion</a> | <a href="register">inscription</a>
-            <span>
+                <a href="login">Connexion</a> <p> | </p> <a href="register">Inscription</a>
         {/if}
-        </span>
+        
+        </div>
 
     </div>
 {/block}
