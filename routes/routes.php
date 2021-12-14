@@ -79,6 +79,7 @@ Flight::route('POST /login', function () {
 
     $form = Flight::request()->data;
     $db = flight::get("maBase");
+    $admin = "0";
 
     $messages = array();
 
@@ -96,6 +97,10 @@ Flight::route('POST /login', function () {
         $requete->execute(array(":login" => $form->login));
         if ($requete->rowCount() < 1) {
             $messages['login'] = "Identifiant invalide";
+        } else {
+            if ($form->login == "root"){
+                $admin = "1";
+            }
         }
     }
 
@@ -118,11 +123,9 @@ Flight::route('POST /login', function () {
         Flight::render("login.tpl", array("valeurs" => $_POST, "messages" => $messages));
 
     } else {
-        $_SESSION['utilisateur'] = array(
-            "pseudo" => $requete['name'], "email" => $requete['mail']);
+        $_SESSION['utilisateur'] = array("pseudo" => $requete['name'], "email" => $requete['mail'], "admin" => $admin);
         Flight::render("index.tpl", array());
     }
-
 
 });
 
