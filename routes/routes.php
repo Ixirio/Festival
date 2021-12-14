@@ -134,6 +134,111 @@ Flight::route('GET /candidature', function () {
 });
 
 Flight::route('POST /candidature', function () {
+
+
+    $form = Flight::request()->data;
+    $message = array();
+
+    // On check si le groupeName est vide
+    if (empty(trim($form->groupeName))) {
+        $message['groupeName'] = "groupeName vide";
+    }
+
+    // On check si le departement est vide
+    if (empty(trim($form->departement))) {
+        $message['departement'] = "departement vide";
+    }
+    // On check si le sceneType est vide
+    if (empty(trim($form->sceneType))) {
+        $message['sceneType'] = "sceneType vide";
+    }
+    // On check si le repName est vide
+    if (empty(trim($form->repName))) {
+        $message['repName'] = "repName vide";
+    }
+    // On check si le repFName est vide
+    if (empty(trim($form->repFName))) {
+        $message['repFName'] = "repFName vide";
+    }
+    // On check si le repAddress est vide
+    if (empty(trim($form->repAddress))) {
+        $message['repAddress'] = "repAddress vide";
+    }
+    // On check si le repPostCode est vide
+    if (empty(trim($form->repPostCode))) {
+        $message['repPostCode'] = "repPostCode vide";
+    }
+    // On check si le repMail est vide
+    if (empty(trim($form->repMail))) {
+        $message['repMail'] = "repMail vide";
+    }
+    // On check si le repPhone est vide
+    if (empty(trim($form->repPhone))) {
+        $message['repPhone'] = "repPhone vide";
+    }
+
+    // On check si le musicType est vide
+    if (empty(trim($form->musicType))) {
+        $message['musicType'] = "musicType vide";
+    }
+
+    // On check si le musicType est vide
+    if (empty(trim($form->musicType))) {
+        $message['musicType'] = "musicType vide";
+    }    // On check si le yearOfCreation est vide
+    if (empty(trim($form->yearOfCreation))) {
+        $message['yearOfCreation'] = "yearOfCreation vide";
+    }    // On check si le textPresentation est vide
+    if (empty(trim($form->textPresentation))) {
+        $message['textPresentation'] = "textPresentation vide";
+    }    // On check si le scenicExperiences est vide
+    if (empty(trim($form->scenicExperiences))) {
+        $message['scenicExperiences'] = "scenicExperiences vide";
+    }    // On check si le website est vide
+    if (empty(trim($form->website))) {
+        $message['website'] = "website vide";
+    }
+
+        // On check si le soundcloud n'est pas vide
+    if (!empty(trim($form->soundcloud))) {
+
+    }
+    // On check si le youtube n'est pas vide
+    if (!empty(trim($form->youtube))) {
+
+    }
+
+    // On check si le memberNumber est vide
+    if (empty(trim($form->memberNumber))) {
+        $message['memberNumber'] = "memberNumber vide";
+    }
+
+    // DEBUT GERER PARTIE MEMBRES MULTIPLES
+
+
+
+
+
+    // FIN GERER PARTIE MEMBRES MULTIPLES
+
+
+
+
+    // DEBUT GERER PARTIE FICHIERS MULTIPLES
+
+
+
+
+
+    // FIN GERER PARTIE FICHIERS MULTIPLES
+
+
+
+
+
+
+
+
     Flight::render("candidature.tpl", array());
 });
 
