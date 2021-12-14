@@ -79,9 +79,10 @@ Flight::route('POST /login', function () {
 
     $form = Flight::request()->data;
     $db = flight::get("maBase");
-    $admin = "0";
 
     $messages = array();
+
+    $admin = "0";
 
     if (empty(trim($form->login))) {
         $messages['login'] = "Le champ email est obligatoire";
@@ -97,10 +98,6 @@ Flight::route('POST /login', function () {
         $requete->execute(array(":login" => $form->login));
         if ($requete->rowCount() < 1) {
             $messages['login'] = "Identifiant invalide";
-        } else {
-            if ($form->login == "root"){
-                $admin = "1";
-            }
         }
     }
 
@@ -119,12 +116,16 @@ Flight::route('POST /login', function () {
         }
     }
 
+    if ($requete['name'] == "root"){
+        $admin = "1";
+    }
+
     if (count($messages) > 0) {
         Flight::render("login.tpl", array("valeurs" => $_POST, "messages" => $messages));
 
     } else {
         $_SESSION['utilisateur'] = array("pseudo" => $requete['name'], "email" => $requete['mail'], "admin" => $admin);
-        Flight::redirect("index.tpl", array());
+        Flight::redirect("/");
     }
 
 });
@@ -242,6 +243,12 @@ Flight::route('POST /candidature', function () {
 
 
     Flight::render("candidature.tpl", array());
+});
+
+Flight::route('GET /profil', function(){
+
+    Flight::render("profil.tpl", array());
+
 });
 
 Flight::route('GET /logout', function(){

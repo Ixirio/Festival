@@ -23,7 +23,7 @@
                 {*<a href="./">userSet</a>*}
             {/if}
             
-                <a href="login">Profil</a> <p> | </p> <a href="logout">Deconnexion</a>
+                <a href="profil">Profil</a> <p> | </p> <a href="logout">Deconnexion</a>
         {else}
                 <a href="login">Connexion</a> <p> | </p> <a href="register">Inscription</a>
         {/if}
