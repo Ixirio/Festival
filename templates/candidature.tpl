@@ -113,8 +113,8 @@ Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:
                 {$messages.youtube|default:''} 
         </div>
         Membres du groupe :
-        <select name="memberNumber" id="memberNumberSelect">
-            <option value="1">1</option>
+        <select name="memberNumber" class="memberNb" id="memberNumberSelect">
+            <option value="1" selected="selected">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
@@ -123,24 +123,81 @@ Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:
             <option value="7">7</option>
             <option value="8">8</option>
         </select>
+
+
+
+        <div class='form-group col-xs-12 col-md-12 col-lg-10' id = "membreInput">
+            <h4 style="margin: 20px; width: 100%; font-size: 20px;">
+                <b>Membre 1</b>
+            </h4>
+
+            <div class="pure-control-group">
+                <label for="aligned-name">Nom </label>
+                <input type="text" name="memberName" placeholder="Pichard" value = "{$valeurs.memberName|escape|default:''}" />
+                {$messages.memberName|default:''}
+            </div>
+            <div class="pure-control-group">
+                <label for="aligned-name">Prénom </label>
+                <input type="text" name="memberFName" placeholder="Étienne" value = "{$valeurs.memberFName|escape|default:''}" />
+                {$messages.memberFName|default:''}
+            </div>
+            <div class="pure-control-group">
+                <label for="aligned-name">Instrument(s) </label>
+                <input type="text" name="memberInstrument" placeholder="Kazoo, flûte à bec" value ="{$valeurs.memberInstrument|escape|default:''}"/>
+            </div>
+        </div>
+        <script>
+            const input = document.querySelector('.memberNb');
+            input.addEventListener('change', (event) => {
+                document.getElementById("membreInput").innerHTML = "";
+                var membreList = document.getElementById('membreInput');
+                var docstyle = membreList.style.display;
+                if (docstyle == 'none') membreList.style.display = '';
+                for(var i = 1;i<= input.value;i++){
+
+                    var section = document.createElement('h4');
+                    section.style = "margin:20px; width:100%; font-size:20px;"
+                    section.innerHTML = "<b>Membre "+i + "</b>"
+                    membreList.appendChild(section);
+
+                    var text = document.createElement('div');
+                    text.className = "pure-control-group";
+                    text.innerHTML = '<label for="aligned-name">Nom </label><input type="text" name="memberName" placeholder="Pichard" value = "{$valeurs.memberName|escape|default:''}" />{$messages.memberName|default:''} ';
+                    membreList.appendChild(text);
+
+                    var text = document.createElement('div');
+                    text.className = "pure-control-group";
+                    text.innerHTML = '<label for="aligned-name">Nom </label><input type="text" name="memberFName" placeholder="Étienne" value = "{$valeurs.memberFName|escape|default:''}" />{$messages.memberFName|default:''} ';
+                    membreList.appendChild(text);
+
+                    var text = document.createElement('div');
+                    text.className = "pure-control-group";
+                    text.innerHTML = '<label for="aligned-name">Nom </label><input type="text" name="memberInstrument" placeholder="Kazoo, flûte à bec" value = "{$valeurs.memberInstrument|escape|default:''}" />{$messages.memberInstrument|default:''} ';
+                    membreList.appendChild(text);
+                }
+            });
+        </script>
+
+
+
         {*
         Début du formulaire à répéter x fois
-        *}
+
         <div class="pure-control-group">
                 <label for="aligned-name">Nom </label>
                 <input type="text" name="memberName" placeholder="Pichard" value = "{$valeurs.memberName|escape|default:''}" />
-                {$messages.memberName|default:''} 
+                {$messages.memberName|default:''}
         </div>
         <div class="pure-control-group">
                 <label for="aligned-name">Prénom </label>
                 <input type="text" name="memberFName" placeholder="Étienne" value = "{$valeurs.memberFName|escape|default:''}" />
-                {$messages.memberFName|default:''} 
+                {$messages.memberFName|default:''}
         </div>
         <div class="pure-control-group">
                 <label for="aligned-name">Instrument(s) </label>
                 <input type="text" name="memberInstrument" placeholder="Kazoo, flûte à bec" value ="{$valeurs.memberInstrument|escape|default:''}"/>
         </div>
-        {*
+
         Fin du formulaire à répéter x fois
         *}
         <form action="envoi" method="post" enctype="multipart/form-data">
