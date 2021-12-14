@@ -4,7 +4,7 @@
 <h1>Candidature</h1>
 <div id='main'>
 <p>
-   <form action="register" method="post" class="pure-form pure-form-stacked">
+   <form action="candidature" method="post" class="pure-form pure-form-stacked">
     <fieldset>
         <div class="pure-control-group">
             <label for="aligned-name">Nom du groupe</label>
@@ -66,7 +66,7 @@
             <br>
             <br>
 
-        </p>
+        </fieldset>
         <div class="pure-control-group">
             <label for="aligned-name">Style Musical </label>
             <input type="text" name="musicType" placeholder="Rock" value = "{$valeurs.musicType|escape|default:''}" />
