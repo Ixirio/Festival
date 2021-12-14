@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7deb1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : jeu. 09 déc. 2021 à 14:24
--- Version du serveur :  8.0.27-0ubuntu0.21.04.1
--- Version de PHP : 7.4.16
+-- Généré le : mar. 14 déc. 2021 à 14:52
+-- Version du serveur : 5.7.33
+-- Version de PHP : 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,49 +24,88 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Structure de la table `candidature`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mail` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pass` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+CREATE TABLE `candidature` (
+  `NOM_GROUPE` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DEPARTEMENT` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `TYPE_SCENE` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `NOM_REP` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PRENOM_REP` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ADRESSE_REP` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `POSTAL_REP` int(10) NOT NULL,
+  `MAIL_REP` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `TEL_REP` int(10) NOT NULL,
+  `STYLE` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ANNEE_CREATION` int(20) NOT NULL,
+  `PRESENTATION_TXT` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `EXP_SCENIQUE` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `SITE_FACEBOOK` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `SOUNDCLOUD` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `YOUTUBE` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NB_MEMBRES` int(9) NOT NULL,
+  `NOM_MEMBRE_1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PRENOM_MEMBRE_1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `INSTRUMENT_MEMBRE_1` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `NOM_MEMBRE_2` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_2` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_2` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_3` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_3` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_3` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_4` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_4` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_4` int(50) DEFAULT NULL,
+  `NOM_MEMBRE_5` int(20) DEFAULT NULL,
+  `PRENOM_MEMBRE_5` int(20) DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_5` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_6` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_6` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_6` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_7` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_7` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_7` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_8` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_8` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `INSTRUMENT_MEMBRE_8` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `AUDIO_1` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `AUDIO_2` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `AUDIO_3` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DOSSIER_PRESSE` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PHOTO_1` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PHOTO_2` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `FICHE_TECHNIQUE` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `SACEM_PDF` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `STATUT_ASSOCIATIF` tinyint(1) NOT NULL,
+  `INSCRIT_SACEM` tinyint(1) NOT NULL,
+  `PRODUCTEUR` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `users`
+-- Déchargement des données de la table `candidature`
 --
 
-INSERT INTO `users` (`name`, `mail`, `pass`) VALUES
-('loic', 'loic.recoupe@gmail.com', '$2y$10$m3WItI5x/dPBBp5qtPHNi.O9OLCo3KS6k0T0SL..1G67vEjKw8yt6'),
-('test', 'test@test.com', 'testtest');
+INSERT INTO `candidature` (`NOM_GROUPE`, `DEPARTEMENT`, `TYPE_SCENE`, `NOM_REP`, `PRENOM_REP`, `ADRESSE_REP`, `POSTAL_REP`, `MAIL_REP`, `TEL_REP`, `STYLE`, `ANNEE_CREATION`, `PRESENTATION_TXT`, `EXP_SCENIQUE`, `SITE_FACEBOOK`, `SOUNDCLOUD`, `YOUTUBE`, `NB_MEMBRES`, `NOM_MEMBRE_1`, `PRENOM_MEMBRE_1`, `INSTRUMENT_MEMBRE_1`, `NOM_MEMBRE_2`, `PRENOM_MEMBRE_2`, `INSTRUMENT_MEMBRE_2`, `NOM_MEMBRE_3`, `PRENOM_MEMBRE_3`, `INSTRUMENT_MEMBRE_3`, `NOM_MEMBRE_4`, `PRENOM_MEMBRE_4`, `INSTRUMENT_MEMBRE_4`, `NOM_MEMBRE_5`, `PRENOM_MEMBRE_5`, `INSTRUMENT_MEMBRE_5`, `NOM_MEMBRE_6`, `PRENOM_MEMBRE_6`, `INSTRUMENT_MEMBRE_6`, `NOM_MEMBRE_7`, `PRENOM_MEMBRE_7`, `INSTRUMENT_MEMBRE_7`, `NOM_MEMBRE_8`, `PRENOM_MEMBRE_8`, `INSTRUMENT_MEMBRE_8`, `AUDIO_1`, `AUDIO_2`, `AUDIO_3`, `DOSSIER_PRESSE`, `PHOTO_1`, `PHOTO_2`, `FICHE_TECHNIQUE`, `SACEM_PDF`, `STATUT_ASSOCIATIF`, `INSCRIT_SACEM`, `PRODUCTEUR`) VALUES
+('tontons flingueurs', 'Oise', 'Folk', 'Bon', 'Jean', '47 rue du troufion, Pontpoint', 60700, 'bonjean@gmail.com', 612345678, 'Rock', 1914, 'On est gentils on est beaux', 'J\'ai chanté à la chorale une fois en primaire', 'fesbouk.com', 'soundclou.com', NULL, 2, 'Renart', 'Jacky', 'Kazoo', 'Dufion', 'Etienne', 'Triangle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'chemin d\'un fichier audio', 'chemin d\'un fichier audio', 'chemin d\'un fichier audio', 'chemin d\'un fichier pdf', 'chemin d\'un fichier png', 'chemin d\'un fichier png', 'chemin d\'un fichier pdf', 'chemin d\'un fichier pdf', 0, 0, 1);
+
+-- --------------------------------------------------------
 
 --
--- Index pour les tables déchargées
+-- Structure de la table `departement`
 --
 
---
--- Index pour la table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`name`);
-COMMIT;
-
-CREATE TABLE IF NOT EXISTS `departement` (
-  `departement_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `departement` (
+  `departement_id` int(11) NOT NULL,
   `departement_code` varchar(3) CHARACTER SET utf8 DEFAULT NULL,
   `departement_nom` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `departement_nom_uppercase` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `departement_slug` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `departement_nom_soundex` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`departement_id`),
-  KEY `departement_slug` (`departement_slug`),
-  KEY `departement_code` (`departement_code`),
-  KEY `departement_nom_soundex` (`departement_nom_soundex`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=102 ;
+  `departement_nom_soundex` varchar(20) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `departement`
+-- Déchargement des données de la table `departement`
 --
 
 INSERT INTO `departement` (`departement_id`, `departement_code`, `departement_nom`, `departement_nom_uppercase`, `departement_slug`, `departement_nom_soundex`) VALUES
@@ -92,8 +130,8 @@ INSERT INTO `departement` (`departement_id`, `departement_code`, `departement_no
 (19, '19', 'Corrèze', 'CORRÈZE', 'correze', 'C620'),
 (20, '2a', 'Corse-du-sud', 'CORSE-DU-SUD', 'corse-du-sud', 'C62323'),
 (21, '2b', 'Haute-corse', 'HAUTE-CORSE', 'haute-corse', 'H3262'),
-(22, '21', 'Côte-d''or', 'CÔTE-D''OR', 'cote-dor', 'C360'),
-(23, '22', 'Côtes-d''armor', 'CÔTES-D''ARMOR', 'cotes-darmor', 'C323656'),
+(22, '21', 'Côte-d\'or', 'CÔTE-D\'OR', 'cote-dor', 'C360'),
+(23, '22', 'Côtes-d\'armor', 'CÔTES-D\'ARMOR', 'cotes-darmor', 'C323656'),
 (24, '23', 'Creuse', 'CREUSE', 'creuse', 'C620'),
 (25, '24', 'Dordogne', 'DORDOGNE', 'dordogne', 'D6325'),
 (26, '25', 'Doubs', 'DOUBS', 'doubs', 'D120'),
@@ -166,13 +204,62 @@ INSERT INTO `departement` (`departement_id`, `departement_code`, `departement_no
 (93, '92', 'Hauts-de-Seine', 'HAUTS-DE-SEINE', 'hauts-de-seine', 'H32325'),
 (94, '93', 'Seine-Saint-Denis', 'SEINE-SAINT-DENIS', 'seine-saint-denis', 'S525352'),
 (95, '94', 'Val-de-Marne', 'VAL-DE-MARNE', 'val-de-marne', 'V43565'),
-(96, '95', 'Val-d''oise', 'VAL-D''OISE', 'val-doise', 'V432'),
+(96, '95', 'Val-d\'oise', 'VAL-D\'OISE', 'val-doise', 'V432'),
 (97, '976', 'Mayotte', 'MAYOTTE', 'mayotte', 'M300'),
 (98, '971', 'Guadeloupe', 'GUADELOUPE', 'guadeloupe', 'G341'),
 (99, '973', 'Guyane', 'GUYANE', 'guyane', 'G500'),
 (100, '972', 'Martinique', 'MARTINIQUE', 'martinique', 'M6352'),
 (101, '974', 'Réunion', 'RÉUNION', 'reunion', 'R500');
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+CREATE TABLE `users` (
+  `name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mail` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pass` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`name`, `mail`, `pass`) VALUES
+('loic', 'loic.recoupe@gmail.com', '$2y$10$m3WItI5x/dPBBp5qtPHNi.O9OLCo3KS6k0T0SL..1G67vEjKw8yt6'),
+('test', 'test@test.com', 'testtest');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `departement`
+--
+ALTER TABLE `departement`
+  ADD PRIMARY KEY (`departement_id`),
+  ADD KEY `departement_slug` (`departement_slug`),
+  ADD KEY `departement_code` (`departement_code`),
+  ADD KEY `departement_nom_soundex` (`departement_nom_soundex`);
+
+--
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `departement`
+--
+ALTER TABLE `departement`
+  MODIFY `departement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
