@@ -13,8 +13,7 @@
 {block name=menu}
     <div class="nav">
         <a href="./">Accueil</a>
-        <a href="./">Infos festival</a>
-        <a href="./">test</a>
+        <a href="candidature">Candidature</a>
         {* connexion / inscription / espace user / espace admin *}
         <span>
         <a href="login">connexion</a>
