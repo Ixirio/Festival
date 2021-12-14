@@ -136,4 +136,12 @@ Flight::route('GET /candidature', function () {
 Flight::route('POST /candidature', function () {
     Flight::render("candidature.tpl", array());
 });
+
+Flight::route('GET /logout', function(){
+
+    session_destroy();
+    Flight::redirect("/");
+
+});
+
 ?>

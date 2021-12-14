@@ -17,11 +17,15 @@
 
         {if isset($utilisateur)}
             
+            <span> 
             {if $utilisateur.admin = "1"}
-                <a href="./">Admin</a>
+                {*<a href="./">Admin</a>*}
             {else}
-                <a href="./">userSet</a>
+                {*<a href="./">userSet</a>*}
             {/if}
+            
+                <a href="logout">Deconnexion</a>
+            <span> 
         {else}
             <span> 
                 <a href="login">connexion</a> | <a href="register">inscription</a>
