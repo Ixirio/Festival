@@ -132,15 +132,21 @@ Flight::route('POST /login', function () {
 
 Flight::route('GET /candidature', function () {
 
-    Flight::render("candidature.tpl", array());
+    $db = flight::get("maBase");
+    $departements = $db->query("SELECT * FROM departement");
+    $departements = $departements->fetchAll();
+
+    Flight::render("candidature.tpl", array("departements" => $departements));
 
 });
 
 Flight::route('POST /candidature', function () {
 
 
+
     $form = Flight::request()->data;
     $message = array();
+
 
     // On check si le groupeName est vide
     if (empty(trim($form->groupeName))) {
