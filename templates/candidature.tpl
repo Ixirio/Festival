@@ -33,36 +33,34 @@
 
                 <div class="pure-control-group">
                     <p>Représentant du groupe : </p>
-                    <div class="pure-control-group">
-                        <label for="aligned-name">Nom </label>
-                        <input type="text" name="repName" placeholder="Dupont" value = "{$valeurs.repName|escape|default:''}" />
-                        {$messages.repName|default:''}
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="aligned-name">Prénom </label>
-                        <input type="text" name="repFName" placeholder="Claude" value = "{$valeurs.repFName|escape|default:''}" />
-                        {$messages.repFName|default:''}
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="aligned-name">Adresse </label>
-                        <input type="text" name="repAddress" placeholder="47 rue des robiniers, New York" value = "{$valeurs.repAddress|escape|default:''}" />
-                        {$messages.repAddress|default:''}
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="aligned-name">Code postal </label>
-                        <input type="text" name="repPostCode" placeholder="80000" value = "{$valeurs.repPostCode|escape|default:''}" />
-                        {$messages.repPostCode|default:''}
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="email">Adresse e-mail </label>
-                        <input type="text" name="repMail" placeholder="claude.dupont@gmail.com" value = "{$valeurs.repMail|escape|default:''}" />
-                        {$messages.repMail|default:''}
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="aligned-name">Téléphone </label>
-                        <input type="text" name="repPhone" placeholder="0607080910" value = "{$valeurs.repName|escape|default:''}" />
-                        {$messages.repPhone|default:''}
-                    </div>
+                    <label for="aligned-name">Nom </label>
+                    <input type="text" name="repName" placeholder="Dupont" value = "{$valeurs.repName|escape|default:''}" />
+                    {$messages.repName|default:''}
+                </div>
+                <div class="pure-control-group">
+                    <label for="aligned-name">Prénom </label>
+                    <input type="text" name="repFName" placeholder="Claude" value = "{$valeurs.repFName|escape|default:''}" />
+                    {$messages.repFName|default:''}
+                </div>
+                <div class="pure-control-group">
+                    <label for="aligned-name">Adresse </label>
+                    <input type="text" name="repAddress" placeholder="47 rue des robiniers, New York" value = "{$valeurs.repAddress|escape|default:''}" />
+                    {$messages.repAddress|default:''}
+                </div>
+                <div class="pure-control-group">
+                    <label for="aligned-name">Code postal </label>
+                    <input type="text" name="repPostCode" placeholder="80000" value = "{$valeurs.repPostCode|escape|default:''}" />
+                    {$messages.repPostCode|default:''}
+                </div>
+                <div class="pure-control-group">
+                    <label for="email">Adresse e-mail </label>
+                    <input type="text" name="repMail" placeholder="claude.dupont@gmail.com" value = "{$valeurs.repMail|escape|default:''}" />
+                    {$messages.repMail|default:''}
+                </div>
+                <div class="pure-control-group">
+                    <label for="aligned-name">Téléphone </label>
+                    <input type="text" name="repPhone" placeholder="0607080910" value = "{$valeurs.repName|escape|default:''}" />
+                    {$messages.repPhone|default:''}
                 </div>
 
                 <br>
@@ -85,12 +83,10 @@
                 <textarea rows="8" cols="50" name="textPresentation" placeholder="We're no strangers to love" value = "{$valeurs.textPresentation|escape|default:''}" ></textarea>
                 {$messages.textPresentation|default:''}
             </div>
-        </div>
 
             <br>
             <br>
 
-    </fieldset>
         <div class="pure-control-group">
             <label for="aligned-name">Style Musical </label>
             <input type="text" name="musicType" placeholder="Rock" value = "{$valeurs.musicType|escape|default:''}" />
@@ -231,5 +227,7 @@
                 </div>
                 </fieldset>
             </form>
+
+        </fieldset>
     </div>
 {/block}
