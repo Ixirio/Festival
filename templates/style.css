@@ -1,14 +1,14 @@
-div {
-    display: flex;
-}
-
 .nav {
+    display: flex;
     background-color: #1B1F3B;
 }
 
+.nav div {
+    display: flex;
+    background-color: #1B1F3B;
+}
 .nav a{
     margin: auto;
-    float: right;
     padding: 10px 10px 10px 10px;
     color : #B0DB43;
     text-decoration: none;
@@ -21,4 +21,15 @@ div {
 
 .nav p{
     color: #fff;
+}
+
+form {
+    margin: auto;
+}
+
+.container {
+    margin: auto;
+    width: 90vh;
+    background-color: #2A1F2D;
+    border-radius: 10px;
 }
