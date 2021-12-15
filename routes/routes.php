@@ -301,7 +301,7 @@ Flight::route('POST /candidature', function () {
     $departements = $departements->fetchAll();
 
 
-
+    /*
     $registerUser = $db->prepare("INSERT INTO candidature VALUES(
                                :groupeName,
                                 :departement,
@@ -422,8 +422,8 @@ Flight::route('POST /candidature', function () {
         echo "Échec lors de l'exécution :" . var_dump($registerUser->errorInfo());
     }
 
-
-    //Flight::render("candidature.tpl", array("departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
+    */
+    Flight::render("candidature.tpl", array("departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
 
 
 });
