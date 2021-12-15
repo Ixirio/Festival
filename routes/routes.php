@@ -110,13 +110,13 @@ Flight::route('POST /login', function () {
             // $requete -> execute(array(":mail" => $form->email));
             $requete = $requete->fetch();
 
-            if(!password_verify($form->password, $requete['pass'])){
+            if (!password_verify($form->password, $requete['pass'])) {
                 $messages['password'] = "Identifiant ou mot de passe invalide !";
             }
         }
     }
 
-    if ($requete['name'] == "root"){
+    if ($requete['name'] == "root") {
         $admin = "1";
     }
 
@@ -143,123 +143,298 @@ Flight::route('GET /candidature', function () {
 Flight::route('POST /candidature', function () {
 
     $db = flight::get("maBase");
-
-
     $form = Flight::request()->data;
     $messages = array();
 
+    $toAdd = array();
 
     // On check si le groupeName est vide
-    if (empty(trim($form->groupeName))) {
+    if (empty(trim($form['groupeName']))) {
         $messages['groupeName'] = "groupeName vide";
+
+    } else{
+        $toAdd['groupeName']  = $form['groupeName'];
     }
 
     // On check si le departement est vide
-    if (empty(trim($form->departement))) {
+    if (empty(trim($form['departement']))) {
         $messages['departement'] = "departement vide";
+    }else{
+        $toAdd['departement']  = $form['departement'];
     }
     // On check si le sceneType est vide
-    if (empty(trim($form->sceneType))) {
+    if (empty(trim($form['sceneType']))) {
         $messages['sceneType'] = "sceneType vide";
+    }else{
+        $toAdd['sceneType']  = $form['sceneType'];
     }
     // On check si le repName est vide
-    if (empty(trim($form->repName))) {
+    if (empty(trim($form['repName']))) {
         $messages['repName'] = "repName vide";
+    }else{
+        $toAdd['repName']  = $form['repName'];
     }
     // On check si le repFName est vide
-    if (empty(trim($form->repFName))) {
+    if (empty(trim($form['repFName']))) {
         $messages['repFName'] = "repFName vide";
+    }else{
+        $toAdd['repFName']  = $form['repFName'];
     }
     // On check si le repAddress est vide
-    if (empty(trim($form->repAddress))) {
+    if (empty(trim($form['repAddress']))) {
         $messages['repAddress'] = "repAddress vide";
+    }else{
+        $toAdd['repAddress']  = $form['repAddress'];
     }
     // On check si le repPostCode est vide
-    if (empty(trim($form->repPostCode))) {
+    if (empty(trim($form['repPostCode']))) {
         $messages['repPostCode'] = "repPostCode vide";
+    }else{
+        $toAdd['repPostCode']  = (int)$form['repPostCode'];
     }
     // On check si le repMail est vide
-    if (empty(trim($form->repMail))) {
+    if (empty(trim($form['repMail']))) {
         $messages['repMail'] = "repMail vide";
+    }else{
+        $toAdd['repMail']  = $form['repMail'];
     }
     // On check si le repPhone est vide
-    if (empty(trim($form->repPhone))) {
+    if (empty(trim($form['repPhone']))) {
         $messages['repPhone'] = "repPhone vide";
+    }else{
+        $toAdd['repPhone']  = (int)$form['repPhone'];
     }
 
     // On check si le musicType est vide
-    if (empty(trim($form->musicType))) {
+    if (empty(trim($form['musicType']))) {
         $messages['musicType'] = "musicType vide";
+    } else{
+        $toAdd['musicType']  = $form['musicType'];
     }
-
-    // On check si le musicType est vide
-    if (empty(trim($form->musicType))) {
-        $messages['musicType'] = "musicType vide";
-    }    // On check si le yearOfCreation est vide
-    if (empty(trim($form->yearOfCreation))) {
+    // On check si le yearOfCreation est vide
+    if (empty(trim($form['yearOfCreation']))) {
         $messages['yearOfCreation'] = "yearOfCreation vide";
-    }    // On check si le textPresentation est vide
-    if (empty(trim($form->textPresentation))) {
+    } else{
+        $toAdd['yearOfCreation']  = (int)$form['yearOfCreation'];
+    }
+    // On check si le textPresentation est vide
+    if (empty(trim($form['textPresentation']))) {
         $messages['textPresentation'] = "textPresentation vide";
-    }    // On check si le scenicExperiences est vide
-    if (empty(trim($form->scenicExperiences))) {
+    } else{
+        $toAdd['textPresentation']  = $form['textPresentation'];
+    }
+    // On check si le scenicExperiences est vide
+    if (empty(trim($form['scenicExperiences']))) {
         $messages['scenicExperiences'] = "scenicExperiences vide";
-    }    // On check si le website est vide
-    if (empty(trim($form->website))) {
+    }else{
+        $toAdd['scenicExperiences']  = $form['scenicExperiences'];
+    }// On check si le website est vide
+    if (empty(trim($form['website']))) {
         $messages['website'] = "website vide";
+    }else{
+        $toAdd['website']  = $form['website'];
     }
 
-        // On check si le soundcloud n'est pas vide
-    if (!empty(trim($form->soundcloud))) {
-
+    // On check si le soundcloud n'est pas vide
+    if (!empty(trim($form['soundcloud']))) {
+        $toAdd['soundcloud']  = $form['soundcloud'];
+    } else {
+        $toAdd['soundcloud'] = "";
     }
     // On check si le youtube n'est pas vide
-    if (!empty(trim($form->youtube))) {
-
-    }
-
-    // On check si le memberNumber est vide
-    if (empty(trim($form->memberNumber))) {
-        $messages['memberNumber'] = "memberNumber vide";
+    if (!empty(trim($form['youtube']))) {
+        $toAdd['youtube']  = $form['youtube'];
+    } else {
+        $toAdd['youtube'] ="";
     }
 
     // DEBUT GERER PARTIE MEMBRES MULTIPLES
 
+    // membres 1
+
+    $toAdd['memberNumber'] = (int)$form['memberNumber'];
+
+    for ($i = 1; $i <= 8; $i++) {
+        $toAdd['memberName' . $i]  = "";
+        $toAdd['memberFName' . $i]  = "";
+        $toAdd['memberInstrument' . $i]  = "";
+    }
 
 
+    for ($i = 1; $i <= (int)$form['memberNumber']; $i++) {
 
+        // On check si le memberName n'est pas vide
+        if (empty(trim($form['memberName' . $i]))) {
+            $messages['memberName' . $i] = "memberName" . $i . " vide";
+        }else{
+            $toAdd['memberName' . $i]  = $form['memberName' . $i];
+        }
+        // On check si le memberFName n'est pas vide
+        if (empty(trim($form['memberFName' . $i]))) {
+            $messages['memberFName' . $i] = "memberFName" . $i . " vide";
+        }else{
+            $toAdd['memberFName' . $i]  = $form['memberFName' . $i];
+        }
+        // On check si le memberInstrument n'est pas vide
+        if (empty(trim($form['memberInstrument' . $i]))) {
+            $messages['memberInstrument' . $i] = "memberInstrument" . $i . " vide";
+        }else{
+            $toAdd['memberInstrument' . $i]  = $form['memberInstrument' . $i];
+        }
+
+    }
+
+
+    //var_dump($toAdd);
 
     // FIN GERER PARTIE MEMBRES MULTIPLES
 
 
-
-
     // DEBUT GERER PARTIE FICHIERS MULTIPLES
-
-
-
 
 
     // FIN GERER PARTIE FICHIERS MULTIPLES
 
 
 
-
-
-
-
     $departements = $db->query("SELECT * FROM departement");
     $departements = $departements->fetchAll();
-    Flight::render("candidature.tpl", array("departements" => $departements,"valeurs" => $_POST, "messages" => $messages));
+
+
+
+    $registerUser = $db->prepare("INSERT INTO candidature VALUES(
+                               :groupeName,
+                                :departement,
+                                :sceneType,
+                                :repName,
+                                :repFName,
+                                :repAddress,
+                                :repPostCode,
+                                :repMail,
+                                :repPhone,
+                                :musicType,
+                                :yearOfCreation,
+                                :textPresentation,
+                                :scenicExperiences,
+                                :website,
+                                :soundcloud,
+                                :youtube,
+                                :memberNumber,
+                                :memberName1,
+                                :memberFName1,
+                                :memberInstrument1,
+                                :memberName2,
+                                :memberFName2,
+                                :memberInstrument2,
+                                :memberName3,
+                                :memberFName3,
+                                :memberInstrument3,
+                                :memberName4,
+                                :memberFName4,
+                                :memberInstrument4,
+                                :memberName5,
+                                :memberFName5,
+                                :memberInstrument5,
+                                :memberName6,
+                                :memberFName6,
+                                :memberInstrument6,
+                                :memberName7,
+                                :memberFName7,
+                                :memberInstrument7,
+                                :memberName8,
+                                :memberFName8,
+                                :memberInstrument8,
+                                :audio1,
+                                :audio2,
+                                :audio3,
+                                :dossierPresse,
+                                :photo1,
+                                :photo2,
+                                :ficheTechnique,
+                                :sacemPdf,
+                                :statutAssociatif,
+                                :inscritSacem,
+                                :producteur,
+                                :idCandidature
+                                )
+                                ");
+
+
+    var_dump($registerUser->errorInfo());
+    echo("<br>");
+
+    if (!
+    $registerUser->execute(array(
+        ':groupeName' => $toAdd['groupeName'],
+        ':departement' => $toAdd['departement'],
+        ':sceneType' => $toAdd['sceneType'],
+        ':repName' => $toAdd['repName'],
+        ':repFName' => $toAdd['repFName'],
+        ':repAddress' => $toAdd['repAddress'],
+        ':repPostCode' => $toAdd['repPostCode'],
+        ':repMail' => $toAdd['repMail'],
+        ':repPhone' => $toAdd['repPhone'],
+        ':musicType' => $toAdd['musicType'],
+        ':yearOfCreation' => $toAdd['yearOfCreation'],
+        ':textPresentation' => $toAdd['textPresentation'],
+        ':scenicExperiences' => $toAdd['scenicExperiences'],
+        ':website' => $toAdd['website'],
+        ':soundcloud' => $toAdd['soundcloud'],
+        ':youtube' => $toAdd['youtube'],
+        ':memberNumber' => $toAdd['memberNumber'],
+        ':memberName1' => $toAdd['memberName1'],
+        ':memberFName1' => $toAdd['memberFName1'],
+        ':memberInstrument1' => $toAdd['memberInstrument1'],
+        ':memberName2' => $toAdd['memberName2'],
+        ':memberFName2' => $toAdd['memberFName2'],
+        ':memberInstrument2' => $toAdd['memberInstrument2'],
+        ':memberName3' => $toAdd['memberName3'],
+        ':memberFName3' => $toAdd['memberFName3'],
+        ':memberInstrument3' => $toAdd['memberInstrument3'],
+        ':memberName4' => $toAdd['memberName4'],
+        ':memberFName4' => $toAdd['memberFName4'],
+        ':memberInstrument4' => $toAdd['memberInstrument4'],
+        ':memberName5' => $toAdd['memberName5'],
+        ':memberFName5' => $toAdd['memberFName5'],
+        ':memberInstrument5' => $toAdd['memberInstrument5'],
+        ':memberName6' => $toAdd['memberName6'],
+        ':memberFName6' => $toAdd['memberFName6'],
+        ':memberInstrument6' => $toAdd['memberInstrument6'],
+        ':memberName7' => $toAdd['memberName7'],
+        ':memberFName7' => $toAdd['memberFName7'],
+        ':memberInstrument7' => $toAdd['memberInstrument7'],
+        ':memberName8' => $toAdd['memberName8'],
+        ':memberFName8' => $toAdd['memberFName8'],
+        ':memberInstrument8' => $toAdd['memberInstrument8'],
+        ':audio1' => "test",
+        ':audio2' => "test",
+        ':audio3' => "test",
+        ':dossierPresse' => "test",
+        ':photo1' => "test",
+        ':photo2' => "test",
+        ':ficheTechnique' => "test",
+        ':sacemPdf' => 1,
+        ':statutAssociatif' => 1,
+        ':inscritSacem' => 1,
+        ':producteur' => 1,
+        ':idCandidature' => 1
+    ))) {
+        echo "Échec lors de l'exécution :" . var_dump($registerUser->errorInfo());
+    }
+
+
+    //Flight::render("candidature.tpl", array("departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
+
+
 });
 
-Flight::route('GET /profil', function(){
+Flight::route('GET /profil', function () {
 
     Flight::render("profil.tpl", array());
 
 });
 
-Flight::route('GET /logout', function(){
+Flight::route('GET /logout', function () {
 
     session_destroy();
     Flight::redirect("/");
@@ -267,3 +442,4 @@ Flight::route('GET /logout', function(){
 });
 
 ?>
+
