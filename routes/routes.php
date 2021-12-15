@@ -142,70 +142,71 @@ Flight::route('GET /candidature', function () {
 
 Flight::route('POST /candidature', function () {
 
+    $db = flight::get("maBase");
 
 
     $form = Flight::request()->data;
-    $message = array();
+    $messages = array();
 
 
     // On check si le groupeName est vide
     if (empty(trim($form->groupeName))) {
-        $message['groupeName'] = "groupeName vide";
+        $messages['groupeName'] = "groupeName vide";
     }
 
     // On check si le departement est vide
     if (empty(trim($form->departement))) {
-        $message['departement'] = "departement vide";
+        $messages['departement'] = "departement vide";
     }
     // On check si le sceneType est vide
     if (empty(trim($form->sceneType))) {
-        $message['sceneType'] = "sceneType vide";
+        $messages['sceneType'] = "sceneType vide";
     }
     // On check si le repName est vide
     if (empty(trim($form->repName))) {
-        $message['repName'] = "repName vide";
+        $messages['repName'] = "repName vide";
     }
     // On check si le repFName est vide
     if (empty(trim($form->repFName))) {
-        $message['repFName'] = "repFName vide";
+        $messages['repFName'] = "repFName vide";
     }
     // On check si le repAddress est vide
     if (empty(trim($form->repAddress))) {
-        $message['repAddress'] = "repAddress vide";
+        $messages['repAddress'] = "repAddress vide";
     }
     // On check si le repPostCode est vide
     if (empty(trim($form->repPostCode))) {
-        $message['repPostCode'] = "repPostCode vide";
+        $messages['repPostCode'] = "repPostCode vide";
     }
     // On check si le repMail est vide
     if (empty(trim($form->repMail))) {
-        $message['repMail'] = "repMail vide";
+        $messages['repMail'] = "repMail vide";
     }
     // On check si le repPhone est vide
     if (empty(trim($form->repPhone))) {
-        $message['repPhone'] = "repPhone vide";
+        $messages['repPhone'] = "repPhone vide";
     }
 
     // On check si le musicType est vide
     if (empty(trim($form->musicType))) {
-        $message['musicType'] = "musicType vide";
+        $messages['musicType'] = "musicType vide";
     }
 
     // On check si le musicType est vide
     if (empty(trim($form->musicType))) {
-        $message['musicType'] = "musicType vide";
+        $messages['musicType'] = "musicType vide";
     }    // On check si le yearOfCreation est vide
     if (empty(trim($form->yearOfCreation))) {
-        $message['yearOfCreation'] = "yearOfCreation vide";
+        $messages['yearOfCreation'] = "yearOfCreation vide";
     }    // On check si le textPresentation est vide
     if (empty(trim($form->textPresentation))) {
-        $message['textPresentation'] = "textPresentation vide";
+        $messages['textPresentation'] = "textPresentation vide";
     }    // On check si le scenicExperiences est vide
     if (empty(trim($form->scenicExperiences))) {
-        $message['scenicExperiences'] = "scenicExperiences vide";
+        $messages['scenicExperiences'] = "scenicExperiences vide";
     }    // On check si le website est vide
     if (empty(trim($form->website))) {
-        $message['website'] = "website vide";
+        $messages['website'] = "website vide";
     }
 
         // On check si le soundcloud n'est pas vide
@@ -219,7 +220,7 @@ Flight::route('POST /candidature', function () {
 
     // On check si le memberNumber est vide
     if (empty(trim($form->memberNumber))) {
-        $message['memberNumber'] = "memberNumber vide";
+        $messages['memberNumber'] = "memberNumber vide";
     }
 
     // DEBUT GERER PARTIE MEMBRES MULTIPLES
@@ -247,8 +248,9 @@ Flight::route('POST /candidature', function () {
 
 
 
-
-    Flight::render("candidature.tpl", array());
+    $departements = $db->query("SELECT * FROM departement");
+    $departements = $departements->fetchAll();
+    Flight::render("candidature.tpl", array("departements" => $departements,"valeurs" => $_POST, "messages" => $messages));
 });
 
 Flight::route('GET /profil', function(){
