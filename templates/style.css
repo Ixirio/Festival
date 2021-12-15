@@ -30,8 +30,18 @@ form {
 
 
 .container {
+    text-align: center;
     margin: auto;
     width: 90vh;
     background-color: #bebab6;
     border-radius: 10px;
+}
+
+.container div {
+    width: fit-content;
+    margin: auto;
+}
+
+.error {
+    color: red;
 }
