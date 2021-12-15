@@ -1,9 +1,11 @@
 {extends file='layout.tpl'}
 {block name=title}Candidature{/block}
 {block name=body}
-<h1>Candidature</h1>
-<div id='main'>
-<p>
+
+<div class="container">
+
+    <h1>Candidature</h1>
+
    <form action="candidature" method="post" class="pure-form pure-form-stacked">
     <fieldset>
         <div class="pure-control-group">
@@ -14,24 +16,29 @@
         {*
         Il faut tirer les différentes options d'une BDD contenant tous les départements je crois
         *}
-        Département d'origine :
-        <select name="departement" id="departement">
-            <option value="somme">Somme</option>
-            <option value="picardie">Picardie</option>
-            <option value="">ça va être long je crois on doit le faire via une base de données</option>
-            <option value="">La terre du milieu</option>
-            <option value="">Tatouine</option>
-            <option value="">Grand line</option>
-            <option value="">Namek</option>
-        </select>
-        Type de scène :
-        <select name="sceneType" id="sceneType">
-            <option value="tribute">Tribute</option>
-            <option value="acoustique_folk">Acoustique, Folk</option>
-            <option value="amplifie_rock">Amplifié, Rock</option>
-        </select>
-
-        <p>Représentant du groupe :
+        <div class="pure-control-group">
+            <p>Département d'origine : </p>
+            <select name="departement" id="departement">
+                <option value="somme">Somme</option>
+                <option value="picardie">Picardie</option>
+                <option value="">ça va être long je crois on doit le faire via une base de données</option>
+                <option value="">La terre du milieu</option>
+                <option value="">Tatouine</option>
+                <option value="">Grand line</option>
+                <option value="">Namek</option>
+            </select>
+        </div>
+        <div class="pure-control-group">
+            <p>Type de scène :</p>
+            <select name="sceneType" id="sceneType">
+                <option value="tribute">Tribute</option>
+                <option value="acoustique_folk">Acoustique, Folk</option>
+                <option value="amplifie_rock">Amplifié, Rock</option>
+            </select>
+        </div>
+        
+        <div class="pure-control-group">
+            <p>Représentant du groupe : </p>
             <div class="pure-control-group">
                 <label for="aligned-name">Nom </label>
                 <input type="text" name="repName" placeholder="Dupont" value = "{$valeurs.repName|escape|default:''}" />
@@ -62,11 +69,12 @@
                 <input type="text" name="repPhone" placeholder="0607080910" value = "{$valeurs.repName|escape|default:''}" />
                 {$messages.repPhone|default:''} 
             </div>
+        </div>
 
             <br>
             <br>
 
-        </fieldset>
+    </fieldset>
         <div class="pure-control-group">
             <label for="aligned-name">Style Musical </label>
             <input type="text" name="musicType" placeholder="Rock" value = "{$valeurs.musicType|escape|default:''}" />
@@ -79,16 +87,9 @@
         </div>
 
         <div class="pure-control-group">
-                <label for="aligned-name">Présentation du texte </label>
-                <textarea rows="8" cols="50" name="textPresentation" placeholder="We're no strangers to love
-You know the rules and so do I
-A full commitment's what I'm thinking of
-You wouldn't get this from any other guy
-I just wanna tell you how I'm feeling
-Gotta make you understand
-Never gonna give you up
-Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:''}" ></textarea>
-        {$messages.textPresentation|default:''} 
+            <label for="aligned-name">Présentation du texte </label>
+            <textarea rows="8" cols="50" name="textPresentation" placeholder="We're no strangers to love" value = "{$valeurs.textPresentation|escape|default:''}" ></textarea>
+            {$messages.textPresentation|default:''} 
         </div>
 
         <div class="pure-control-group">
@@ -231,12 +232,10 @@ Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:
             {$messages.producer|default:''} 
         </div>
             
-        </div>
         <div class="pure-controls">
             <button type="submit" class="pure-button pure-button-primary">Valider</button>
         </div>
     </fieldset>
-</form>
-</p>
+    </form>
 </div>
 {/block}

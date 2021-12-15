@@ -14,7 +14,7 @@
     <div class="nav">
         <a href="./">Accueil</a>
         <a href="candidature">Candidature</a>
-        <div>
+        <div style="display: flex;">
         {if isset($utilisateur)}
             
             {if $utilisateur.admin = "1"}
