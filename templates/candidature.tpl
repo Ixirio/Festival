@@ -10,7 +10,7 @@
             <fieldset>
                 <div class="pure-control-group">
                     <label for="aligned-name">Nom du groupe</label>
-                    <input type="text" name="groupeName" placeholder="Nom du groupe" value = "{$valeurs.groupName|escape|default:''}" />
+                    <input type="text" name="groupeName" placeholder="Nom du groupe" value = "{$valeurs.groupName|escape|default:''}" required=""/>
                     {$messages.groupName|default:''}
                 </div>
 
@@ -18,13 +18,14 @@
                 <label for="aligned-departement">Département :</label>
                     <select name="departement" id="aligned-departement">
                         {foreach from=$departements item=depart}
-                            <option value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
+                            <option  value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
                         {/foreach}
                     </select>
                 </div>
+
                 <div class="pure-control-group">
-                    <p>Type de scène :</p>
-                    <select name="sceneType" id="sceneType">
+                <label for="aligned-scene">Type de scène :</label>
+                    <select name="sceneType" id="aligned-scene">
                         <option value="tribute">Tribute</option>
                         <option value="acoustique_folk">Acoustique, Folk</option>
                         <option value="amplifie_rock">Amplifié, Rock</option>
@@ -92,13 +93,13 @@
         </div>
 
         <div class="pure-control-group">
-            <label for="aligned-name">Présentation du texte </label>
+            <label for="aligned-name">Présentation du texte</label>
             <textarea rows="8" cols="50" name="textPresentation" placeholder="We're no strangers to love" value = "{$valeurs.textPresentation|escape|default:''}" ></textarea>
             {$messages.textPresentation|default:''} 
         </div>
 
         <div class="pure-control-group">
-            <label for="aligned-name">Expériences scéniques </label>
+            <label for="aligned-name">Expériences scéniques</label>
             <textarea rows="8" cols="50" name="scenicExperiences" placeholder="Une fois j'ai joué pour la kermesse de l'école primaire de mon village" value = "{$valeurs.scenicExperiences|escape|default:''}" ></textarea>
             {$messages.scenicExperiences|default:''}
         </div>
@@ -186,9 +187,41 @@
                 });
             </script>
             <p>Morceaux (Format MP3)</p>
-            <input name="audio1" type="file">
-            <input name="audio2" type="file">
-            <input name="audio3" type="file">
+            
+            <div class="file-input">
+                <input id="audio1" type="file"class="file-input__input"/>
+                <label class="file-input__label" for="audio1">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
+                            <path fill="currentColor"
+                                d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
+                            ></path>
+                        </svg> 
+                    <span>Ajouter un fichier</span>
+                </label>
+            </div>
+
+            <div class="file-input">
+                <input id="audio2" type="file" class="file-input__input"/>
+                <label class="file-input__label" for="audio2">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
+                            <path fill="currentColor"
+                                d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
+                            ></path>
+                        </svg> 
+                    <span>Ajouter un fichier</span>
+                </label>
+            </div>   
+            <div class="file-input">
+                <input id="audio3" type="file" class="file-input__input"/>
+                <label class="file-input__label" for="audio3">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
+                            <path fill="currentColor"
+                                d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
+                            ></path>
+                        </svg> 
+                    <span>Ajouter un fichier</span>
+                </label>
+            </div>          
             <p>PDF dossier de presse (facultatif)</p>
             <input name="pdfpresse" type="file">
             <p>Photos du groupe (résolution>300DPI)</p>
@@ -219,5 +252,6 @@
                 <button type="submit" class="pure-button pure-button-primary">Valider</button>
             </div>
         </fieldset>
+        </form>
     </div>
 {/block}
