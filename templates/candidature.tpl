@@ -11,18 +11,14 @@
             <input type="text" name="groupeName" placeholder="Nom du groupe" value = "{$valeurs.groupName|escape|default:''}" />
             {$messages.groupName|default:''} 
         </div>
-        {*
-        Il faut tirer les différentes options d'une BDD contenant tous les départements je crois
-        *}
+
+
+
         Département d'origine :
         <select name="departement" id="departement">
-            <option value="somme">Somme</option>
-            <option value="picardie">Picardie</option>
-            <option value="">ça va être long je crois on doit le faire via une base de données</option>
-            <option value="">La terre du milieu</option>
-            <option value="">Tatouine</option>
-            <option value="">Grand line</option>
-            <option value="">Namek</option>
+            {foreach from=$departements item=depart}
+                <option value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
+            {/foreach}
         </select>
         Type de scène :
         <select name="sceneType" id="sceneType">
@@ -177,29 +173,6 @@ Never gonna let you down..." value = "{$valeurs.textPresentation|escape|default:
                 }
             });
         </script>
-
-
-
-        {*
-        Début du formulaire à répéter x fois
-
-        <div class="pure-control-group">
-                <label for="aligned-name">Nom </label>
-                <input type="text" name="memberName" placeholder="Pichard" value = "{$valeurs.memberName|escape|default:''}" />
-                {$messages.memberName|default:''}
-        </div>
-        <div class="pure-control-group">
-                <label for="aligned-name">Prénom </label>
-                <input type="text" name="memberFName" placeholder="Étienne" value = "{$valeurs.memberFName|escape|default:''}" />
-                {$messages.memberFName|default:''}
-        </div>
-        <div class="pure-control-group">
-                <label for="aligned-name">Instrument(s) </label>
-                <input type="text" name="memberInstrument" placeholder="Kazoo, flûte à bec" value ="{$valeurs.memberInstrument|escape|default:''}"/>
-        </div>
-
-        Fin du formulaire à répéter x fois
-        *}
         <form action="envoi" method="post" enctype="multipart/form-data">
         Morceaux (Format MP3)
         <input name="audio1" type="file">
