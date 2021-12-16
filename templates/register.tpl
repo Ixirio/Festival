@@ -4,8 +4,6 @@
 
 <div class="image">
     <div class="container">
-
-        <h1>Inscription</h1>
         
         {*
     
@@ -16,6 +14,9 @@
         *}
 
         <form action="register" method="post" class="pure-form pure-form-stacked">
+        
+            <h1>Inscription</h1>
+
             <fieldset>
                 <div class="pure-control-group">
                     <label for="aligned-name">Pseudo</label>
@@ -32,7 +33,7 @@
                     <input type="password" name="password" id="aligned-password" placeholder="Mot de passe" required=""/>
                     {$messages.password|default:''}
                 </div>
-                <div class="pure-controls">
+                <div class="pure-control-group">
                     <button type="submit" class="pure-button pure-button-primary">Envoyer</button>
                 </div>
             </fieldset>

@@ -5,8 +5,6 @@
 <div class="image">
     <div class="container">
 
-        <h1>Login</h1>
-
         {*
     
         Formulaire de connexion, idem que dans register.tpl
@@ -14,6 +12,9 @@
         *}
 
         <form action="login" method="post" class="pure-form pure-form-stacked">
+        
+            <h1>Login</h1>
+            
             <fieldset>
                 <div class="pure-control-group">
                     <label for="aligned-login">Email</label>
