@@ -1,5 +1,22 @@
 <?php
 
+
+
+function get_dpi($filename){ // https://stackoverflow.com/questions/5892731/how-to-check-photo-dpi-with-php
+    $a = fopen($filename,'r');
+    $string = fread($a,20);
+    fclose($a);
+
+    $data = bin2hex(substr($string,14,4));
+    $x = substr($data,0,4);
+    $y = substr($data,4,4);
+
+    return array(hexdec($x),hexdec($y));
+}
+
+
+
+
 Flight::route('/', function () {
 
     Flight::render("index.tpl", array());
@@ -96,7 +113,10 @@ Flight::route('POST /login', function () {
             $requete = $db->prepare("SELECT * FROM users WHERE name = :login");
         }
         $requete->execute(array(":login" => $form->login));
-        if ($requete->rowCount() < 1) {
+        $requeteRowCount = $requete->rowCount();
+        $requete = $requete->fetch();
+        if ($requeteRowCount < 1) {
+
             $messages['login'] = "Identifiant invalide";
         }
     }
@@ -108,7 +128,7 @@ Flight::route('POST /login', function () {
             $messages['password'] = "Mot de passe invalide";
         } else {
             // $requete -> execute(array(":mail" => $form->email));
-            $requete = $requete->fetch();
+
 
             if (!password_verify($form->password, $requete['pass'])) {
                 $messages['password'] = "Identifiant ou mot de passe invalide !";
@@ -116,7 +136,7 @@ Flight::route('POST /login', function () {
         }
     }
 
-    if ($requete['name'] == "root") {
+    if (isset($requete['name']) && $requete['name'] == "root") {
         $admin = "1";
     }
 
@@ -152,112 +172,136 @@ Flight::route('POST /candidature', function () {
     if (empty(trim($form['groupeName']))) {
         $messages['groupeName'] = "groupeName vide";
 
-    } else{
-        $toAdd['groupeName']  = $form['groupeName'];
+    } else {
+        $toAdd['groupeName'] = $form['groupeName'];
     }
 
     // On check si le departement est vide
     if (empty(trim($form['departement']))) {
         $messages['departement'] = "departement vide";
-    }else{
-        $toAdd['departement']  = $form['departement'];
+    } else {
+        $toAdd['departement'] = $form['departement'];
     }
     // On check si le sceneType est vide
     if (empty(trim($form['sceneType']))) {
         $messages['sceneType'] = "sceneType vide";
-    }else{
-        $toAdd['sceneType']  = $form['sceneType'];
+    } else {
+        $toAdd['sceneType'] = $form['sceneType'];
     }
     // On check si le repName est vide
     if (empty(trim($form['repName']))) {
         $messages['repName'] = "repName vide";
-    }else{
-        $toAdd['repName']  = $form['repName'];
+    } else {
+        $toAdd['repName'] = $form['repName'];
     }
     // On check si le repFName est vide
     if (empty(trim($form['repFName']))) {
         $messages['repFName'] = "repFName vide";
-    }else{
-        $toAdd['repFName']  = $form['repFName'];
+    } else {
+        $toAdd['repFName'] = $form['repFName'];
     }
     // On check si le repAddress est vide
     if (empty(trim($form['repAddress']))) {
         $messages['repAddress'] = "repAddress vide";
-    }else{
-        $toAdd['repAddress']  = $form['repAddress'];
+    } else {
+        $toAdd['repAddress'] = $form['repAddress'];
     }
     // On check si le repPostCode est vide
     if (empty(trim($form['repPostCode']))) {
         $messages['repPostCode'] = "repPostCode vide";
-    }else{
-        $toAdd['repPostCode']  = (int)$form['repPostCode'];
+    } else {
+        if (is_numeric($form['repPostCode'])) {
+            $toAdd['repPostCode'] = (int)$form['repPostCode'];
+        } else {
+            $messages['repPostCode'] = "Il faut fournir un nombre.";
+        }
     }
     // On check si le repMail est vide
     if (empty(trim($form['repMail']))) {
         $messages['repMail'] = "repMail vide";
-    }else{
-        $toAdd['repMail']  = $form['repMail'];
+    } else {
+        $toAdd['repMail'] = $form['repMail'];
     }
     // On check si le repPhone est vide
     if (empty(trim($form['repPhone']))) {
         $messages['repPhone'] = "repPhone vide";
-    }else{
-        $toAdd['repPhone']  = (int)$form['repPhone'];
+    } else {
+        if (is_numeric($form['repPhone'])) {
+            $toAdd['repPhone'] = (int)$form['repPhone'];
+        } else {
+            $messages['repPhone'] = "Il faut fournir un nombre.";
+        }
     }
 
     // On check si le musicType est vide
     if (empty(trim($form['musicType']))) {
         $messages['musicType'] = "musicType vide";
-    } else{
-        $toAdd['musicType']  = $form['musicType'];
+    } else {
+        $toAdd['musicType'] = $form['musicType'];
     }
     // On check si le yearOfCreation est vide
     if (empty(trim($form['yearOfCreation']))) {
         $messages['yearOfCreation'] = "yearOfCreation vide";
-    } else{
-        $toAdd['yearOfCreation']  = (int)$form['yearOfCreation'];
+    } else {
+        if (is_numeric($form['yearOfCreation'])) {
+            $toAdd['yearOfCreation'] = (int)$form['yearOfCreation'];
+        } else {
+            $messages['yearOfCreation'] = "Il faut fournir un nombre.";
+        }
     }
     // On check si le textPresentation est vide
     if (empty(trim($form['textPresentation']))) {
         $messages['textPresentation'] = "textPresentation vide";
-    } else{
-        $toAdd['textPresentation']  = $form['textPresentation'];
+    } else {
+        $toAdd['textPresentation'] = $form['textPresentation'];
     }
     // On check si le scenicExperiences est vide
     if (empty(trim($form['scenicExperiences']))) {
         $messages['scenicExperiences'] = "scenicExperiences vide";
-    }else{
-        $toAdd['scenicExperiences']  = $form['scenicExperiences'];
+    } else {
+        $toAdd['scenicExperiences'] = $form['scenicExperiences'];
     }// On check si le website est vide
     if (empty(trim($form['website']))) {
         $messages['website'] = "website vide";
-    }else{
-        $toAdd['website']  = $form['website'];
+    } else {
+        $toAdd['website'] = $form['website'];
     }
 
     // On check si le soundcloud n'est pas vide
     if (!empty(trim($form['soundcloud']))) {
-        $toAdd['soundcloud']  = $form['soundcloud'];
+        $toAdd['soundcloud'] = $form['soundcloud'];
     } else {
         $toAdd['soundcloud'] = "";
     }
     // On check si le youtube n'est pas vide
     if (!empty(trim($form['youtube']))) {
-        $toAdd['youtube']  = $form['youtube'];
+        $toAdd['youtube'] = $form['youtube'];
     } else {
-        $toAdd['youtube'] ="";
+        $toAdd['youtube'] = "";
     }
 
     // DEBUT GERER PARTIE MEMBRES MULTIPLES
 
     // membres 1
 
-    $toAdd['memberNumber'] = (int)$form['memberNumber'];
+//
+    if (empty(trim($form['memberNumber']))) {
+        $messages['memberNumber'] = 'memberNumber vide';
+    } else {
+        if (is_numeric($form['memberNumber'])) {
+            $toAdd['memberNumber'] = (int)$form['memberNumber'];
+        } else {
+            $messages['memberNumber'] = "Il faut fournir un nombre.";
+        }
+
+
+    }
+
 
     for ($i = 1; $i <= 8; $i++) {
-        $toAdd['memberName' . $i]  = "";
-        $toAdd['memberFName' . $i]  = "";
-        $toAdd['memberInstrument' . $i]  = "";
+        $toAdd['memberName' . $i] = "";
+        $toAdd['memberFName' . $i] = "";
+        $toAdd['memberInstrument' . $i] = "";
     }
 
 
@@ -266,20 +310,20 @@ Flight::route('POST /candidature', function () {
         // On check si le memberName n'est pas vide
         if (empty(trim($form['memberName' . $i]))) {
             $messages['memberName' . $i] = "memberName" . $i . " vide";
-        }else{
-            $toAdd['memberName' . $i]  = $form['memberName' . $i];
+        } else {
+            $toAdd['memberName' . $i] = $form['memberName' . $i];
         }
         // On check si le memberFName n'est pas vide
         if (empty(trim($form['memberFName' . $i]))) {
             $messages['memberFName' . $i] = "memberFName" . $i . " vide";
-        }else{
-            $toAdd['memberFName' . $i]  = $form['memberFName' . $i];
+        } else {
+            $toAdd['memberFName' . $i] = $form['memberFName' . $i];
         }
         // On check si le memberInstrument n'est pas vide
         if (empty(trim($form['memberInstrument' . $i]))) {
             $messages['memberInstrument' . $i] = "memberInstrument" . $i . " vide";
-        }else{
-            $toAdd['memberInstrument' . $i]  = $form['memberInstrument' . $i];
+        } else {
+            $toAdd['memberInstrument' . $i] = $form['memberInstrument' . $i];
         }
 
     }
@@ -293,12 +337,154 @@ Flight::route('POST /candidature', function () {
     // DEBUT GERER PARTIE FICHIERS MULTIPLES
 
 
+    if (
+        (isset($_FILES['audio1']) && $_FILES["audio1"]["error"] <= 0) &&
+        move_uploaded_file($_FILES['audio1']['tmp_name'],
+
+            'files/' .
+            basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']))
+    ) {
+        $fileLink = 'files/' .
+            basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']);
+        if (mime_content_type($fileLink) == "audio/mpeg") {
+            $toAdd['audio1'] = $fileLink;
+        } else {
+            $messages['audio1'] = "Le fichier n'est pas un .mp3";
+        }
+    } else {
+        $messages['audio1'] = "Le fichier n'est pas valide";
+    }
+
+    if (
+        (isset($_FILES['audio2']) && $_FILES["audio2"]["error"] <= 0) &&
+        move_uploaded_file($_FILES['audio2']['tmp_name'],
+
+            'files/' .
+            basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']))
+    ) {
+        $fileLink = 'files/' .
+            basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']);
+        if (mime_content_type($fileLink) == "audio/mpeg") {
+            $toAdd['audio2'] = $fileLink;
+        } else {
+            $messages['audio2'] = "Le fichier n'est pas un .mp3";
+        }
+    } else {
+        $messages['audio2'] = "Le fichier n'est pas valide";
+    }
+
+    if (
+        (isset($_FILES['audio3']) && $_FILES["audio3"]["error"] <= 0) &&
+        move_uploaded_file($_FILES['audio3']['tmp_name'],
+
+            'files/' .
+            basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']))
+    ) {
+        $fileLink = 'files/' .
+            basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']);
+        if (mime_content_type($fileLink) == "audio/mpeg") {
+            $toAdd['audio3'] = $fileLink;
+        } else {
+            $messages['audio3'] = "Le fichier n'est pas un .mp3";
+        }
+    } else {
+        $messages['audio3'] = "Le fichier n'est pas valide";
+    }
+
+    if (
+        (isset($_FILES['dossierPresse']) && $_FILES["dossierPresse"]["error"] <= 0) &&
+        move_uploaded_file($_FILES['dossierPresse']['tmp_name'],
+
+            'files/' .
+            basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']))
+    ) {
+        $fileLink = 'files/' .
+            basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']);
+        if (mime_content_type($fileLink) == "application/pdf") {
+            $toAdd['dossierPresse'] = $fileLink;
+        } else {
+            $messages['dossierPresse'] = "Le fichier n'est pas un .pdf";
+        }
+    } else {
+        $toAdd['dossierPresse'] = "";;
+    }
+
+    //var_dump($_FILES);
+
+    if (
+        (isset($_FILES['photo1']) && $_FILES["photo1"]["error"] <= 0) &&
+        move_uploaded_file($_FILES['photo1']['tmp_name'],
+
+            'files/' .
+            basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']))
+    ) {
+        $fileLink = 'files/' .
+            basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']);
+
+        if (mime_content_type($fileLink) == "image/png"){
+            $image = imagecreatefrompng($fileLink);
+            $res = imageresolution($image);
+            if ($res[0]>300 && $res[1]>300){
+                $toAdd['photo1'] = $fileLink;
+            } else {
+                $messages['photo1'] = "DPI inférieur à 300";
+            }
+
+        }
+        else if (mime_content_type($fileLink) == "image/jpeg") {
+            $image = imagecreatefromjpeg($fileLink);
+            $res = imageresolution($image);
+            if ($res[0]>300 && $res[1]>300){
+                $toAdd['photo1'] = $fileLink;
+            } else {
+                $messages['photo1'] = "DPI inférieur à 300";
+            }
+        }
+        else {
+            $messages['photo1'] = "Le fichier n'est pas un .png ou .jpg";
+        }
+
+    } else {
+        $messages['photo1'] = "Le fichier n'est pas valide";
+    }
+
+    if (
+        (isset($_FILES['photo2']) && $_FILES["photo2"]["error"] <= 0) &&
+        move_uploaded_file($_FILES['photo2']['tmp_name'],
+
+            'files/' .
+            basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']))
+    ) {
+        $fileLink = 'files/' .
+            basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']);
+
+        if (mime_content_type($fileLink) == "image/png"){
+            $image = imagecreatefrompng($fileLink);
+            $res = imageresolution($image);
+            if ($res[0]>300 && $res[1]>300){
+                $toAdd['photo2'] = $fileLink;
+            } else {
+                $messages['photo2'] = "DPI inférieur à 300";
+            }
+
+        }
+        else if (mime_content_type($fileLink) == "image/jpeg") {
+            $image = imagecreatefromjpeg($fileLink);
+            $res = imageresolution($image);
+            if ($res[0]>300 && $res[1]>300){
+                $toAdd['photo2'] = $fileLink;
+            } else {
+                $messages['photo2'] = "DPI inférieur à 300";
+            }
+        }
+        else {
+            $messages['photo2'] = "Le fichier n'est pas un .png ou .jpg";
+        }
+
+    } else {
+        $messages['photo2'] = "Le fichier n'est pas valide";
+    }
     // FIN GERER PARTIE FICHIERS MULTIPLES
-
-
-
-    $departements = $db->query("SELECT * FROM departement");
-    $departements = $departements->fetchAll();
 
 
     /*
@@ -423,6 +609,12 @@ Flight::route('POST /candidature', function () {
     }
 
     */
+
+    $departements = $db->query("SELECT * FROM departement");
+    $departements = $departements->fetchAll();
+
+    $scenes = $db->query("SELECT * FROM scene");
+    $scenes = $scenes->fetchAll();
     Flight::render("candidature.tpl", array("departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
 
 
