@@ -141,7 +141,10 @@ Flight::route('GET /candidature', function () {
     $departements = $db->query("SELECT * FROM departement");
     $departements = $departements->fetchAll();
 
-    Flight::render("candidature.tpl", array("departements" => $departements));
+    $scenes = $db->query("SELECT * FROM scene");
+    $scenes = $scenes->fetchAll();
+
+    Flight::render("candidature.tpl", array("scenes" =>$scenes, "departements" => $departements));
 
 });
 // DÉBUT DU FORMULAIRE DE CANDIDATURE

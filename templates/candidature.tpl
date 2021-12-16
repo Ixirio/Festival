@@ -41,7 +41,7 @@
                     dans notre select.
                     -->
                         {foreach from=$scenes item=typedescene}
-                            <option  value="{$typedescene[0]}">{$typedescene[0]}</option>
+                            <option value="{$typedescene[0]}">{$typedescene[0]}</option>
                         {/foreach}
                         <!--
                         <option value="tribute">Tribute</option>
