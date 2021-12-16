@@ -41,7 +41,7 @@
                     dans notre select.
                     -->
                         {foreach from=$scenes item=typedescene}
-                            <option  value="{$scenes['NOM_SCENE']}">{$typedescene['NOM_SCENE']}</option>
+                            <option  value="{$typedescene[0]}">{$typedescene[0]}</option>
                         {/foreach}
                         <!--
                         <option value="tribute">Tribute</option>
@@ -146,7 +146,11 @@
                     <label for="aligned-memberNumber">Membres du groupe</label>
                     <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
                     <!--
-                    Loic j'te laisse commenter cette partie là 
+                    On génère automatiquement les options du Select.
+                    Afin que, lorsque l'on charge la page et qu'il y a déjà des paramètes (valeurs), ça mette "Selected" sur la valeur choisi.
+
+                    Exemple: On rempli le formulaire avec 4 membres, on se plante, la page se recharge, on veut remettre "4" dans le select.
+                    Et c'est aussi important pour le remplissage des champs "erreurs" des membres en dessous.
                     -->
                         {for $i=1 to 8}
                             {if $valeurs.memberNumber|intval|escape|default:1 == $i}
@@ -159,7 +163,27 @@
 
                 </div>
                 <!--
-                    Loic j'te laisse commenter cette partie là 
+                    C'est un énorme bordel.
+
+                    Le but: Lorsque l'utilisateur choisi un nombre de membres, il faut choisir un nombre de membres.
+                    Le script va donc générer l'HTML pour afficher le nombre de champs correspondants.
+
+                    Le problème: La gestion des erreurs. Le serveur renvoi la page, avec les paramètres. le navigateur récéptionne, recharge la page, execute
+                    le JS, etc... Ensuite le JS dit "Il y a 4 membres, je génère le code ET JAFFICHE LES ERREURS". Mais il est côté client. Les erreurs sont côté serveur.
+
+                    Solution: Passer TOUTES les erreurs possible, et si elles sont pas vides (pas d'erreurs), alors les afficher.
+                    On a un gros paté pour récupérer les erreurs MAIS on a UN SEUL code pour générer les inputs pour les membres, car les
+                    erreurs sont stockés dans un tableau, et les clés d'accès au tableau sont générer avec la boucle for.
+
+                    La solution aurait été de côder 8 fois l'input, avec à chaque fois la variable de l'erreur contenant l'erreur écrite en brut.
+
+                    Signé,
+                    Loic,
+                    Père du gros caca en dessous
+
+
+
+
                 -->
                 <div class='form-group col-xs-12 col-md-12 col-lg-10' id="membreInput">
                 </div>
