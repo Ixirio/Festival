@@ -5,6 +5,12 @@
 <div class="image">
     <div class="container">
 
+        {*
+    
+        Formulaire de connexion, idem que dans register.tpl
+
+        *}
+
         <form action="login" method="post" class="pure-form pure-form-stacked">
         
             <h1>Login</h1>

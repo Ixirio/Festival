@@ -4,7 +4,11 @@
 
 <div class="image">
     <div class="container">
+        {*
+    
+        Formulaire de candidature, idem que dans register.tpl
 
+        *}
         <form action="candidature" method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
 
             <h1>Candidature</h1>
@@ -20,6 +24,10 @@
                 <div class="pure-control-group">
                     <label for="aligned-departement">Département</label>
                     <select name="departement" id="aligned-departement">
+                    <!--
+                    Ici on récupère les différents départements contenus dans la table départements de la base de données, et on affiche chacun d'entre comme option
+                    dans notre select. On y ajoute une option "autre" pour les étrangers.
+                    -->
                         {foreach from=$departements item=depart}
                             <option  value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
                         {/foreach}
@@ -30,9 +38,18 @@
                 <div class="pure-control-group">
                 <label for="aligned-scene">Type de scène</label>
                     <select name="sceneType" id="aligned-scene">
+                    <!--
+                    Ici on récupère les différents types de scènes contenus dans la table scenes de la base de données, et on affiche chacun d'entre comme option
+                    dans notre select.
+                    -->
+                        {foreach from=$scenes item=typedescene}
+                            <option value="{$typedescene[0]}">{$typedescene[0]}</option>
+                        {/foreach}
+                        <!--
                         <option value="tribute">Tribute</option>
                         <option value="acoustique_folk">Acoustique, Folk</option>
                         <option value="amplifie_rock">Amplifié, Rock</option>
+                        -->
                     </select>
                 </div>
 
@@ -43,30 +60,35 @@
                            value="{$valeurs.repName|escape|default:''}"/>
                     <p class="error">{$messages.repName|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Prénom </label>
                     <input type="text" name="repFName" placeholder="Claude"
                            value="{$valeurs.repFName|escape|default:''}"/>
                     <p class="error">{$messages.repFName|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Adresse </label>
                     <input type="text" name="repAddress" placeholder="47 rue des robiniers, New York"
                            value="{$valeurs.repAddress|escape|default:''}"/>
                     <p class="error">{$messages.repAddress|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Code postal </label>
                     <input type="text" name="repPostCode" placeholder="80000"
                            value="{$valeurs.repPostCode|escape|default:''}"/>
                     <p class="error">{$messages.repPostCode|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="email">Adresse e-mail </label>
                     <input type="text" name="repMail" placeholder="claude.dupont@gmail.com"
                            value="{$valeurs.repMail|escape|default:''}"/>
                     <p class="error">{$messages.repMail|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Téléphone </label>
                     <input type="text" name="repPhone" placeholder="0607080910"
@@ -74,13 +96,13 @@
                     <p class="error">{$messages.repPhone|default:''}</p>
                 </div>
 
-
                 <div class="pure-control-group">
                     <label for="aligned-name">Style Musical </label>
                     <input type="text" name="musicType" placeholder="Rock"
                            value="{$valeurs.musicType|escape|default:''}"/>
                     <p class="error">{$messages.musicType|default:''} </p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Année de création </label>
                     <input type="text" name="yearOfCreation" placeholder="2010"
@@ -125,9 +147,15 @@
                 <div class="pure-control-group">
                     <label for="aligned-memberNumber">Membres du groupe</label>
                     <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
+                    <!--
+                    On génère automatiquement les options du Select.
+                    Afin que, lorsque l'on charge la page et qu'il y a déjà des paramètes (valeurs), ça mette "Selected" sur la valeur choisi.
+
+                    Exemple: On rempli le formulaire avec 4 membres, on se plante, la page se recharge, on veut remettre "4" dans le select.
+                    Et c'est aussi important pour le remplissage des champs "erreurs" des membres en dessous.
+                    -->
                         {for $i=1 to 8}
                             {if $valeurs.memberNumber|intval|escape|default:1 == $i}
-
                                 <option value={$i} selected="selected">{$i}</option>
                             {else}
                                 <option value={$i}>{$i}</option>
@@ -136,29 +164,30 @@
                     </select>
 
                 </div>
+                <!--
+                    C'est un énorme bordel.
 
-                <div class='form-group col-xs-12 col-md-12 col-lg-10' id="membreInput">
-                    <!--
-                <h4 style="margin: 20px; width: 100%; font-size: 20px;">
-                    <b>Membre 1</b>
-                </h4>
+                    Le but: Lorsque l'utilisateur choisi un nombre de membres, il faut choisir un nombre de membres.
+                    Le script va donc générer l'HTML pour afficher le nombre de champs correspondants.
 
-                <div class="pure-control-group">
-                    <label for="aligned-name">Nom </label>
-                    <input type="text" name="memberName1" placeholder="Pichard" value = "{$valeurs.memberName|escape|default:''}" />
-                    <p class="error">{$messages['memberName1']|default:''}</p>
-                </div>
-                <div class="pure-control-group">
-                    <label for="aligned-name">Prénom </label>
-                    <input type="text" name="memberFName1" placeholder="Étienne" value = "{$valeurs.memberFName|escape|default:''}" />
-                    <p class="error">{$messages.memberFName1|default:''}</p>
-                </div>
-                <div class="pure-control-group">
-                    <label for="aligned-name">Instrument(s) </label>
-                    <input type="text" name="memberInstrument1" placeholder="Kazoo, flûte à bec" value ="{$valeurs.memberInstrument|escape|default:''}"/>
-                    <p class="error">{$messages.memberInstrument1|default:''}</p>
-                </div>
+                    Le problème: La gestion des erreurs. Le serveur renvoi la page, avec les paramètres. le navigateur récéptionne, recharge la page, execute
+                    le JS, etc... Ensuite le JS dit "Il y a 4 membres, je génère le code ET JAFFICHE LES ERREURS". Mais il est côté client. Les erreurs sont côté serveur.
+
+                    Solution: Passer TOUTES les erreurs possible, et si elles sont pas vides (pas d'erreurs), alors les afficher.
+                    On a un gros paté pour récupérer les erreurs MAIS on a UN SEUL code pour générer les inputs pour les membres, car les
+                    erreurs sont stockés dans un tableau, et les clés d'accès au tableau sont générer avec la boucle for.
+
+                    La solution aurait été de côder 8 fois l'input, avec à chaque fois la variable de l'erreur contenant l'erreur écrite en brut.
+
+                    Signé,
+                    Loic,
+                    Père du gros caca en dessous
+
+
+
+
                 -->
+                <div class='form-group col-xs-12 col-md-12 col-lg-10' id="membreInput">
                 </div>
                 <script>
                     const input = document.querySelector('.memberNb');
@@ -285,40 +314,13 @@
                     });
                 </script>
                 <p>Morceaux (Format MP3)</p>
-                <div class="file-input">
-                <input id="audio1" type="file" class="file-input__input"/>
-                <label class="file-input__label" for="audio1">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
-                            <path fill="currentColor"
-                                d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
-                            ></path>
-                        </svg>
-                    <span>Ajouter un fichier</span>
-                </label>
-            </div>
+                <input name="audio1" type="file">
+                <p class="error">{$messages.audio1|default:''}</p>
+                <input name="audio2" type="file">
+                <p class="error">{$messages.audio2|default:''}</p>
+                <input name="audio3" type="file">
+                <p class="error">{$messages.audio3|default:''}</p>
 
-            <div class="file-input">
-                <input id="audio2" type="file" class="file-input__input"/>
-                <label class="file-input__label" for="audio2">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
-                            <path fill="currentColor"
-                                d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
-                            ></path>
-                        </svg>
-                    <span>Ajouter un fichier</span>
-                </label>
-            </div>
-            <div class="file-input">
-                <input id="audio3" type="file" class="file-input__input"/>
-                <label class="file-input__label" for="audio3">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
-                            <path fill="currentColor"
-                                d="M296 384h-80c-13.3 0-24-10.7-24-24V192h-87.7c-17.8 0-26.7-21.5-14.1-34.1L242.3 5.7c7.5-7.5 19.8-7.5 27.3 0l152.2 152.2c12.6 12.6 3.7 34.1-14.1 34.1H320v168c0 13.3-10.7 24-24 24zm216-8v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h136v8c0 30.9 25.1 56 56 56h80c30.9 0 56-25.1 56-56v-8h136c13.3 0 24 10.7 24 24zm-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z"
-                            ></path>
-                        </svg>
-                    <span>Ajouter un fichier</span>
-                </label>
-            </div>
                 <p>PDF dossier de presse (facultatif)</p>
                 <input name="pdfpresse" type="file">
                 <p>Photos du groupe (résolution>300DPI)</p>

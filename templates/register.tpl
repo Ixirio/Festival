@@ -4,6 +4,14 @@
 
 <div class="image">
     <div class="container">
+        
+        {*
+    
+        Formulaire d'enregistrement, la méthode post permet de dire au formulaire que le contenu des champs du formulaire sera envoyé au fichier routes.php
+        On fait aussi en sorte que s'il y a eu des erreurs lors du remplissage du formulaire, les messages d'erreurs soient affichés après l'input correspondant au message d'erreur. 
+        De plus, le contenu que l'utilisateur a renseigné dans les inputs sera conservé si la page est ré-affichée, excepté pour le mot de passe pour des soucis de sécurité.
+
+        *}
 
         <form action="register" method="post" class="pure-form pure-form-stacked">
         

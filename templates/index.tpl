@@ -6,8 +6,11 @@
     
     <div class="container">
         <h1>Bienvenue au festival de Perpète-lès-oies</h1>
-        <p>Ce festival se déroulera entre le 26 et le 30 mars 2022, pour promouvoir les divers groupes français, et partager notre goût pour la musique.</p>
-    
+        
+        <p>Notre festival de musique associatif lance chaque année un appel aux candidatures afin de permettre à des groupes francophones de jouer devant plusieurs milliers
+        de personnes. Nous nous engageons à tout mettre en oeuvre pour vous garantir des conditions d'accueil technique professionnelles. Ce festival peut représenter
+        un tremplin vers des scènes d'envergures nationales, alors n'hésitez pas !</p>s
     </div>
+
 </div>
 {/block}
