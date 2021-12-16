@@ -1,44 +1,48 @@
 <?php
-
+// Les fonctionnements des formulaires d'inscription, de connexion et de candidature étant assez similaires, ne seront pas commentées les actions redondantes.
 Flight::route('/', function () {
-
-    Flight::render("index.tpl", array());
+    // Affichage de la page principale du site.
+    Flight::render("index.tpl", array()); 
 
 });
 
 Flight::route('GET /register', function () {
+    // Affichage du template de la page du formulaire d'enregistrement.
+    Flight::render("register.tpl", array()); 
 
-    Flight::render("register.tpl", array());
 
 });
 
 Flight::route('POST /register', function () {
 
-    $form = Flight::request()->data;
+    $form = Flight::request()->data; // Récupération des données du formulaire rempli par l'utilisateur.
 
     $db = flight::get("maBase");
 
     $messages = array();
-
+     // Préparation de la requete pour tester si l'email est déja dans la base
     $email = $db->prepare("SELECT mail FROM users WHERE mail = :mail");
-    $name = $db->prepare("SELECT name FROM users WHERE name = :name");
-    $registerUser = $db->prepare("INSERT INTO users VALUES(:name, :mail, :pass)");
+    // Préparation de la requete pour tester si le nom d'utilisateur est déja dans la base
+    $name = $db->prepare("SELECT name FROM users WHERE name = :name"); 
+    // Début des tests du formulaire d'inscription pour chaque champ, s'il est vide on renvoie un message d'erreur.
+    $registerUser = $db->prepare("INSERT INTO users VALUES(:name, :mail, :pass)"); 
 
     if (empty(trim($form->name))) {
-        $messages['name'] = "Le champs nom est obligatoire";
+        $messages['name'] = "Veuillez saisir un nom d'utilisateur";
     } else {
         $name->execute(array(':name' => $form->name));
+         // On teste si le pseudo renseigné n'est pas déjà dans la base de données.
         if ($name->rowCount() != 0) {
             $messages['name'] = "Ce pseudo est déja utilisé !";
         }
     }
 
     if (empty(trim($form->mail))) {
-        $messages['mail'] = "Le champs email est obligatoire";
+        $messages['mail'] = "Veuillez saisir une adresse mail";
 
     } else {
 
-
+        // On teste si le mail renseigné est valide puis s'il n'est pas déjà dans la base de données.
         if (filter_var($form->mail, FILTER_VALIDATE_EMAIL)) {
             $email->execute(array(':mail' => $form->mail));
             if ($email->rowCount() != 0) {
@@ -51,14 +55,15 @@ Flight::route('POST /register', function () {
 
     if (empty(trim($form->password))) {
 
-        $messages['password'] = "Le champ mot de passe est obligatoire";
+        $messages['password'] = "Veuillez saisir un mot de passe";
     } else {
-
-        if (strlen($form->password) < 8) {
-            $messages['password'] = "Le mot de passe doit faire + de 8 caractères !";
+        // On teste si la longueur du mot de passe est conforme.
+        if (strlen($form->password) < 8) { 
+            $messages['password'] = "Le mot de passe doit faire plus de 8 caractères !";
         }
     }
-
+    // Gestion des messages d'erreurs, si il y en a 1 ou plus on réaffiche la page avec les infos que l'utilisateur avait renseigné
+    // Sinon, on exécute la requete qui insère les données saisies par l'utilisateur dans la table et on affiche le template success.
     if (count($messages) > 0) {
         Flight::render("register.tpl", array("valeurs" => $_POST, "messages" => $messages));
     } else {
@@ -85,7 +90,7 @@ Flight::route('POST /login', function () {
     $admin = "0";
 
     if (empty(trim($form->login))) {
-        $messages['login'] = "Le champ email est obligatoire";
+        $messages['login'] = "Veuillez saisir une adresse mail";
 
     } else {
 
@@ -105,20 +110,17 @@ Flight::route('POST /login', function () {
     }
 
     if (empty(trim($form->password))) {
-        $messages['password'] = "Le champ mot de passe est obligatoire";
+        $messages['password'] = "Veuillez saisir un mot de passe";
     } else {
         if (strlen($form->password) < 8) {
             $messages['password'] = "Mot de passe invalide";
         } else {
-            // $requete -> execute(array(":mail" => $form->email));
-
-
             if (!password_verify($form->password, $requete['pass'])) {
                 $messages['password'] = "Identifiant ou mot de passe invalide !";
             }
         }
     }
-
+    // Si le nom d'utilisateur est "admin", l'utilisateur sera défini comme administrateur sur le site.
     if (isset($requete['name']) && $requete['name'] == "root") {
         $admin = "1";
     }
@@ -150,112 +152,108 @@ Flight::route('POST /candidature', function () {
 
     $toAdd = array();
 
-    // On check si le groupeName est vide
+    // On vérifie que tous les champs nécéssaires sont remplis.
     if (empty(trim($form['groupeName']))) {
         $messages['groupeName'] = "Veuillez saisir le nom du groupe";
-
     } else {
         $toAdd['groupeName'] = $form['groupeName'];
     }
 
-    // On check si le departement est vide
     if (empty(trim($form['departement']))) {
         $messages['departement'] = "Veuillez entrer un département valide";
     }else{
         $toAdd['departement']  = $form['departement'];
     }
-    // On check si le sceneType est vide
     if (empty(trim($form['sceneType']))) {
         $messages['sceneType'] = "Veuillez choisir un type de scène";
     }else{
         $toAdd['sceneType']  = $form['sceneType'];
     }
-    // On check si le repName est vide
+
     if (empty(trim($form['repName']))) {
         $messages['repName'] = "Veuillez saisir le nom  du représentant";
     } else {
         $toAdd['repName'] = $form['repName'];
     }
-    // On check si le repFName est vide
+
     if (empty(trim($form['repFName']))) {
         $messages['repFName'] = "Veuillez saisir le prénom du représentant";
     } else {
         $toAdd['repFName'] = $form['repFName'];
     }
-    // On check si le repAddress est vide
+
     if (empty(trim($form['repAddress']))) {
         $messages['repAddress'] = "Veuillez saisir l'adresse du représentant";
     } else {
         $toAdd['repAddress'] = $form['repAddress'];
     }
-    // On check si le repPostCode est vide
+
     if (empty(trim($form['repPostCode']))) {
         $messages['repPostCode'] = "Veuillez saisir le code postal du représentant";
     } else {
+    // On vérifie que l'utilisateur a bien entré un nombre, afin de ne pas entrer de texte dans une valeur numérique dans la base de données.
         if (is_numeric($form['repPostCode'])) {
             $toAdd['repPostCode'] = (int)$form['repPostCode'];
         } else {
-            $messages['repPostCode'] = "Il faut fournir un nombre.";
+            $messages['repPostCode'] = "Veuillez saisir un code postal valide";
         }
     }
-    // On check si le repMail est vide
+
     if (empty(trim($form['repMail']))) {
         $messages['repMail'] = "Veuillez saisir l'adresse mail du représentant";
     } else {
         $toAdd['repMail'] = $form['repMail'];
     }
-    // On check si le repPhone est vide
+
     if (empty(trim($form['repPhone']))) {
         $messages['repPhone'] = "Veuillez saisir le numéro de téléphone du représentant";
     } else {
         if (is_numeric($form['repPhone'])) {
             $toAdd['repPhone'] = (int)$form['repPhone'];
         } else {
-            $messages['repPhone'] = "Il faut fournir un nombre.";
+            $messages['repPhone'] = "Veuillez saisir un numéro de téléphone valide";
         }
     }
 
-    // On check si le musicType est vide
     if (empty(trim($form['musicType']))) {
         $messages['musicType'] = "Veuillez saisir le style musical";
     } else {
         $toAdd['musicType'] = $form['musicType'];
     }
-    // On check si le yearOfCreation est vide
+
     if (empty(trim($form['yearOfCreation']))) {
         $messages['yearOfCreation'] = "Veuillez saisir l'année de création du groupe";
     } else {
         if (is_numeric($form['yearOfCreation'])) {
             $toAdd['yearOfCreation'] = (int)$form['yearOfCreation'];
         } else {
-            $messages['yearOfCreation'] = "Il faut fournir un nombre.";
+            $messages['yearOfCreation'] = "Veuillez saisir une année valide";
         }
     }
-    // On check si le textPresentation est vide
+
     if (empty(trim($form['textPresentation']))) {
         $messages['textPresentation'] = "Veuillez saisir une présentation de votre texte";
     } else {
         $toAdd['textPresentation'] = $form['textPresentation'];
     }
-    // On check si le scenicExperiences est vide
+
     if (empty(trim($form['scenicExperiences']))) {
         $messages['scenicExperiences'] = "Veuillez saisir votre expérience scénique";
     } else {
         $toAdd['scenicExperiences'] = $form['scenicExperiences'];
-    }// On check si le website est vide
+    }
     if (empty(trim($form['website']))) {
         $messages['website'] = "Veuillez saisir votre site internet / Facebook";
     } else {
         $toAdd['website'] = $form['website'];
     }
 
-    // On check si le soundcloud n'est pas vide
     if (!empty(trim($form['soundcloud']))) {
         $toAdd['soundcloud'] = $form['soundcloud'];
     } else {
         $toAdd['soundcloud'] = "";
     }
-    // On check si le youtube n'est pas vide
+
     if (!empty(trim($form['youtube']))) {
         $toAdd['youtube'] = $form['youtube'];
     } else {
@@ -266,7 +264,6 @@ Flight::route('POST /candidature', function () {
 
     // membres 1
 
-//
     if (empty(trim($form['memberNumber']))) {
         $messages['memberNumber'] = 'memberNumber vide';
     } else {
@@ -275,33 +272,28 @@ Flight::route('POST /candidature', function () {
         } else {
             $messages['memberNumber'] = "Il faut fournir un nombre.";
         }
-
-
     }
 
-
+    //Commentaire Loic
     for ($i = 1; $i <= 8; $i++) {
         $toAdd['memberName' . $i] = "";
         $toAdd['memberFName' . $i] = "";
         $toAdd['memberInstrument' . $i] = "";
     }
 
-
+    //Commentaire Loic
     for ($i = 1; $i <= (int)$form['memberNumber']; $i++) {
 
-        // On check si le memberName n'est pas vide
         if (empty(trim($form['memberName' . $i]))) {
             $messages['memberName' . $i] = "Veuillez saisir le prénom du membre " . $i;
         } else {
             $toAdd['memberName' . $i] = $form['memberName' . $i];
         }
-        // On check si le memberFName n'est pas vide
         if (empty(trim($form['memberFName' . $i]))) {
             $messages['memberFName' . $i] = "Veuillez saisir le nom du membre " . $i;
         } else {
             $toAdd['memberFName' . $i] = $form['memberFName' . $i];
         }
-        // On check si le memberInstrument n'est pas vide
         if (empty(trim($form['memberInstrument' . $i]))) {
             $messages['memberInstrument' . $i] = "Veuillez saisir le(s) instrument(s) du membre " . $i;
         } else {
@@ -310,15 +302,12 @@ Flight::route('POST /candidature', function () {
 
     }
 
-
-    //var_dump($toAdd);
-
     // FIN GERER PARTIE MEMBRES MULTIPLES
 
 
     // DEBUT GERER PARTIE FICHIERS MULTIPLES
 
-
+    // Commentaire Loic (Explique en gros ce que cette partie fait genre comment tu gères la verif et tout)
     if (
         (isset($_FILES['audio1']) && $_FILES["audio1"]["error"] <= 0) &&
         move_uploaded_file($_FILES['audio1']['tmp_name'],
@@ -336,7 +325,7 @@ Flight::route('POST /candidature', function () {
     } else {
         $messages['audio1'] = "Le fichier n'est pas valide";
     }
-
+    // Le code suivant est redondant, il n'est donc pas nécéssaire de le commenter
     if (
         (isset($_FILES['audio2']) && $_FILES["audio2"]["error"] <= 0) &&
         move_uploaded_file($_FILES['audio2']['tmp_name'],
@@ -372,7 +361,7 @@ Flight::route('POST /candidature', function () {
     } else {
         $messages['audio3'] = "Le fichier n'est pas valide";
     }
-
+    //Commentaire Loic (parce que facultatif)
     if (
         (isset($_FILES['dossierPresse']) && $_FILES["dossierPresse"]["error"] <= 0) &&
         move_uploaded_file($_FILES['dossierPresse']['tmp_name'],
@@ -390,9 +379,7 @@ Flight::route('POST /candidature', function () {
     } else {
         $toAdd['dossierPresse'] = "";;
     }
-
-    //var_dump($_FILES);
-
+    //Commentaire Loic pour les DPI
     if (
         (isset($_FILES['photo1']) && $_FILES["photo1"]["error"] <= 0) &&
         move_uploaded_file($_FILES['photo1']['tmp_name'],
@@ -468,6 +455,7 @@ Flight::route('POST /candidature', function () {
     }
     // FIN GERER PARTIE FICHIERS MULTIPLES
 
+    //Commentaire Loic Explique ton gros caca là
 
     /*
     $registerUser = $db->prepare("INSERT INTO candidature VALUES(
@@ -592,6 +580,7 @@ Flight::route('POST /candidature', function () {
 
     */
 
+    //Commentaire Loic ptet un dernier commentaire sur les requetes
     $departements = $db->query("SELECT * FROM departement");
     $departements = $departements->fetchAll();
 
@@ -599,7 +588,7 @@ Flight::route('POST /candidature', function () {
     $scenes = $scenes->fetchAll();
     Flight::render("candidature.tpl", array("departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
 
-
+    
 });
 
 Flight::route('GET /profil', function () {
