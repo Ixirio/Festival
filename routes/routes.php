@@ -196,7 +196,11 @@ Flight::route('POST /candidature', function () {
         $messages['repPostCode'] = "Veuillez saisir le code postal du représentant";
     } else {
     // On vérifie que l'utilisateur a bien entré un nombre, afin de ne pas entrer de texte dans une valeur numérique dans la base de données.
+    // On vérifie que le nombre entré fait bien 5 caractères, sinon ce n'est pas un code postal
         if (is_numeric($form['repPostCode'])) {
+            if (strlen($form->repPostCode) != 5) { 
+                $messages['repPostCode'] = "Veuillez saisir un code postal valide";
+            }
             $toAdd['repPostCode'] = (int)$form['repPostCode'];
         } else {
             $messages['repPostCode'] = "Veuillez saisir un code postal valide";
@@ -213,6 +217,9 @@ Flight::route('POST /candidature', function () {
         $messages['repPhone'] = "Veuillez saisir le numéro de téléphone du représentant";
     } else {
         if (is_numeric($form['repPhone'])) {
+            if (strlen($form->repPhone) != 10) { 
+                $messages['repPhone'] = "Veuillez saisir un numéro de téléphone valide";
+            }
             $toAdd['repPhone'] = (int)$form['repPhone'];
         } else {
             $messages['repPhone'] = "Veuillez saisir un numéro de téléphone valide";
