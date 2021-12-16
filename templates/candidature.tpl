@@ -21,6 +21,7 @@
                         {foreach from=$departements item=depart}
                             <option  value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
                         {/foreach}
+                        <option  value="Autre">Autre</option>
                     </select>
                 </div>
 

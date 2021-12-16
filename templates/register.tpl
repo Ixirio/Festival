@@ -20,8 +20,9 @@
             <div class="pure-control-group">
                 <label for="aligned-password">Mot de passe</label>
                 <input type="password" name="password" id="aligned-password" placeholder="Mot de passe" required=""/>
-                {$messages.password|default:''}
-            </div>
+            </div>    
+                {$messages.password|default:' '}
+            
             <div class="pure-controls">
                 <button type="submit" class="pure-button pure-button-primary">Envoyer</button>
             </div>
