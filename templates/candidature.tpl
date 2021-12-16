@@ -5,11 +5,12 @@
 <div class="image">
     <div class="container">
 
-        <h1>Candidature</h1>
         <!--
             Formulaire de candidature, idem que dans register.tpl
         -->
         <form action="candidature" method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
+        
+            <h1>Candidature</h1>
 
             <fieldset>
                 <div class="pure-control-group">
@@ -311,6 +312,7 @@
                 <p class="error">{$messages.pdfpresse|default:''}</p>
 
                 <p>Photos du groupe (résolution>300DPI)</p>
+                <p>photo1</p>
                 <input name="photo1" type="file">
                 <p class="error">{$messages.photo1|default:''}</p>
                 <input name="photo2" type="file">
