@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="templates\style.css">
     {/block}
 </head>
+{*
+    
+    Ce template est la navbar du site. C'est dans ce template qu'on décide ce qui est affiché,
+    en fonction de si l'utilisateur est connecté ou non, et s'il est admin ou non.
+
+*}
 <body>
 {block name=menu}
     <div class="nav">

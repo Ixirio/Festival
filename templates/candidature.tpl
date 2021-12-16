@@ -5,7 +5,11 @@
     <div class="container">
 
         <h1>Candidature</h1>
+        {*
+    
+        Formulaire de candidature, idem que dans register.tpl
 
+        *}
         <form action="candidature" method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
             <fieldset>
                 <div class="pure-control-group">
@@ -141,9 +145,11 @@
                 <div class="pure-control-group">
                     <label for="aligned-memberNumber">Membres du groupe</label>
                     <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
+                    <!--
+                    Loic j'te laisse commenter cette partie là 
+                    -->
                         {for $i=1 to 8}
                             {if $valeurs.memberNumber|intval|escape|default:1 == $i}
-
                                 <option value={$i} selected="selected">{$i}</option>
                             {else}
                                 <option value={$i}>{$i}</option>
@@ -152,7 +158,9 @@
                     </select>
 
                 </div>
-
+                <!--
+                    Loic j'te laisse commenter cette partie là 
+                -->
                 <div class='form-group col-xs-12 col-md-12 col-lg-10' id="membreInput">
                 </div>
                 <script>

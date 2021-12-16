@@ -7,6 +7,12 @@
 
         <h1>Login</h1>
 
+        {*
+    
+        Formulaire de connexion, idem que dans register.tpl
+
+        *}
+
         <form action="login" method="post" class="pure-form pure-form-stacked">
             <fieldset>
                 <div class="pure-control-group">
