@@ -456,6 +456,69 @@ Flight::route('POST /candidature', function () {
     } else {
         $messages['photo2'] = "Le fichier n'est pas valide";
     }
+
+    if (
+        (isset($_FILES['ficheTechnique']) && $_FILES["ficheTechnique"]["error"] <= 0) &&
+        move_uploaded_file($_FILES['ficheTechnique']['tmp_name'],
+
+            'files/' .
+            basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']))
+    ) {
+        $fileLink = 'files/' .
+            basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']);
+        if (mime_content_type($fileLink) == "application/pdf") {
+            $toAdd['ficheTechnique'] = $fileLink;
+        } else {
+            $messages['ficheTechnique'] = "Le fichier n'est pas un .pdf";
+        }
+    } else {
+        $messages['ficheTechnique'] = "Le fichier n'est pas valide";
+    }
+
+    if (
+        (isset($_FILES['sacemPdf']) && $_FILES["sacemPdf"]["error"] <= 0) &&
+        move_uploaded_file($_FILES['sacemPdf']['tmp_name'],
+
+            'files/' .
+            basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']))
+    ) {
+        $fileLink = 'files/' .
+            basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']);
+        if (mime_content_type($fileLink) == "application/pdf") {
+            $toAdd['sacemPdf'] = $fileLink;
+        } else {
+            $messages['sacemPdf'] = "Le fichier n'est pas un .pdf";
+        }
+    } else {
+        $messages['sacemPdf'] = "Le fichier n'est pas valide";
+    }
+
+
+    if (isset($_POST['statutAssociatif'])){
+        $toAdd['statutAssociatif'] = 1;
+    } else {
+        $toAdd['statutAssociatif'] = 0;
+    }
+
+    if (isset($_POST['sacem'])){
+        $toAdd['sacem'] = 1;
+    } else {
+        $toAdd['sacem'] = 0;
+    }
+
+    if (isset($_POST['producer'])){
+        $toAdd['producer'] = 1;
+    } else {
+        $toAdd['producer'] = 0;
+    }
+
+
+
+/*
+    sacem,
+                                :producteur,
+                                :idCandidature
+*/
     // FIN GERER PARTIE FICHIERS MULTIPLES
 
     //Commentaire Loic Explique ton gros caca là
@@ -512,8 +575,8 @@ Flight::route('POST /candidature', function () {
                                 :ficheTechnique,
                                 :sacemPdf,
                                 :statutAssociatif,
-                                :inscritSacem,
-                                :producteur,
+                                :sacem,
+                                :producer,
                                 :idCandidature
                                 )
                                 ");
@@ -574,8 +637,8 @@ Flight::route('POST /candidature', function () {
         ':ficheTechnique' => "test",
         ':sacemPdf' => 1,
         ':statutAssociatif' => 1,
-        ':inscritSacem' => 1,
-        ':producteur' => 1,
+        ':sacem' => 1,
+        ':producer' => 1,
         ':idCandidature' => 1
     ))) {
         echo "Échec lors de l'exécution :" . var_dump($registerUser->errorInfo());
