@@ -9,9 +9,11 @@
         <form action="candidature" method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
             <fieldset>
                 <div class="pure-control-group">
+                    <p class="error">{$messages.groupeName|default:''}</p>
                     <label for="aligned-name">Nom du groupe</label>
-                    <input type="text" name="groupeName" placeholder="Nom du groupe" value = "{$valeurs.groupName|escape|default:''}" required=""/>
                     {$messages.groupName|default:''}
+                    <input type="text" name="groupeName" placeholder="Nom du groupe" value = "{$valeurs.groupName|escape|default:''}" required=""/>
+
                 </div>
 
                 <div class="pure-control-group">
@@ -36,90 +38,90 @@
                     <p>Représentant du groupe : </p>
                     <label for="aligned-name">Nom </label>
                     <input type="text" name="repName" placeholder="Dupont" value = "{$valeurs.repName|escape|default:''}" />
-                    {$messages.repName|default:''}
+                    <p class="error">{$messages.repName|default:''}</p>
                 </div>
                 <div class="pure-control-group">
                     <label for="aligned-name">Prénom </label>
                     <input type="text" name="repFName" placeholder="Claude" value = "{$valeurs.repFName|escape|default:''}" />
-                    {$messages.repFName|default:''}
+                    <p class="error">{$messages.repFName|default:''}</p>
                 </div>
                 <div class="pure-control-group">
                     <label for="aligned-name">Adresse </label>
                     <input type="text" name="repAddress" placeholder="47 rue des robiniers, New York" value = "{$valeurs.repAddress|escape|default:''}" />
-                    {$messages.repAddress|default:''}
+                    <p class="error">{$messages.repAddress|default:''}</p>
                 </div>
                 <div class="pure-control-group">
                     <label for="aligned-name">Code postal </label>
                     <input type="text" name="repPostCode" placeholder="80000" value = "{$valeurs.repPostCode|escape|default:''}" />
-                    {$messages.repPostCode|default:''}
+                    <p class="error">{$messages.repPostCode|default:''}</p>
                 </div>
                 <div class="pure-control-group">
                     <label for="email">Adresse e-mail </label>
                     <input type="text" name="repMail" placeholder="claude.dupont@gmail.com" value = "{$valeurs.repMail|escape|default:''}" />
-                    {$messages.repMail|default:''}
+                    <p class="error">{$messages.repMail|default:''}</p>
                 </div>
                 <div class="pure-control-group">
                     <label for="aligned-name">Téléphone </label>
                     <input type="text" name="repPhone" placeholder="0607080910" value = "{$valeurs.repName|escape|default:''}" />
-                    {$messages.repPhone|default:''}
+                    <p class="error">{$messages.repPhone|default:''}</p>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="aligned-name">Style Musical </label>
                     <input type="text" name="musicType" placeholder="Rock" value = "{$valeurs.musicType|escape|default:''}" />
-                    {$messages.musicType|default:''}
+                    <p class="error">{$messages.musicType|default:''}</p>
                 </div>
                 <div class="pure-control-group">
                     <label for="aligned-name">Année de création </label>
                     <input type="text" name="yearOfCreation" placeholder="2010" value = "{$valeurs.yearOfCreation|escape|default:''}" />
-                    {$messages.yearOfCreation|default:''}
+                    <p class="error">{$messages.yearOfCreation|default:''}</p>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="aligned-name">Présentation du texte </label>
                     <textarea rows="8" cols="50" name="textPresentation" placeholder="We're no strangers to love" value = "{$valeurs.textPresentation|escape|default:''}" ></textarea>
-                    {$messages.textPresentation|default:''}
+                    <p class="error">{$messages.textPresentation|default:''}</p>
                 </div>
 
         <div class="pure-control-group">
             <label for="aligned-name">Style Musical </label>
             <input type="text" name="musicType" placeholder="Rock" value = "{$valeurs.musicType|escape|default:''}" />
-            {$messages.musicType|default:''} 
+            <p class="error">{$messages.musicType|default:''} </p>
         </div>
         <div class="pure-control-group">
             <label for="aligned-name">Année de création </label>
             <input type="text" name="yearOfCreation" placeholder="2010" value = "{$valeurs.yearOfCreation|escape|default:''}" />
-            {$messages.yearOfCreation|default:''} 
+            <p class="error">{$messages.yearOfCreation|default:''} </p>
         </div>
 
         <div class="pure-control-group">
             <label for="aligned-name">Présentation du texte</label>
             <textarea rows="8" cols="50" name="textPresentation" placeholder="We're no strangers to love" value = "{$valeurs.textPresentation|escape|default:''}" ></textarea>
-            {$messages.textPresentation|default:''} 
+            <p class="error">{$messages.textPresentation|default:''} </p>
         </div>
 
         <div class="pure-control-group">
             <label for="aligned-name">Expériences scéniques</label>
             <textarea rows="8" cols="50" name="scenicExperiences" placeholder="Une fois j'ai joué pour la kermesse de l'école primaire de mon village" value = "{$valeurs.scenicExperiences|escape|default:''}" ></textarea>
-            {$messages.scenicExperiences|default:''}
+            <p class="error">{$messages.scenicExperiences|default:''}</p>
         </div>
 
         <div class="pure-control-group">
             <label for="aligned-name">Site Internet / Facebook </label>
             <input type="url" name="website" placeholder="https://monsite.fr" value = "{$valeurs.website|escape|default:''}" />
-            {$messages.website|default:''}
+            <p class="error">{$messages.website|default:''}</p>
         </div>
         <div class="pure-control-group">
             <label for="aligned-name">Soundcloud (Facultatif) </label>
             <input type="url" name="soundcloud" placeholder="https://soundcloud.com" value = "{$valeurs.soundcloud|escape|default:''}" />
-            {$messages.soundcloud|default:''}
+            <p class="error">{$messages.soundcloud|default:''}</p>
         </div>
         <div class="pure-control-group">
             <label for="aligned-name">Youtube (Facultatif) </label>
             <input type="url" name="youtube" placeholder="https://youtube.com" value = "{$valeurs.youtube|escape|default:''}" />
-            {$messages.youtube|default:''}
+            <p class="error">{$messages.youtube|default:''}</p>
         </div>
-        
+
         <div class="pure-control-group">
             <label for="aligned-memberNumber">Membres du groupe : </label>
             <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
@@ -132,7 +134,7 @@
                 <option value="7">7</option>
                 <option value="8">8</option>
             </select>
-            
+
         </div>
 
             <div class='form-group col-xs-12 col-md-12 col-lg-10' id = "membreInput">
@@ -143,12 +145,12 @@
                 <div class="pure-control-group">
                     <label for="aligned-name">Nom </label>
                     <input type="text" name="memberName" placeholder="Pichard" value = "{$valeurs.memberName|escape|default:''}" />
-                    {$messages.memberName|default:''}
+                    <p class="error">{$messages.memberName|default:''}</p>
                 </div>
                 <div class="pure-control-group">
                     <label for="aligned-name">Prénom </label>
                     <input type="text" name="memberFName" placeholder="Étienne" value = "{$valeurs.memberFName|escape|default:''}" />
-                    {$messages.memberFName|default:''}
+                    <p class="error">{$messages.memberFName|default:''}</p>
                 </div>
                 <div class="pure-control-group">
                     <label for="aligned-name">Instrument(s) </label>
@@ -235,22 +237,23 @@
             <div class="pure-control-group">
                 <label for="aligned-name">Statut associatif</label>
                 <input type="checkbox" name="statutAssociatif" value = "{$valeurs.statutAssociatif|escape|default:''}" />
-                {$messages.statutAssociatif|default:''}
+                <p class="error">{$messages.statutAssociatif|default:''}</p>
             </div>
             <div class="pure-control-group">
                 <label for="aligned-name">Inscrit à la SACEM</label>
                 <input type="checkbox" name="sacem" value = "{$valeurs.sacem|escape|default:''}" />
-                {$messages.sacem|default:''}
+                <p class="error">{$messages.sacem|default:''}</p>
             </div>
             <div class="pure-control-group">
                 <label for="aligned-name">Producteur</label>
                 <input type="checkbox" name="producer" value = "{$valeurs.producer|escape|default:''}" />
-                {$messages.producer|default:''}
+                <p class="error">{$messages.producer|default:''}</p>
             </div>
 
             <div class="pure-controls">
                 <button type="submit" class="pure-button pure-button-primary">Valider</button>
             </div>
+
         </fieldset>
         </form>
     </div>
