@@ -1,16 +1,16 @@
 {extends file='layout.tpl'}
 {block name=title}Candidature{/block}
 {block name=body}
+
 <div class="image">
     <div class="container">
 
         <h1>Candidature</h1>
-        {*
-    
-        Formulaire de candidature, idem que dans register.tpl
-
-        *}
+        <!--
+            Formulaire de candidature, idem que dans register.tpl
+        -->
         <form action="candidature" method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
+
             <fieldset>
                 <div class="pure-control-group">
                     <label for="aligned-name">Nom du groupe</label>
@@ -23,8 +23,8 @@
                     <label for="aligned-departement">Département</label>
                     <select name="departement" id="aligned-departement">
                     <!--
-                    Ici on récupère les différents départements contenus dans la table départements de la base de données, et on affiche chacun d'entre comme option
-                    dans notre select. On y ajoute une option "autre" pour les étrangers.
+                        Ici on récupère les différents départements contenus dans la table départements de la base de données, et on affiche chacun d'entre comme option
+                        dans notre select. On y ajoute une option "autre" pour les étrangers.
                     -->
                         {foreach from=$departements item=depart}
                             <option  value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
@@ -37,17 +37,12 @@
                 <label for="aligned-scene">Type de scène</label>
                     <select name="sceneType" id="aligned-scene">
                     <!--
-                    Ici on récupère les différents types de scènes contenus dans la table scenes de la base de données, et on affiche chacun d'entre comme option
-                    dans notre select.
+                        Ici on récupère les différents types de scènes contenus dans la table scenes de la base de données,
+                        et on affiche chacun d'entre comme option dans notre select.
                     -->
                         {foreach from=$scenes item=typedescene}
                             <option value="{$typedescene[0]}">{$typedescene[0]}</option>
                         {/foreach}
-                        <!--
-                        <option value="tribute">Tribute</option>
-                        <option value="acoustique_folk">Acoustique, Folk</option>
-                        <option value="amplifie_rock">Amplifié, Rock</option>
-                        -->
                     </select>
                 </div>
 
@@ -146,11 +141,12 @@
                     <label for="aligned-memberNumber">Membres du groupe</label>
                     <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
                     <!--
-                    On génère automatiquement les options du Select.
-                    Afin que, lorsque l'on charge la page et qu'il y a déjà des paramètes (valeurs), ça mette "Selected" sur la valeur choisi.
+                        On génère automatiquement les options du Select.
+                        Afin que lorsque l'on charge la page alors qu'il y a déjà des paramètres (valeurs), la valeur choisie précédemment soit sélectionnée de base.
 
-                    Exemple: On rempli le formulaire avec 4 membres, on se plante, la page se recharge, on veut remettre "4" dans le select.
-                    Et c'est aussi important pour le remplissage des champs "erreurs" des membres en dessous.
+                        Exemple: On remplit le formulaire avec 4 membres, mais la candidature échoue pour une raison x ou y (champ non rempli...),
+                        la page se recharge, on veut que la valeur précédemment sélectionnée par l'utilisateur (ici 4) soit sélectionnée de base.
+                        Et c'est aussi important pour le remplissage des champs "erreurs" des membres en dessous.
                     -->
                         {for $i=1 to 8}
                             {if $valeurs.memberNumber|intval|escape|default:1 == $i}
@@ -163,27 +159,18 @@
 
                 </div>
                 <!--
-                    C'est un énorme bordel.
-
-                    Le but: Lorsque l'utilisateur choisi un nombre de membres, il faut choisir un nombre de membres.
+                    Lorsque l'utilisateur choisit un nombre de membres, il décide combien de formulaires seront affichés.
                     Le script va donc générer l'HTML pour afficher le nombre de champs correspondants.
 
-                    Le problème: La gestion des erreurs. Le serveur renvoi la page, avec les paramètres. le navigateur récéptionne, recharge la page, execute
-                    le JS, etc... Ensuite le JS dit "Il y a 4 membres, je génère le code ET JAFFICHE LES ERREURS". Mais il est côté client. Les erreurs sont côté serveur.
+                    Le problème: La gestion des erreurs. Le serveur renvoie la page, avec les paramètres. le navigateur récéptionne, recharge la page, éxecute
+                    le JS, etc... Ensuite le JS dit "Il y a 4 membres, je génère le code ET J'AFFICHE LES ERREURS". Mais il est côté client.
+                    Les erreurs, elles, sont côté serveur.
 
-                    Solution: Passer TOUTES les erreurs possible, et si elles sont pas vides (pas d'erreurs), alors les afficher.
-                    On a un gros paté pour récupérer les erreurs MAIS on a UN SEUL code pour générer les inputs pour les membres, car les
-                    erreurs sont stockés dans un tableau, et les clés d'accès au tableau sont générer avec la boucle for.
+                    Solution : Passer TOUTES les erreurs possibles, et si elles sont pas vides (pas d'erreurs), alors les afficher.
+                    Ça nous donne le gros bloc ci-dessous pour récupérer les erreurs MAIS on a UN SEUL code pour générer les inputs pour les membres, car les
+                    erreurs sont stockées dans un tableau, et les clés d'accès au tableau sont générées avec la boucle for.
 
-                    La solution aurait été de côder 8 fois l'input, avec à chaque fois la variable de l'erreur contenant l'erreur écrite en brut.
-
-                    Signé,
-                    Loic,
-                    Père du gros caca en dessous
-
-
-
-
+                    La solution aurait été de coder 8 fois l'input, avec à chaque fois la variable de l'erreur contenant l'erreur écrite en brut.
                 -->
                 <div class='form-group col-xs-12 col-md-12 col-lg-10' id="membreInput">
                 </div>
@@ -346,7 +333,7 @@
                     <p class="error">{$messages.producer|default:''}</p>
                 </div>
 
-                <div class="pure-controls">
+                <div class="pure-control-group">
                     <button type="submit" class="pure-button pure-button-primary">Valider</button>
                 </div>
 

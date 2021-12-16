@@ -12,7 +12,7 @@ Flight::route('GET /register', function () {
 
 
 });
-
+// DÉBUT DU FORMULAIRE D'INSCRIPTION
 Flight::route('POST /register', function () {
 
     $form = Flight::request()->data; // Récupération des données du formulaire rempli par l'utilisateur.
@@ -73,13 +73,14 @@ Flight::route('POST /register', function () {
     }
 
 });
+// FIN DU FORMULAIRE D'INSCRIPTION
 
 Flight::route('GET /login', function () {
 
     Flight::render("login.tpl", array());
 
 });
-
+// DÉBUT DU FORMULAIRE DE CONNEXION
 Flight::route('POST /login', function () {
 
     $form = Flight::request()->data;
@@ -133,7 +134,7 @@ Flight::route('POST /login', function () {
     }
 
 });
-
+// FIN DU FORMULAIRE DE CONNEXION
 Flight::route('GET /candidature', function () {
 
     $db = flight::get("maBase");
@@ -146,7 +147,7 @@ Flight::route('GET /candidature', function () {
     Flight::render("candidature.tpl", array("scenes" =>$scenes, "departements" => $departements));
 
 });
-
+// DÉBUT DU FORMULAIRE DE CANDIDATURE
 Flight::route('POST /candidature', function () {
 
     $db = flight::get("maBase");
@@ -654,9 +655,9 @@ Flight::route('POST /candidature', function () {
     $scenes = $scenes->fetchAll();
     Flight::render("candidature.tpl", array("scenes" => $scenes, "departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
 
-    
-});
 
+});
+// FIN  DU FORMULAIRE DE CANDIDATURE
 Flight::route('GET /profil', function () {
 
     Flight::render("profil.tpl", array());

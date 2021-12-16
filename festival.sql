@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : jeu. 16 déc. 2021 à 12:21
+-- Généré le : jeu. 16 déc. 2021 à 17:10
 -- Version du serveur : 5.7.33
 -- Version de PHP : 7.4.19
 
@@ -80,7 +80,7 @@ CREATE TABLE `candidature` (
   `STATUT_ASSOCIATIF` tinyint(1) NOT NULL,
   `INSCRIT_SACEM` tinyint(1) NOT NULL,
   `PRODUCTEUR` tinyint(1) NOT NULL,
-  `ID_CANDIDATURE` int(10) NOT NULL
+  `ID_CANDIDATURE` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `candidature` (
 --
 
 INSERT INTO `candidature` (`NOM_GROUPE`, `DEPARTEMENT`, `TYPE_SCENE`, `NOM_REP`, `PRENOM_REP`, `ADRESSE_REP`, `POSTAL_REP`, `MAIL_REP`, `TEL_REP`, `STYLE`, `ANNEE_CREATION`, `PRESENTATION_TXT`, `EXP_SCENIQUE`, `SITE_FACEBOOK`, `SOUNDCLOUD`, `YOUTUBE`, `NB_MEMBRES`, `NOM_MEMBRE_1`, `PRENOM_MEMBRE_1`, `INSTRUMENT_MEMBRE_1`, `NOM_MEMBRE_2`, `PRENOM_MEMBRE_2`, `INSTRUMENT_MEMBRE_2`, `NOM_MEMBRE_3`, `PRENOM_MEMBRE_3`, `INSTRUMENT_MEMBRE_3`, `NOM_MEMBRE_4`, `PRENOM_MEMBRE_4`, `INSTRUMENT_MEMBRE_4`, `NOM_MEMBRE_5`, `PRENOM_MEMBRE_5`, `INSTRUMENT_MEMBRE_5`, `NOM_MEMBRE_6`, `PRENOM_MEMBRE_6`, `INSTRUMENT_MEMBRE_6`, `NOM_MEMBRE_7`, `PRENOM_MEMBRE_7`, `INSTRUMENT_MEMBRE_7`, `NOM_MEMBRE_8`, `PRENOM_MEMBRE_8`, `INSTRUMENT_MEMBRE_8`, `AUDIO_1`, `AUDIO_2`, `AUDIO_3`, `DOSSIER_PRESSE`, `PHOTO_1`, `PHOTO_2`, `FICHE_TECHNIQUE`, `SACEM_PDF`, `STATUT_ASSOCIATIF`, `INSCRIT_SACEM`, `PRODUCTEUR`, `ID_CANDIDATURE`) VALUES
-('tontons flingueurs', 'Oise', 'Folk', 'Bon', 'Jean', '47 rue du troufion, Pontpoint', 60700, 'bonjean@gmail.com', 612345678, 'Rock', 1914, 'On est gentils on est beaux', 'J\'ai chanté à la chorale une fois en primaire', 'fesbouk.com', 'soundclou.com', NULL, 2, 'Renart', 'Jacky', 'Kazoo', 'Dufion', 'Etienne', 'Triangle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'chemin d\'un fichier audio', 'chemin d\'un fichier audio', 'chemin d\'un fichier audio', 'chemin d\'un fichier pdf', 'chemin d\'un fichier png', 'chemin d\'un fichier png', 'chemin d\'un fichier pdf', 'chemin d\'un fichier pdf', 0, 0, 1, 0);
+('tontons flingueurs', 'Oise', 'Folk', 'Bon', 'Jean', '47 rue du troufion, Pontpoint', 60700, 'bonjean@gmail.com', 612345678, 'Rock', 1914, 'On est gentils on est beaux', 'J\'ai chanté à la chorale une fois en primaire', 'fesbouk.com', 'soundclou.com', NULL, 2, 'Renart', 'Jacky', 'Kazoo', 'Dufion', 'Etienne', 'Triangle', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'chemin d\'un fichier audio', 'chemin d\'un fichier audio', 'chemin d\'un fichier audio', 'chemin d\'un fichier pdf', 'chemin d\'un fichier png', 'chemin d\'un fichier png', 'chemin d\'un fichier pdf', 'chemin d\'un fichier pdf', 0, 0, 1, '0');
 
 -- --------------------------------------------------------
 
