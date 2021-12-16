@@ -18,7 +18,7 @@
             <fieldset>
                 <div class="pure-control-group">
                     <label for="aligned-login">Email</label>
-                    <input type="text" name="login" id="aligned-login" placeholder="mail/pseudo" value="{$valeurs.login|escape|default:''}" required=""/>
+                    <input id="centered" type="text" name="login" id="aligned-login" placeholder="mail/pseudo" value="{$valeurs.login|escape|default:''}" required=""/>
                     {$messages.login|default:''}
                 </div>
                 <div class="pure-control-group">
@@ -26,7 +26,7 @@
                     <input type="password" name="password" id="aligned-password" placeholder="Mot de passe" required=""/>
                     {$messages.password|default:''}
                 </div>
-                <div class="pure-controls">
+                <div class="pure-control-group">
                     <button type="submit" class="pure-button pure-button-primary">Envoyer</button>
                 </div>
             </fieldset>
