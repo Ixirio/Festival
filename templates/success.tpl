@@ -3,6 +3,6 @@
 {block name=body}
 <div id='main'>
 <h1>Inscription Réussie</h1>
-<p>Félicitation !</p>
+<p>Félicitations !</p>
 </div>
 {/block}

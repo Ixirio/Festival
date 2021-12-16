@@ -5,7 +5,11 @@
     <div class="container">
 
         <h1>Candidature</h1>
+        {*
+    
+        Formulaire de candidature, idem que dans register.tpl
 
+        *}
         <form action="candidature" method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
             <fieldset>
                 <div class="pure-control-group">
