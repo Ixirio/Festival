@@ -16,16 +16,17 @@
                 </div>
 
                 <div class="pure-control-group">
-                    <label for="aligned-departement">Département :</label>
+                    <label for="aligned-departement">Département</label>
                     <select name="departement" id="aligned-departement">
                         {foreach from=$departements item=depart}
                             <option  value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
                         {/foreach}
+                        <option  value="Autre">Autre</option>
                     </select>
                 </div>
 
                 <div class="pure-control-group">
-                <label for="aligned-scene">Type de scène :</label>
+                <label for="aligned-scene">Type de scène</label>
                     <select name="sceneType" id="aligned-scene">
                         <option value="tribute">Tribute</option>
                         <option value="acoustique_folk">Acoustique, Folk</option>
@@ -34,7 +35,7 @@
                 </div>
 
                 <div class="pure-control-group">
-                    <p>Représentant du groupe : </p>
+                    <p>Représentant du groupe</p>
                     <label for="aligned-name">Nom </label>
                     <input type="text" name="repName" placeholder="Dupont"
                            value="{$valeurs.repName|escape|default:''}"/>
@@ -120,7 +121,7 @@
                 </div>
 
                 <div class="pure-control-group">
-                    <label for="aligned-memberNumber">Membres du groupe : </label>
+                    <label for="aligned-memberNumber">Membres du groupe</label>
                     <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
                         {for $i=1 to 8}
                             {if $valeurs.memberNumber|intval|escape|default:1 == $i}
