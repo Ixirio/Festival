@@ -1,7 +1,7 @@
 {extends file='layout.tpl'}
 {block name=title}Candidature{/block}
 {block name=body}
-
+<div class="image">
     <div class="container">
 
         <h1>Candidature</h1>
@@ -281,7 +281,7 @@
                 </script>
                 <p>Morceaux (Format MP3)</p>
                 <div class="file-input">
-                <input id="audio1" type="file"class="file-input__input"/>
+                <input id="audio1" type="file" class="file-input__input"/>
                 <label class="file-input__label" for="audio1">
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload" class="svg-inline--fa fa-upload fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
                             <path fill="currentColor"
@@ -348,4 +348,5 @@
             </fieldset>
         </form>
     </div>
+</div>
 {/block}
