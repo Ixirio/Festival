@@ -86,7 +86,7 @@
                 <div class="pure-control-group">
                     <label for="aligned-name">Téléphone </label>
                     <input type="text" name="repPhone" placeholder="0607080910"
-                           value="{$valeurs.repName|escape|default:''}"/>
+                           value="{$valeurs.repPhone|escape|default:''}"/>
                     <p class="error">{$messages.repPhone|default:''}</p>
                 </div>
 
@@ -309,15 +309,20 @@
 
                 <p>PDF dossier de presse (facultatif)</p>
                 <input name="pdfpresse" type="file">
+                <p class="error">{$messages.pdfpresse|default:''}</p>
+
                 <p>Photos du groupe (résolution>300DPI)</p>
                 <p>photo1</p>
                 <input name="photo1" type="file">
-                <p>photo2</p>
+                <p class="error">{$messages.photo1|default:''}</p>
                 <input name="photo2" type="file">
+                <p class="error">{$messages.photo2|default:''}</p>
                 <p>PDF Fiche technique</p>
-                <input name="fichetechnique" type="file">
+                <input name="ficheTechnique" type="file">
+                <p class="error">{$messages.ficheTechnique|default:''}</p>
                 <p>Document SACEM PDF / PDF contenant la liste des noms, compositeurs et durées des morceaux.</p>
-                <input name="docSacem" type="file">
+                <input name="sacemPdf" type="file">
+                <p class="error">{$messages.sacemPdf|default:''}</p>
 
                 <div class="pure-control-group">
                     <label for="aligned-name">Statut associatif</label>

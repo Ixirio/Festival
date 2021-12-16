@@ -513,7 +513,7 @@ Flight::route('POST /candidature', function () {
         $toAdd['producer'] = 0;
     }
 
-
+    $toAdd['idCandidature'] = $_SESSION['utilisateur']['pseudo'];
 
 /*
     sacem,
@@ -524,8 +524,23 @@ Flight::route('POST /candidature', function () {
 
     //Commentaire Loic Explique ton gros caca là
 
-    /*
-    $registerUser = $db->prepare("INSERT INTO candidature VALUES(
+
+
+
+
+
+    //Commentaire Loic ptet un dernier commentaire sur les requetes
+    $departements = $db->query("SELECT * FROM departement");
+    $departements = $departements->fetchAll();
+
+    $scenes = $db->query("SELECT * FROM scene");
+    $scenes = $scenes->fetchAll();
+
+
+    if (count($messages) > 0) {
+        Flight::render("candidature.tpl", array("scenes" => $scenes, "departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
+    } else {
+        $registerUser = $db->prepare("INSERT INTO candidature VALUES(
                                :groupeName,
                                 :departement,
                                 :sceneType,
@@ -581,79 +596,129 @@ Flight::route('POST /candidature', function () {
                                 :idCandidature
                                 )
                                 ");
+        if (
+            !$registerUser->execute(array(
+            ':groupeName' => $toAdd['groupeName'],
+            ':departement' => $toAdd['departement'],
+            ':sceneType' => $toAdd['sceneType'],
+            ':repName' => $toAdd['repName'],
+            ':repFName' => $toAdd['repFName'],
+            ':repAddress' => $toAdd['repAddress'],
+            ':repPostCode' => $toAdd['repPostCode'],
+            ':repMail' => $toAdd['repMail'],
+            ':repPhone' => $toAdd['repPhone'],
+            ':musicType' => $toAdd['musicType'],
+            ':yearOfCreation' => $toAdd['yearOfCreation'],
+            ':textPresentation' => $toAdd['textPresentation'],
+            ':scenicExperiences' => $toAdd['scenicExperiences'],
+            ':website' => $toAdd['website'],
+            ':soundcloud' => $toAdd['soundcloud'],
+            ':youtube' => $toAdd['youtube'],
+            ':memberNumber' => $toAdd['memberNumber'],
+            ':memberName1' => $toAdd['memberName1'],
+            ':memberFName1' => $toAdd['memberFName1'],
+            ':memberInstrument1' => $toAdd['memberInstrument1'],
+            ':memberName2' => $toAdd['memberName2'],
+            ':memberFName2' => $toAdd['memberFName2'],
+            ':memberInstrument2' => $toAdd['memberInstrument2'],
+            ':memberName3' => $toAdd['memberName3'],
+            ':memberFName3' => $toAdd['memberFName3'],
+            ':memberInstrument3' => $toAdd['memberInstrument3'],
+            ':memberName4' => $toAdd['memberName4'],
+            ':memberFName4' => $toAdd['memberFName4'],
+            ':memberInstrument4' => $toAdd['memberInstrument4'],
+            ':memberName5' => $toAdd['memberName5'],
+            ':memberFName5' => $toAdd['memberFName5'],
+            ':memberInstrument5' => $toAdd['memberInstrument5'],
+            ':memberName6' => $toAdd['memberName6'],
+            ':memberFName6' => $toAdd['memberFName6'],
+            ':memberInstrument6' => $toAdd['memberInstrument6'],
+            ':memberName7' => $toAdd['memberName7'],
+            ':memberFName7' => $toAdd['memberFName7'],
+            ':memberInstrument7' => $toAdd['memberInstrument7'],
+            ':memberName8' => $toAdd['memberName8'],
+            ':memberFName8' => $toAdd['memberFName8'],
+            ':memberInstrument8' => $toAdd['memberInstrument8'],
+            ':audio1' => $toAdd['audio1'],
+            ':audio2' => $toAdd['audio2'],
+            ':audio3' => $toAdd['audio3'],
+            ':dossierPresse' => $toAdd['dossierPresse'],
+            ':photo1' => $toAdd['photo1'],
+            ':photo2' => $toAdd['photo2'],
+            ':ficheTechnique' => $toAdd['ficheTechnique'],
+            ':sacemPdf' => $toAdd['sacemPdf'],
+            ':statutAssociatif' => $toAdd['statutAssociatif'],
+            ':sacem' => $toAdd['sacem'],
+            ':producer' => $toAdd['producer'],
+            ':idCandidature' => $toAdd['idCandidature']
 
 
-    var_dump($registerUser->errorInfo());
-    echo("<br>");
+        /*
+        !$registerUser->execute(array(
+            ':groupeName' => $toAdd['groupeName'],
+            ':departement' => $toAdd['departement'],
+            ':sceneType' => $toAdd['sceneType'],
+            ':repName' => $toAdd['repName'],
+            ':repFName' => $toAdd['repFName'],
+            ':repAddress' => $toAdd['repAddress'],
+            ':repPostCode' => $toAdd['repPostCode'],
+            ':repMail' => $toAdd['repMail'],
+            ':repPhone' => $toAdd['repPhone'],
+            ':musicType' => $toAdd['musicType'],
+            ':yearOfCreation' => $toAdd['yearOfCreation'],
+            ':textPresentation' => $toAdd['textPresentation'],
+            ':scenicExperiences' => $toAdd['scenicExperiences'],
+            ':website' => $toAdd['website'],
+            ':soundcloud' => $toAdd['soundcloud'],
+            ':youtube' => $toAdd['youtube'],
+            ':memberNumber' => $toAdd['memberNumber'],
+            ':memberName1' => $toAdd['memberName1'],
+            ':memberFName1' => $toAdd['memberFName1'],
+            ':memberInstrument1' => $toAdd['memberInstrument1'],
+            ':memberName2' => $toAdd['memberName2'],
+            ':memberFName2' => $toAdd['memberFName2'],
+            ':memberInstrument2' => $toAdd['memberInstrument2'],
+            ':memberName3' => $toAdd['memberName3'],
+            ':memberFName3' => $toAdd['memberFName3'],
+            ':memberInstrument3' => $toAdd['memberInstrument3'],
+            ':memberName4' => $toAdd['memberName4'],
+            ':memberFName4' => $toAdd['memberFName4'],
+            ':memberInstrument4' => $toAdd['memberInstrument4'],
+            ':memberName5' => $toAdd['memberName5'],
+            ':memberFName5' => $toAdd['memberFName5'],
+            ':memberInstrument5' => $toAdd['memberInstrument5'],
+            ':memberName6' => $toAdd['memberName6'],
+            ':memberFName6' => $toAdd['memberFName6'],
+            ':memberInstrument6' => $toAdd['memberInstrument6'],
+            ':memberName7' => $toAdd['memberName7'],
+            ':memberFName7' => $toAdd['memberFName7'],
+            ':memberInstrument7' => $toAdd['memberInstrument7'],
+            ':memberName8' => $toAdd['memberName8'],
+            ':memberFName8' => $toAdd['memberFName8'],
+            ':memberInstrument8' => $toAdd['memberInstrument8'],
+            ':audio1' => "test",
+            ':audio2' => "test",
+            ':audio3' => "test",
+            ':dossierPresse' => "test",
+            ':photo1' => "test",
+            ':photo2' => "test",
+            ':ficheTechnique' => "test",
+            ':sacemPdf' => "test",
+            ':statutAssociatif' => 1,
+            ':sacem' => 1,
+            ':producer' => 1,
+            ':idCandidature' => "test"
+           */
+        ))) {
+            echo "Échec lors de l'exécution :" . var_dump($registerUser->errorInfo());
+        } else {
+            Flight::redirect("/");
+        }
 
-    if (!
-    $registerUser->execute(array(
-        ':groupeName' => $toAdd['groupeName'],
-        ':departement' => $toAdd['departement'],
-        ':sceneType' => $toAdd['sceneType'],
-        ':repName' => $toAdd['repName'],
-        ':repFName' => $toAdd['repFName'],
-        ':repAddress' => $toAdd['repAddress'],
-        ':repPostCode' => $toAdd['repPostCode'],
-        ':repMail' => $toAdd['repMail'],
-        ':repPhone' => $toAdd['repPhone'],
-        ':musicType' => $toAdd['musicType'],
-        ':yearOfCreation' => $toAdd['yearOfCreation'],
-        ':textPresentation' => $toAdd['textPresentation'],
-        ':scenicExperiences' => $toAdd['scenicExperiences'],
-        ':website' => $toAdd['website'],
-        ':soundcloud' => $toAdd['soundcloud'],
-        ':youtube' => $toAdd['youtube'],
-        ':memberNumber' => $toAdd['memberNumber'],
-        ':memberName1' => $toAdd['memberName1'],
-        ':memberFName1' => $toAdd['memberFName1'],
-        ':memberInstrument1' => $toAdd['memberInstrument1'],
-        ':memberName2' => $toAdd['memberName2'],
-        ':memberFName2' => $toAdd['memberFName2'],
-        ':memberInstrument2' => $toAdd['memberInstrument2'],
-        ':memberName3' => $toAdd['memberName3'],
-        ':memberFName3' => $toAdd['memberFName3'],
-        ':memberInstrument3' => $toAdd['memberInstrument3'],
-        ':memberName4' => $toAdd['memberName4'],
-        ':memberFName4' => $toAdd['memberFName4'],
-        ':memberInstrument4' => $toAdd['memberInstrument4'],
-        ':memberName5' => $toAdd['memberName5'],
-        ':memberFName5' => $toAdd['memberFName5'],
-        ':memberInstrument5' => $toAdd['memberInstrument5'],
-        ':memberName6' => $toAdd['memberName6'],
-        ':memberFName6' => $toAdd['memberFName6'],
-        ':memberInstrument6' => $toAdd['memberInstrument6'],
-        ':memberName7' => $toAdd['memberName7'],
-        ':memberFName7' => $toAdd['memberFName7'],
-        ':memberInstrument7' => $toAdd['memberInstrument7'],
-        ':memberName8' => $toAdd['memberName8'],
-        ':memberFName8' => $toAdd['memberFName8'],
-        ':memberInstrument8' => $toAdd['memberInstrument8'],
-        ':audio1' => "test",
-        ':audio2' => "test",
-        ':audio3' => "test",
-        ':dossierPresse' => "test",
-        ':photo1' => "test",
-        ':photo2' => "test",
-        ':ficheTechnique' => "test",
-        ':sacemPdf' => 1,
-        ':statutAssociatif' => 1,
-        ':sacem' => 1,
-        ':producer' => 1,
-        ':idCandidature' => 1
-    ))) {
-        echo "Échec lors de l'exécution :" . var_dump($registerUser->errorInfo());
     }
 
-    */
 
-    //Commentaire Loic ptet un dernier commentaire sur les requetes
-    $departements = $db->query("SELECT * FROM departement");
-    $departements = $departements->fetchAll();
 
-    $scenes = $db->query("SELECT * FROM scene");
-    $scenes = $scenes->fetchAll();
-    Flight::render("candidature.tpl", array("scenes" => $scenes, "departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
 
 
 });
@@ -666,7 +731,7 @@ Flight::route('GET /profil', function () {
 
 Flight::route('GET /logout', function () {
 
-    session_destroy();
+    $_SESSION = array();
     Flight::redirect("/");
 
 });
