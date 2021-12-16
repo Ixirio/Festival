@@ -1,3 +1,10 @@
+body {
+    font-family: sans-serif;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
 .nav {
     display: flex;
     background-color: #1B1F3B;
@@ -27,29 +34,28 @@ form {
     margin: auto;
 }
 
-
-
 .container {
     text-align: center;
     margin: auto;
     width: 90vh;
-    background-color: #bebab6;
+    background-color: rgba(0, 0, 0, 0.349);
     border-radius: 10px;
+    color: #fff;
 }
 
 .container div {
     width: fit-content;
+    height: fit-content;
     margin: auto;
+}
+
+h1{
+    margin: 0;
+    
 }
 
 .error {
     color: red;
-}
-body {
-    font-family: sans-serif;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
 }
   
 .file-input__input {
@@ -80,3 +86,13 @@ body {
     margin-right: 4px;
 }
   
+.image{
+    background-image: url(../images/festival.png);
+    min-height: 100vh;
+    height: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+}

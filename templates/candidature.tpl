@@ -1,7 +1,7 @@
 {extends file='layout.tpl'}
 {block name=title}Candidature{/block}
 {block name=body}
-
+<div class="image">
     <div class="container">
 
         <h1>Candidature</h1>
@@ -16,54 +16,73 @@
                 </div>
 
                 <div class="pure-control-group">
-                    <label for="aligned-departement">Département :</label>
+                    <label for="aligned-departement">Département</label>
                     <select name="departement" id="aligned-departement">
+                    <!--
+                    Ici on récupère les différents départements contenus dans la table départements de la base de données, et on affiche chacun d'entre comme option
+                    dans notre select. On y ajoute une option "autre" pour les étrangers.
+                    -->
                         {foreach from=$departements item=depart}
                             <option  value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
                         {/foreach}
+                        <option  value="Autre">Autre</option>
                     </select>
                 </div>
 
                 <div class="pure-control-group">
-                <label for="aligned-scene">Type de scène :</label>
+                <label for="aligned-scene">Type de scène</label>
                     <select name="sceneType" id="aligned-scene">
+                    <!--
+                    Ici on récupère les différents types de scènes contenus dans la table scenes de la base de données, et on affiche chacun d'entre comme option
+                    dans notre select.
+                    -->
+                        {foreach from=$scenes item=typedescene}
+                            <option  value="{$scenes['NOM_SCENE']}">{$typedescene['NOM_SCENE']}</option>
+                        {/foreach}
+                        <!--
                         <option value="tribute">Tribute</option>
                         <option value="acoustique_folk">Acoustique, Folk</option>
                         <option value="amplifie_rock">Amplifié, Rock</option>
+                        -->
                     </select>
                 </div>
 
                 <div class="pure-control-group">
-                    <p>Représentant du groupe : </p>
+                    <p>Représentant du groupe</p>
                     <label for="aligned-name">Nom </label>
                     <input type="text" name="repName" placeholder="Dupont"
                            value="{$valeurs.repName|escape|default:''}"/>
                     <p class="error">{$messages.repName|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Prénom </label>
                     <input type="text" name="repFName" placeholder="Claude"
                            value="{$valeurs.repFName|escape|default:''}"/>
                     <p class="error">{$messages.repFName|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Adresse </label>
                     <input type="text" name="repAddress" placeholder="47 rue des robiniers, New York"
                            value="{$valeurs.repAddress|escape|default:''}"/>
                     <p class="error">{$messages.repAddress|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Code postal </label>
                     <input type="text" name="repPostCode" placeholder="80000"
                            value="{$valeurs.repPostCode|escape|default:''}"/>
                     <p class="error">{$messages.repPostCode|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="email">Adresse e-mail </label>
                     <input type="text" name="repMail" placeholder="claude.dupont@gmail.com"
                            value="{$valeurs.repMail|escape|default:''}"/>
                     <p class="error">{$messages.repMail|default:''}</p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Téléphone </label>
                     <input type="text" name="repPhone" placeholder="0607080910"
@@ -71,13 +90,13 @@
                     <p class="error">{$messages.repPhone|default:''}</p>
                 </div>
 
-
                 <div class="pure-control-group">
                     <label for="aligned-name">Style Musical </label>
                     <input type="text" name="musicType" placeholder="Rock"
                            value="{$valeurs.musicType|escape|default:''}"/>
                     <p class="error">{$messages.musicType|default:''} </p>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="aligned-name">Année de création </label>
                     <input type="text" name="yearOfCreation" placeholder="2010"
@@ -120,7 +139,7 @@
                 </div>
 
                 <div class="pure-control-group">
-                    <label for="aligned-memberNumber">Membres du groupe : </label>
+                    <label for="aligned-memberNumber">Membres du groupe</label>
                     <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
                         {for $i=1 to 8}
                             {if $valeurs.memberNumber|intval|escape|default:1 == $i}
@@ -135,27 +154,6 @@
                 </div>
 
                 <div class='form-group col-xs-12 col-md-12 col-lg-10' id="membreInput">
-                    <!--
-                <h4 style="margin: 20px; width: 100%; font-size: 20px;">
-                    <b>Membre 1</b>
-                </h4>
-
-                <div class="pure-control-group">
-                    <label for="aligned-name">Nom </label>
-                    <input type="text" name="memberName1" placeholder="Pichard" value = "{$valeurs.memberName|escape|default:''}" />
-                    <p class="error">{$messages['memberName1']|default:''}</p>
-                </div>
-                <div class="pure-control-group">
-                    <label for="aligned-name">Prénom </label>
-                    <input type="text" name="memberFName1" placeholder="Étienne" value = "{$valeurs.memberFName|escape|default:''}" />
-                    <p class="error">{$messages.memberFName1|default:''}</p>
-                </div>
-                <div class="pure-control-group">
-                    <label for="aligned-name">Instrument(s) </label>
-                    <input type="text" name="memberInstrument1" placeholder="Kazoo, flûte à bec" value ="{$valeurs.memberInstrument|escape|default:''}"/>
-                    <p class="error">{$messages.memberInstrument1|default:''}</p>
-                </div>
-                -->
                 </div>
                 <script>
                     const input = document.querySelector('.memberNb');
@@ -229,15 +227,6 @@
                     valueMemberInstrument.push('{$valeurs.memberInstrument6|escape:javascript|default:''}');
                     valueMemberInstrument.push('{$valeurs.memberInstrument7|escape:javascript|default:''}');
                     valueMemberInstrument.push('{$valeurs.memberInstrument8|escape:javascript|default:''}');
-
-                    console.log(erreursMemberName);
-                    console.log(erreursMemberFName);
-                    console.log(erreursMemberInstrument);
-                    console.log(valueMemberName);
-                    console.log(valueMemberFName);
-                    console.log(valueMemberInstrument);
-
-                    console.log(erreursMemberName[i])
 
                     for (var i = 1; i <= input.value; i++) {
                         var section = document.createElement('h4');
@@ -332,4 +321,5 @@
             </fieldset>
         </form>
     </div>
+</div>
 {/block}

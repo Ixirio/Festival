@@ -1,22 +1,5 @@
 <?php
 
-
-
-function get_dpi($filename){ // https://stackoverflow.com/questions/5892731/how-to-check-photo-dpi-with-php
-    $a = fopen($filename,'r');
-    $string = fread($a,20);
-    fclose($a);
-
-    $data = bin2hex(substr($string,14,4));
-    $x = substr($data,0,4);
-    $y = substr($data,4,4);
-
-    return array(hexdec($x),hexdec($y));
-}
-
-
-
-
 Flight::route('/', function () {
 
     Flight::render("index.tpl", array());
@@ -142,7 +125,6 @@ Flight::route('POST /login', function () {
 
     if (count($messages) > 0) {
         Flight::render("login.tpl", array("valeurs" => $_POST, "messages" => $messages));
-
     } else {
         $_SESSION['utilisateur'] = array("pseudo" => $requete['name'], "email" => $requete['mail'], "admin" => $admin);
         Flight::redirect("/");
@@ -170,7 +152,7 @@ Flight::route('POST /candidature', function () {
 
     // On check si le groupeName est vide
     if (empty(trim($form['groupeName']))) {
-        $messages['groupeName'] = "groupeName vide";
+        $messages['groupeName'] = "Veuillez saisir le nom du groupe";
 
     } else {
         $toAdd['groupeName'] = $form['groupeName'];
@@ -178,37 +160,37 @@ Flight::route('POST /candidature', function () {
 
     // On check si le departement est vide
     if (empty(trim($form['departement']))) {
-        $messages['departement'] = "departement vide";
-    } else {
-        $toAdd['departement'] = $form['departement'];
+        $messages['departement'] = "Veuillez entrer un département valide";
+    }else{
+        $toAdd['departement']  = $form['departement'];
     }
     // On check si le sceneType est vide
     if (empty(trim($form['sceneType']))) {
-        $messages['sceneType'] = "sceneType vide";
-    } else {
-        $toAdd['sceneType'] = $form['sceneType'];
+        $messages['sceneType'] = "Veuillez choisir un type de scène";
+    }else{
+        $toAdd['sceneType']  = $form['sceneType'];
     }
     // On check si le repName est vide
     if (empty(trim($form['repName']))) {
-        $messages['repName'] = "repName vide";
+        $messages['repName'] = "Veuillez saisir le nom  du représentant";
     } else {
         $toAdd['repName'] = $form['repName'];
     }
     // On check si le repFName est vide
     if (empty(trim($form['repFName']))) {
-        $messages['repFName'] = "repFName vide";
+        $messages['repFName'] = "Veuillez saisir le prénom du représentant";
     } else {
         $toAdd['repFName'] = $form['repFName'];
     }
     // On check si le repAddress est vide
     if (empty(trim($form['repAddress']))) {
-        $messages['repAddress'] = "repAddress vide";
+        $messages['repAddress'] = "Veuillez saisir l'adresse du représentant";
     } else {
         $toAdd['repAddress'] = $form['repAddress'];
     }
     // On check si le repPostCode est vide
     if (empty(trim($form['repPostCode']))) {
-        $messages['repPostCode'] = "repPostCode vide";
+        $messages['repPostCode'] = "Veuillez saisir le code postal du représentant";
     } else {
         if (is_numeric($form['repPostCode'])) {
             $toAdd['repPostCode'] = (int)$form['repPostCode'];
@@ -218,13 +200,13 @@ Flight::route('POST /candidature', function () {
     }
     // On check si le repMail est vide
     if (empty(trim($form['repMail']))) {
-        $messages['repMail'] = "repMail vide";
+        $messages['repMail'] = "Veuillez saisir l'adresse mail du représentant";
     } else {
         $toAdd['repMail'] = $form['repMail'];
     }
     // On check si le repPhone est vide
     if (empty(trim($form['repPhone']))) {
-        $messages['repPhone'] = "repPhone vide";
+        $messages['repPhone'] = "Veuillez saisir le numéro de téléphone du représentant";
     } else {
         if (is_numeric($form['repPhone'])) {
             $toAdd['repPhone'] = (int)$form['repPhone'];
@@ -235,13 +217,13 @@ Flight::route('POST /candidature', function () {
 
     // On check si le musicType est vide
     if (empty(trim($form['musicType']))) {
-        $messages['musicType'] = "musicType vide";
+        $messages['musicType'] = "Veuillez saisir le style musical";
     } else {
         $toAdd['musicType'] = $form['musicType'];
     }
     // On check si le yearOfCreation est vide
     if (empty(trim($form['yearOfCreation']))) {
-        $messages['yearOfCreation'] = "yearOfCreation vide";
+        $messages['yearOfCreation'] = "Veuillez saisir l'année de création du groupe";
     } else {
         if (is_numeric($form['yearOfCreation'])) {
             $toAdd['yearOfCreation'] = (int)$form['yearOfCreation'];
@@ -251,18 +233,18 @@ Flight::route('POST /candidature', function () {
     }
     // On check si le textPresentation est vide
     if (empty(trim($form['textPresentation']))) {
-        $messages['textPresentation'] = "textPresentation vide";
+        $messages['textPresentation'] = "Veuillez saisir une présentation de votre texte";
     } else {
         $toAdd['textPresentation'] = $form['textPresentation'];
     }
     // On check si le scenicExperiences est vide
     if (empty(trim($form['scenicExperiences']))) {
-        $messages['scenicExperiences'] = "scenicExperiences vide";
+        $messages['scenicExperiences'] = "Veuillez saisir votre expérience scénique";
     } else {
         $toAdd['scenicExperiences'] = $form['scenicExperiences'];
     }// On check si le website est vide
     if (empty(trim($form['website']))) {
-        $messages['website'] = "website vide";
+        $messages['website'] = "Veuillez saisir votre site internet / Facebook";
     } else {
         $toAdd['website'] = $form['website'];
     }
@@ -309,19 +291,19 @@ Flight::route('POST /candidature', function () {
 
         // On check si le memberName n'est pas vide
         if (empty(trim($form['memberName' . $i]))) {
-            $messages['memberName' . $i] = "memberName" . $i . " vide";
+            $messages['memberName' . $i] = "Veuillez saisir le prénom du membre " . $i;
         } else {
             $toAdd['memberName' . $i] = $form['memberName' . $i];
         }
         // On check si le memberFName n'est pas vide
         if (empty(trim($form['memberFName' . $i]))) {
-            $messages['memberFName' . $i] = "memberFName" . $i . " vide";
+            $messages['memberFName' . $i] = "Veuillez saisir le nom du membre " . $i;
         } else {
             $toAdd['memberFName' . $i] = $form['memberFName' . $i];
         }
         // On check si le memberInstrument n'est pas vide
         if (empty(trim($form['memberInstrument' . $i]))) {
-            $messages['memberInstrument' . $i] = "memberInstrument" . $i . " vide";
+            $messages['memberInstrument' . $i] = "Veuillez saisir le(s) instrument(s) du membre " . $i;
         } else {
             $toAdd['memberInstrument' . $i] = $form['memberInstrument' . $i];
         }
