@@ -597,7 +597,7 @@ Flight::route('POST /candidature', function () {
 
     $scenes = $db->query("SELECT * FROM scene");
     $scenes = $scenes->fetchAll();
-    Flight::render("candidature.tpl", array("departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
+    Flight::render("candidature.tpl", array("scenes" => $scenes, "departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
 
 
 });
