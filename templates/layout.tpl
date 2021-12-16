@@ -20,7 +20,11 @@
 {block name=menu}
     <div class="nav">
         <a href="./">Accueil</a>
-        <a href="candidature">Candidature</a>
+        {if isset($utilisateur)}
+            <a href="candidature">Candidature</a>
+        {else}
+            <a href="login">Candidature</a>
+        {/if}
         <div style="display: flex;">
         {if isset($utilisateur)}
             
