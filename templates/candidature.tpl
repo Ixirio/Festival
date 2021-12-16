@@ -1,12 +1,14 @@
 {extends file='layout.tpl'}
 {block name=title}Candidature{/block}
 {block name=body}
+
 <div class="image">
     <div class="container">
 
-        <h1>Candidature</h1>
-
         <form action="candidature" method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
+
+            <h1>Candidature</h1>
+
             <fieldset>
                 <div class="pure-control-group">
                     <label for="aligned-name">Nom du groupe</label>
@@ -344,7 +346,7 @@
                     <p class="error">{$messages.producer|default:''}</p>
                 </div>
 
-                <div class="pure-controls">
+                <div class="pure-control-group">
                     <button type="submit" class="pure-button pure-button-primary">Valider</button>
                 </div>
 

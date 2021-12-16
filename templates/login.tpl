@@ -5,9 +5,10 @@
 <div class="image">
     <div class="container">
 
-        <h1>Login</h1>
-
         <form action="login" method="post" class="pure-form pure-form-stacked">
+        
+            <h1>Login</h1>
+            
             <fieldset>
                 <div class="pure-control-group">
                     <label for="aligned-login">Email</label>

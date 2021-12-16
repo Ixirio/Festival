@@ -7,34 +7,36 @@ body {
 
 .nav {
     display: flex;
-    background-color: #1B1F3B;
+    background-color: #5A7684;
 }
 
 .nav div {
     display: flex;
-    background-color: #1B1F3B;
+    background-color: #5A7684;
 }
+
 .nav a{
     margin: auto;
     padding: 10px 10px 10px 10px;
-    color : #B0DB43;
+    color : #C5D1EB;
     text-decoration: none;
 }
 
 .nav a:hover{
     transition: 0.7s;
-    color : #B14AED;
+    color : #92AFD7;
 }
 
 .nav p{
     color: #fff;
 }
 
-form {
-    margin: auto;
+.container{
+    color : #fff;
+    padding: 20px 0 20px 0;
 }
 
-.container {
+.container form{
     text-align: center;
     margin: auto;
     width: 90vh;
@@ -43,15 +45,12 @@ form {
     color: #fff;
 }
 
-.container div {
-    width: fit-content;
-    height: fit-content;
+.container form div input{
     margin: auto;
 }
 
 h1{
     margin: 0;
-    
 }
 
 .error {
