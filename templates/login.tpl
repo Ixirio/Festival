@@ -17,7 +17,7 @@
             
             <fieldset>
                 <div class="pure-control-group">
-                    <label for="aligned-login">Email</label>
+                    <label for="aligned-login">Email ou pseudo</label>
                     <input id="centered" type="text" name="login" id="aligned-login" placeholder="mail/pseudo" value="{$valeurs.login|escape|default:''}" required=""/>
                     {$messages.login|default:''}
                 </div>

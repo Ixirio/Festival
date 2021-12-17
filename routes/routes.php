@@ -68,8 +68,7 @@ Flight::route('POST /register', function () {
         Flight::render("register.tpl", array("valeurs" => $_POST, "messages" => $messages));
     } else {
         $registerUser->execute(array(':name' => $_POST['name'], ':mail' => $_POST['mail'], ':pass' => password_hash($_POST['password'], PASSWORD_DEFAULT)));
-        var_dump($registerUser);
-        Flight::render("success.tpl", array());
+            Flight::render("success.tpl", array());
     }
 
 });
@@ -717,9 +716,7 @@ Flight::route('GET /showCandidature', function(){
     if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])){
         $id = Flight::request()->query['id'];
     }
-
-    var_dump($id);
-
+    
     $datas->execute(array(":id" => $id));
     if ($datas->rowCount() >=1){
         $datas = $datas->fetch();
@@ -754,6 +751,26 @@ Flight::route('GET /listCandidatures', function(){
 
 
 });
+
+Flight::route('GET /deleteCandidature', function(){
+
+    if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])){
+        $id = Flight::request()->query['id'];
+        $db = flight::get("maBase");
+        $datas = $db->prepare("DELETE FROM candidature WHERE ID_CANDIDATURE = :id ");
+        $datas = $datas->execute(array(":id"=>$id));
+
+
+
+
+        Flight::redirect("listCandidatures");
+    } else {
+        Flight::redirect("/");
+    }
+
+
+});
+
 
 
 Flight::route('GET /profil', function () {

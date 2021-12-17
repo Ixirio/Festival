@@ -12,6 +12,7 @@
                 <th scope="col">Details</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Photo</th>
+                <th scope="col">Supprimer</th>
             </tr>
             </thead>
             <tbody>
@@ -28,6 +29,9 @@
 
                 <td class="table-cell">{$candidature.NOM_GROUPE}</td>
                 <td class="table-cell"><img src="{$candidature.PHOTO_1}" width="50" height="50"></td>
+
+                <td class="table-cell"><a
+                            href="http://localhost/Festival/deleteCandidature?id={$candidature.ID_CANDIDATURE}">Supprimer</a></td>
 
             </tr>
                 {$counter = $counter + 1}

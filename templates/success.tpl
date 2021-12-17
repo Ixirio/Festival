@@ -2,9 +2,12 @@
 {block name=title}Success{/block}
 {block name=body}
 <div class="image">
-    <div class="container">
-        <h1>Inscription Réussie</h1>
-        <p>Félicitations !</p>
+    <div class="container ">
+        <div class="cadre">
+            <h1 style="text-align: center">Inscription Réussie</h1>
+            <p style="text-align: center">Félicitations !</p>
+        </div>
+
     </div>
 </div>
 {/block}
