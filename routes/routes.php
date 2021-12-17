@@ -751,6 +751,3 @@ Flight::route('GET /logout', function () {
     Flight::redirect("/");
 
 });
-
-?>
-
