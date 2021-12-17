@@ -25,7 +25,7 @@ Flight::route('POST /register', function () {
     // Préparation de la requete pour tester si le nom d'utilisateur est déja dans la base
     $name = $db->prepare("SELECT name FROM users WHERE name = :name");
     // Début des tests du formulaire d'inscription pour chaque champ, s'il est vide on renvoie un message d'erreur.
-    $registerUser = $db->prepare("INSERT INTO users VALUES(:name, :mail, :pass)");
+    $registerUser = $db->prepare("INSERT INTO users VALUES(:name, :mail, :pass, 1)");
 
     if (empty(trim($form->name))) {
         $messages['name'] = "Veuillez saisir un nom d'utilisateur";
