@@ -2,13 +2,13 @@
 // Les fonctionnements des formulaires d'inscription, de connexion et de candidature étant assez similaires, ne seront pas commentées les actions redondantes.
 Flight::route('/', function () {
     // Affichage de la page principale du site.
-    Flight::render("index.tpl", array()); 
+    Flight::render("index.tpl", array());
 
 });
 
 Flight::route('GET /register', function () {
     // Affichage du template de la page du formulaire d'enregistrement.
-    Flight::render("register.tpl", array()); 
+    Flight::render("register.tpl", array());
 
 
 });
@@ -20,18 +20,18 @@ Flight::route('POST /register', function () {
     $db = flight::get("maBase");
 
     $messages = array();
-     // Préparation de la requete pour tester si l'email est déja dans la base
+    // Préparation de la requete pour tester si l'email est déja dans la base
     $email = $db->prepare("SELECT mail FROM users WHERE mail = :mail");
     // Préparation de la requete pour tester si le nom d'utilisateur est déja dans la base
-    $name = $db->prepare("SELECT name FROM users WHERE name = :name"); 
+    $name = $db->prepare("SELECT name FROM users WHERE name = :name");
     // Début des tests du formulaire d'inscription pour chaque champ, s'il est vide on renvoie un message d'erreur.
-    $registerUser = $db->prepare("INSERT INTO users VALUES(:name, :mail, :pass)"); 
+    $registerUser = $db->prepare("INSERT INTO users VALUES(:name, :mail, :pass)");
 
     if (empty(trim($form->name))) {
         $messages['name'] = "Veuillez saisir un nom d'utilisateur";
     } else {
         $name->execute(array(':name' => $form->name));
-         // On teste si le pseudo renseigné n'est pas déjà dans la base de données.
+        // On teste si le pseudo renseigné n'est pas déjà dans la base de données.
         if ($name->rowCount() != 0) {
             $messages['name'] = "Ce pseudo est déja utilisé !";
         }
@@ -58,7 +58,7 @@ Flight::route('POST /register', function () {
         $messages['password'] = "Veuillez saisir un mot de passe";
     } else {
         // On teste si la longueur du mot de passe est conforme.
-        if (strlen($form->password) < 8) { 
+        if (strlen($form->password) < 8) {
             $messages['password'] = "Le mot de passe doit faire plus de 8 caractères !";
         }
     }
@@ -68,7 +68,7 @@ Flight::route('POST /register', function () {
         Flight::render("register.tpl", array("valeurs" => $_POST, "messages" => $messages));
     } else {
         $registerUser->execute(array(':name' => $_POST['name'], ':mail' => $_POST['mail'], ':pass' => password_hash($_POST['password'], PASSWORD_DEFAULT)));
-            Flight::render("success.tpl", array());
+        Flight::render("success.tpl", array());
     }
 
 });
@@ -105,18 +105,20 @@ Flight::route('POST /login', function () {
         $requete = $requete->fetch();
         if ($requeteRowCount < 1) {
 
-            $messages['login'] = "Identifiant invalide";
+            $messages['password'] = "Identifiant ou mot de passe invalide";
         }
     }
 
-    if (empty(trim($form->password))) {
-        $messages['password'] = "Veuillez saisir un mot de passe";
-    } else {
-        if (strlen($form->password) < 8) {
-            $messages['password'] = "Mot de passe invalide";
+    if (isset($requete['name'])) {
+        if (empty(trim($form->password))) {
+            $messages['password'] = "Veuillez saisir un mot de passe";
         } else {
-            if (!password_verify($form->password, $requete['pass'])) {
-                $messages['password'] = "Identifiant ou mot de passe invalide !";
+            if (strlen($form->password) < 8) {
+                $messages['password'] = "Mot de passe invalide";
+            } else {
+                if (!password_verify($form->password, $requete['pass'])) {
+                    $messages['password'] = "Identifiant ou mot de passe invalide !";
+                }
             }
         }
     }
@@ -147,7 +149,7 @@ Flight::route('GET /candidature', function () {
 
     $testForm->execute(array(":id" => $_SESSION['utilisateur']['pseudo']));
 
-    if ($testForm->rowCount() != 0 || $_SESSION['utilisateur']['pseudo'] == "root"){
+    if ($testForm->rowCount() != 0 || $_SESSION['utilisateur']['pseudo'] == "root") {
         $testForm = $testForm->fetch();
         Flight::redirect('/showCandidature');
     }
@@ -158,7 +160,7 @@ Flight::route('GET /candidature', function () {
     $scenes = $db->query("SELECT * FROM scene");
     $scenes = $scenes->fetchAll();
 
-    Flight::render("candidature.tpl", array("scenes" =>$scenes, "departements" => $departements));
+    Flight::render("candidature.tpl", array("scenes" => $scenes, "departements" => $departements));
 
 });
 // DÉBUT DU FORMULAIRE DE CANDIDATURE
@@ -179,13 +181,13 @@ Flight::route('POST /candidature', function () {
 
     if (empty(trim($form['departement']))) {
         $messages['departement'] = "Veuillez entrer un département valide";
-    }else{
-        $toAdd['departement']  = $form['departement'];
+    } else {
+        $toAdd['departement'] = $form['departement'];
     }
     if (empty(trim($form['sceneType']))) {
         $messages['sceneType'] = "Veuillez choisir un type de scène";
-    }else{
-        $toAdd['sceneType']  = $form['sceneType'];
+    } else {
+        $toAdd['sceneType'] = $form['sceneType'];
     }
 
     if (empty(trim($form['repName']))) {
@@ -209,10 +211,10 @@ Flight::route('POST /candidature', function () {
     if (empty(trim($form['repPostCode']))) {
         $messages['repPostCode'] = "Veuillez saisir le code postal du représentant";
     } else {
-    // On vérifie que l'utilisateur a bien entré un nombre, afin de ne pas entrer de texte dans une valeur numérique dans la base de données.
-    // On vérifie que le nombre entré fait bien 5 caractères, sinon ce n'est pas un code postal
+        // On vérifie que l'utilisateur a bien entré un nombre, afin de ne pas entrer de texte dans une valeur numérique dans la base de données.
+        // On vérifie que le nombre entré fait bien 5 caractères, sinon ce n'est pas un code postal
         if (is_numeric($form['repPostCode'])) {
-            if (strlen($form->repPostCode) != 5) { 
+            if (strlen($form->repPostCode) != 5) {
                 $messages['repPostCode'] = "Veuillez saisir un code postal valide";
             }
             $toAdd['repPostCode'] = (int)$form['repPostCode'];
@@ -224,14 +226,18 @@ Flight::route('POST /candidature', function () {
     if (empty(trim($form['repMail']))) {
         $messages['repMail'] = "Veuillez saisir l'adresse mail du représentant";
     } else {
-        $toAdd['repMail'] = $form['repMail'];
+        if (filter_var($form['repMail'], FILTER_VALIDATE_EMAIL)){
+            $toAdd['repMail'] = $form['repMail'];
+        } else {
+            $messages['repMail'] = "Mail non-valide";
+        }
     }
 
     if (empty(trim($form['repPhone']))) {
         $messages['repPhone'] = "Veuillez saisir le numéro de téléphone du représentant";
     } else {
         if (is_numeric($form['repPhone'])) {
-            if (strlen($form->repPhone) != 10) { 
+            if (strlen($form->repPhone) != 10) {
                 $messages['repPhone'] = "Veuillez saisir un numéro de téléphone valide";
             }
             $toAdd['repPhone'] = (int)$form['repPhone'];
@@ -270,17 +276,29 @@ Flight::route('POST /candidature', function () {
     if (empty(trim($form['website']))) {
         $messages['website'] = "Veuillez saisir votre site internet / Facebook";
     } else {
-        $toAdd['website'] = $form['website'];
+        if (filter_var($form['website'], FILTER_VALIDATE_URL)){
+            $toAdd['website'] = $form['website'];
+        } else {
+            $messages['website'] = "l'URL n'est pas valide.";
+        }
     }
 
     if (!empty(trim($form['soundcloud']))) {
-        $toAdd['soundcloud'] = $form['soundcloud'];
+        if (filter_var($form['soundcloud'], FILTER_VALIDATE_URL)){
+            $toAdd['soundcloud'] = $form['soundcloud'];
+        } else {
+            $messages['soundcloud'] = "l'URL n'est pas valide.";
+        }
     } else {
         $toAdd['soundcloud'] = "";
     }
 
     if (!empty(trim($form['youtube']))) {
-        $toAdd['youtube'] = $form['youtube'];
+        if (filter_var($form['youtube'], FILTER_VALIDATE_URL)){
+            $toAdd['youtube'] = $form['youtube'];
+        } else {
+            $messages['youtube'] = "l'URL n'est pas valide.";
+        }
     } else {
         $toAdd['youtube'] = "";
     }
@@ -430,26 +448,24 @@ Flight::route('POST /candidature', function () {
         $fileLink = 'files/' .
             basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']);
 
-        if (mime_content_type($fileLink) == "image/png"){
+        if (mime_content_type($fileLink) == "image/png") {
             $image = imagecreatefrompng($fileLink);
             $res = imageresolution($image);
-            if ($res[0]>300 && $res[1]>300){
+            if ($res[0] > 300 && $res[1] > 300) {
                 $toAdd['photo1'] = $fileLink;
             } else {
                 $messages['photo1'] = "DPI inférieur à 300";
             }
 
-        }
-        else if (mime_content_type($fileLink) == "image/jpeg") {
+        } else if (mime_content_type($fileLink) == "image/jpeg") {
             $image = imagecreatefromjpeg($fileLink);
             $res = imageresolution($image);
-            if ($res[0]>300 && $res[1]>300){
+            if ($res[0] > 300 && $res[1] > 300) {
                 $toAdd['photo1'] = $fileLink;
             } else {
                 $messages['photo1'] = "DPI inférieur à 300";
             }
-        }
-        else {
+        } else {
             $messages['photo1'] = "Le fichier n'est pas un .png ou .jpg";
         }
 
@@ -468,26 +484,24 @@ Flight::route('POST /candidature', function () {
         $fileLink = 'files/' .
             basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']);
 
-        if (mime_content_type($fileLink) == "image/png"){
+        if (mime_content_type($fileLink) == "image/png") {
             $image = imagecreatefrompng($fileLink);
             $res = imageresolution($image);
-            if ($res[0]>300 && $res[1]>300){
+            if ($res[0] > 300 && $res[1] > 300) {
                 $toAdd['photo2'] = $fileLink;
             } else {
                 $messages['photo2'] = "DPI inférieur à 300";
             }
 
-        }
-        else if (mime_content_type($fileLink) == "image/jpeg") {
+        } else if (mime_content_type($fileLink) == "image/jpeg") {
             $image = imagecreatefromjpeg($fileLink);
             $res = imageresolution($image);
-            if ($res[0]>300 && $res[1]>300){
+            if ($res[0] > 300 && $res[1] > 300) {
                 $toAdd['photo2'] = $fileLink;
             } else {
                 $messages['photo2'] = "DPI inférieur à 300";
             }
-        }
-        else {
+        } else {
             $messages['photo2'] = "Le fichier n'est pas un .png ou .jpg";
         }
 
@@ -535,21 +549,21 @@ Flight::route('POST /candidature', function () {
 
 
     // VERIFICATION CHECKBOX STATUT ASSOCIATIF
-    if (isset($_POST['statutAssociatif'])){
+    if (isset($_POST['statutAssociatif'])) {
         $toAdd['statutAssociatif'] = 1;
     } else {
         $toAdd['statutAssociatif'] = 0;
     }
     // VERIFICATION CHECKBOX SACEM
 
-    if (isset($_POST['sacem'])){
+    if (isset($_POST['sacem'])) {
         $toAdd['sacem'] = 1;
     } else {
         $toAdd['sacem'] = 0;
     }
     // VERIFICATION CHECKBOX PRODUCTEUR
 
-    if (isset($_POST['producer'])){
+    if (isset($_POST['producer'])) {
         $toAdd['producer'] = 1;
     } else {
         $toAdd['producer'] = 0;
@@ -635,60 +649,60 @@ Flight::route('POST /candidature', function () {
         // Avec du recul, vu qu'on fournit à la fonction execute() un tableau, il aurait pu être généré automatiquement.
         if (
             !$addCandidature->execute(array(
-            ':groupeName' => $toAdd['groupeName'],
-            ':departement' => $toAdd['departement'],
-            ':sceneType' => $toAdd['sceneType'],
-            ':repName' => $toAdd['repName'],
-            ':repFName' => $toAdd['repFName'],
-            ':repAddress' => $toAdd['repAddress'],
-            ':repPostCode' => $toAdd['repPostCode'],
-            ':repMail' => $toAdd['repMail'],
-            ':repPhone' => $toAdd['repPhone'],
-            ':musicType' => $toAdd['musicType'],
-            ':yearOfCreation' => $toAdd['yearOfCreation'],
-            ':textPresentation' => $toAdd['textPresentation'],
-            ':scenicExperiences' => $toAdd['scenicExperiences'],
-            ':website' => $toAdd['website'],
-            ':soundcloud' => $toAdd['soundcloud'],
-            ':youtube' => $toAdd['youtube'],
-            ':memberNumber' => $toAdd['memberNumber'],
-            ':memberName1' => $toAdd['memberName1'],
-            ':memberFName1' => $toAdd['memberFName1'],
-            ':memberInstrument1' => $toAdd['memberInstrument1'],
-            ':memberName2' => $toAdd['memberName2'],
-            ':memberFName2' => $toAdd['memberFName2'],
-            ':memberInstrument2' => $toAdd['memberInstrument2'],
-            ':memberName3' => $toAdd['memberName3'],
-            ':memberFName3' => $toAdd['memberFName3'],
-            ':memberInstrument3' => $toAdd['memberInstrument3'],
-            ':memberName4' => $toAdd['memberName4'],
-            ':memberFName4' => $toAdd['memberFName4'],
-            ':memberInstrument4' => $toAdd['memberInstrument4'],
-            ':memberName5' => $toAdd['memberName5'],
-            ':memberFName5' => $toAdd['memberFName5'],
-            ':memberInstrument5' => $toAdd['memberInstrument5'],
-            ':memberName6' => $toAdd['memberName6'],
-            ':memberFName6' => $toAdd['memberFName6'],
-            ':memberInstrument6' => $toAdd['memberInstrument6'],
-            ':memberName7' => $toAdd['memberName7'],
-            ':memberFName7' => $toAdd['memberFName7'],
-            ':memberInstrument7' => $toAdd['memberInstrument7'],
-            ':memberName8' => $toAdd['memberName8'],
-            ':memberFName8' => $toAdd['memberFName8'],
-            ':memberInstrument8' => $toAdd['memberInstrument8'],
-            ':audio1' => $toAdd['audio1'],
-            ':audio2' => $toAdd['audio2'],
-            ':audio3' => $toAdd['audio3'],
-            ':dossierPresse' => $toAdd['dossierPresse'],
-            ':photo1' => $toAdd['photo1'],
-            ':photo2' => $toAdd['photo2'],
-            ':ficheTechnique' => $toAdd['ficheTechnique'],
-            ':sacemPdf' => $toAdd['sacemPdf'],
-            ':statutAssociatif' => $toAdd['statutAssociatif'],
-            ':sacem' => $toAdd['sacem'],
-            ':producer' => $toAdd['producer'],
-            ':idCandidature' => $toAdd['idCandidature']
-        ))) {
+                ':groupeName' => $toAdd['groupeName'],
+                ':departement' => $toAdd['departement'],
+                ':sceneType' => $toAdd['sceneType'],
+                ':repName' => $toAdd['repName'],
+                ':repFName' => $toAdd['repFName'],
+                ':repAddress' => $toAdd['repAddress'],
+                ':repPostCode' => $toAdd['repPostCode'],
+                ':repMail' => $toAdd['repMail'],
+                ':repPhone' => $toAdd['repPhone'],
+                ':musicType' => $toAdd['musicType'],
+                ':yearOfCreation' => $toAdd['yearOfCreation'],
+                ':textPresentation' => $toAdd['textPresentation'],
+                ':scenicExperiences' => $toAdd['scenicExperiences'],
+                ':website' => $toAdd['website'],
+                ':soundcloud' => $toAdd['soundcloud'],
+                ':youtube' => $toAdd['youtube'],
+                ':memberNumber' => $toAdd['memberNumber'],
+                ':memberName1' => $toAdd['memberName1'],
+                ':memberFName1' => $toAdd['memberFName1'],
+                ':memberInstrument1' => $toAdd['memberInstrument1'],
+                ':memberName2' => $toAdd['memberName2'],
+                ':memberFName2' => $toAdd['memberFName2'],
+                ':memberInstrument2' => $toAdd['memberInstrument2'],
+                ':memberName3' => $toAdd['memberName3'],
+                ':memberFName3' => $toAdd['memberFName3'],
+                ':memberInstrument3' => $toAdd['memberInstrument3'],
+                ':memberName4' => $toAdd['memberName4'],
+                ':memberFName4' => $toAdd['memberFName4'],
+                ':memberInstrument4' => $toAdd['memberInstrument4'],
+                ':memberName5' => $toAdd['memberName5'],
+                ':memberFName5' => $toAdd['memberFName5'],
+                ':memberInstrument5' => $toAdd['memberInstrument5'],
+                ':memberName6' => $toAdd['memberName6'],
+                ':memberFName6' => $toAdd['memberFName6'],
+                ':memberInstrument6' => $toAdd['memberInstrument6'],
+                ':memberName7' => $toAdd['memberName7'],
+                ':memberFName7' => $toAdd['memberFName7'],
+                ':memberInstrument7' => $toAdd['memberInstrument7'],
+                ':memberName8' => $toAdd['memberName8'],
+                ':memberFName8' => $toAdd['memberFName8'],
+                ':memberInstrument8' => $toAdd['memberInstrument8'],
+                ':audio1' => $toAdd['audio1'],
+                ':audio2' => $toAdd['audio2'],
+                ':audio3' => $toAdd['audio3'],
+                ':dossierPresse' => $toAdd['dossierPresse'],
+                ':photo1' => $toAdd['photo1'],
+                ':photo2' => $toAdd['photo2'],
+                ':ficheTechnique' => $toAdd['ficheTechnique'],
+                ':sacemPdf' => $toAdd['sacemPdf'],
+                ':statutAssociatif' => $toAdd['statutAssociatif'],
+                ':sacem' => $toAdd['sacem'],
+                ':producer' => $toAdd['producer'],
+                ':idCandidature' => $toAdd['idCandidature']
+            ))) {
             echo "Échec lors de l'exécution :" . var_dump($addCandidature->errorInfo());
         } else {
             Flight::redirect("/candidature");
@@ -697,13 +711,10 @@ Flight::route('POST /candidature', function () {
     }
 
 
-
-
-
 });
 // FIN  DU FORMULAIRE DE CANDIDATURE
 
-Flight::route('GET /showCandidature', function(){
+Flight::route('GET /showCandidature', function () {
 
 
     $db = flight::get("maBase");
@@ -713,12 +724,12 @@ Flight::route('GET /showCandidature', function(){
     $id = $_SESSION['utilisateur']['pseudo'];
 
     // sauf si l'utilisateur est admin. Alors on va prendre en id l'argument "id" passé en get, si il existe et n'est pas vide.
-    if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])){
+    if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])) {
         $id = Flight::request()->query['id'];
     }
-    
+
     $datas->execute(array(":id" => $id));
-    if ($datas->rowCount() >=1){
+    if ($datas->rowCount() >= 1) {
         $datas = $datas->fetch();
         Flight::render("showCandidature.tpl", array("data" => $datas));
     } else {
@@ -726,25 +737,22 @@ Flight::route('GET /showCandidature', function(){
     }
 
 
-
-
 });
 
-Flight::route('GET /listCandidatures', function(){
+Flight::route('GET /listCandidatures', function () {
 
     if ($_SESSION['utilisateur']['admin'] == 1) {
         $db = flight::get("maBase");
 
         $datas = $db->query("SELECT * FROM candidature");
-        if ($datas->rowCount()){
+        if ($datas->rowCount()) {
             $datas = $datas->fetchAll();
         } else {
             $datas = array();
         }
 
 
-
-        Flight::render("listCandidatures.tpl", array("candidatures"=>$datas));
+        Flight::render("listCandidatures.tpl", array("candidatures" => $datas));
     } else {
         Flight::redirect("/");
     }
@@ -752,15 +760,13 @@ Flight::route('GET /listCandidatures', function(){
 
 });
 
-Flight::route('GET /deleteCandidature', function(){
+Flight::route('GET /deleteCandidature', function () {
 
-    if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])){
+    if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])) {
         $id = Flight::request()->query['id'];
         $db = flight::get("maBase");
         $datas = $db->prepare("DELETE FROM candidature WHERE ID_CANDIDATURE = :id ");
-        $datas = $datas->execute(array(":id"=>$id));
-
-
+        $datas = $datas->execute(array(":id" => $id));
 
 
         Flight::redirect("listCandidatures");
@@ -771,6 +777,26 @@ Flight::route('GET /deleteCandidature', function(){
 
 });
 
+Flight::route('GET /listUsers', function () {
+
+    if ($_SESSION['utilisateur']['admin'] == 1) {
+        $db = flight::get("maBase");
+
+        $datas = $db->query("SELECT * FROM users");
+        if ($datas->rowCount()) {
+            $datas = $datas->fetchAll();
+        } else {
+            $datas = array();
+        }
+
+
+        Flight::render("listUsers.tpl", array("users" => $datas));
+    } else {
+        Flight::redirect("/");
+    }
+
+
+});
 
 
 Flight::route('GET /profil', function () {

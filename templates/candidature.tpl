@@ -78,7 +78,7 @@
 
                 <div class="pure-control-group">
                     <label for="email">Adresse e-mail </label>
-                    <input type="text" name="repMail" placeholder="claude.dupont@gmail.com"
+                    <input type="email" name="repMail" placeholder="claude.dupont@gmail.com"
                            value="{$valeurs.repMail|escape|default:''}"/>
                     <p class="error">{$messages.repMail|default:''}</p>
                 </div>
