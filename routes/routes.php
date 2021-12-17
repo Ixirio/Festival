@@ -798,13 +798,6 @@ Flight::route('GET /listUsers', function () {
 
 });
 
-
-Flight::route('GET /profil', function () {
-
-    Flight::render("profil.tpl", array());
-
-});
-
 Flight::route('GET /logout', function () {
 
     $_SESSION = array();
