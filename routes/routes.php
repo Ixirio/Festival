@@ -542,13 +542,8 @@ Flight::route('POST /candidature', function () {
 */
     // FIN GERER PARTIE FICHIERS MULTIPLES
 
-    //Commentaire Loic Explique ton gros caca là
-
-
-
-
-
-
+    //Commentaire Loic Explique ton gros caca là (aussi le commentaire juste au dessus ça dégage non ?)
+    //Wait t'as changé l'ordre des trucs ? Le gros caca il est en bas maintenant avant il était là
     //Commentaire Loic ptet un dernier commentaire sur les requetes
     $departements = $db->query("SELECT * FROM departement");
     $departements = $departements->fetchAll();
@@ -769,6 +764,3 @@ Flight::route('GET /logout', function () {
     Flight::redirect("/");
 
 });
-
-?>
-

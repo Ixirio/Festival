@@ -312,15 +312,16 @@
                 <p class="error">{$messages.pdfpresse|default:''}</p>
 
                 <p>Photos du groupe (résolution>300DPI)</p>
-                <p>photo1</p>
+                <p>Photo 1</p>
                 <input name="photo1" type="file">
                 <p class="error">{$messages.photo1|default:''}</p>
+                <p>Photo 2</p>
                 <input name="photo2" type="file">
                 <p class="error">{$messages.photo2|default:''}</p>
                 <p>PDF Fiche technique</p>
                 <input name="ficheTechnique" type="file">
                 <p class="error">{$messages.ficheTechnique|default:''}</p>
-                <p>Document SACEM PDF / PDF contenant la liste des noms, compositeurs et durées des morceaux.</p>
+                <p>PDF SACEM / PDF contenant la liste des noms, compositeurs et durées des morceaux.</p>
                 <input name="sacemPdf" type="file">
                 <p class="error">{$messages.sacemPdf|default:''}</p>
 
