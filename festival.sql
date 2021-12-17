@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 17 déc. 2021 à 10:21
+-- Généré le : ven. 17 déc. 2021 à 11:01
 -- Version du serveur : 5.7.33
 -- Version de PHP : 7.4.19
 
@@ -82,6 +82,13 @@ CREATE TABLE `candidature` (
   `PRODUCTEUR` tinyint(1) NOT NULL,
   `ID_CANDIDATURE` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `candidature`
+--
+
+INSERT INTO `candidature` (`NOM_GROUPE`, `DEPARTEMENT`, `TYPE_SCENE`, `NOM_REP`, `PRENOM_REP`, `ADRESSE_REP`, `POSTAL_REP`, `MAIL_REP`, `TEL_REP`, `STYLE`, `ANNEE_CREATION`, `PRESENTATION_TXT`, `EXP_SCENIQUE`, `SITE_FACEBOOK`, `SOUNDCLOUD`, `YOUTUBE`, `NB_MEMBRES`, `NOM_MEMBRE_1`, `PRENOM_MEMBRE_1`, `INSTRUMENT_MEMBRE_1`, `NOM_MEMBRE_2`, `PRENOM_MEMBRE_2`, `INSTRUMENT_MEMBRE_2`, `NOM_MEMBRE_3`, `PRENOM_MEMBRE_3`, `INSTRUMENT_MEMBRE_3`, `NOM_MEMBRE_4`, `PRENOM_MEMBRE_4`, `INSTRUMENT_MEMBRE_4`, `NOM_MEMBRE_5`, `PRENOM_MEMBRE_5`, `INSTRUMENT_MEMBRE_5`, `NOM_MEMBRE_6`, `PRENOM_MEMBRE_6`, `INSTRUMENT_MEMBRE_6`, `NOM_MEMBRE_7`, `PRENOM_MEMBRE_7`, `INSTRUMENT_MEMBRE_7`, `NOM_MEMBRE_8`, `PRENOM_MEMBRE_8`, `INSTRUMENT_MEMBRE_8`, `AUDIO_1`, `AUDIO_2`, `AUDIO_3`, `DOSSIER_PRESSE`, `PHOTO_1`, `PHOTO_2`, `FICHE_TECHNIQUE`, `SACEM_PDF`, `STATUT_ASSOCIATIF`, `INSCRIT_SACEM`, `PRODUCTEUR`, `ID_CANDIDATURE`) VALUES
+('Loic le rappeur solo tmtc', 'Yvelines', 'Amplifiï¿½/Rock', 'Loic', 'Loic', '47 loic du loic', 70133, 'loic@loic.com', 613071307, 'Loic', 7013, 'Wesh c\'est loic on vient on va etre le meilleur on rappe comme du fromage ouÃ©', 'J\'suis un grand rappeur tkt', 'htpp://loic.fr', 'https://truc.fr', '', 1, 'Loic', 'loic', 'le loic', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'files/phpA432.tmp_7th born son.mp3', 'files/phpA442.tmp_All star.mp3', 'files/phpA463.tmp_Never gonna give you up.mp3', '', 'files/phpA484.tmp_waw.png', 'files/phpA485.tmp_waw.png', 'files/phpA486.tmp_Fiche_Renseignements vierge.pdf', 'files/phpA487.tmp_Fiche_Renseignements vierge.pdf', 1, 0, 0, 'loic');
 
 -- --------------------------------------------------------
 
@@ -222,7 +229,7 @@ CREATE TABLE `scene` (
 INSERT INTO `scene` (`NOM_SCENE`) VALUES
 ('Tribute'),
 ('Acoustique/Folk'),
-('Amplifié/Rock');
+('Amplifie/Rock');
 
 -- --------------------------------------------------------
 

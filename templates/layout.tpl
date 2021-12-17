@@ -28,7 +28,7 @@
         <div style="display: flex;">
         {if isset($utilisateur)}
     
-            <a href="logout">Deconnexion</a>
+            <a href="logout">Déconnexion</a>
         {else}
             <a href="login">Connexion</a> <p> | </p> <a href="register">Inscription</a>
         {/if}
