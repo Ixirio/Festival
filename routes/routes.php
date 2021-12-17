@@ -142,13 +142,13 @@ Flight::route('GET /candidature', function () {
 
     // début test si une candidature a déja été déposé 
 
-    $testForm = $db->prepare("SELECT * FROM candidatures WHERE id = :id");
+    $testForm = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
 
     $testForm->execute(array(":id" => $_SESSION['utilisateur']['pseudo']));
 
     if ($testForm->rowCount() != 0){
         $testForm = $testForm->fetch();
-        Flight::render("showCandidature.tpl", array("data" => $testForm));
+        Flight::redirect('/showCandidature');
     }
 
     $departements = $db->query("SELECT * FROM departement");
@@ -743,6 +743,19 @@ Flight::route('POST /candidature', function () {
 
 });
 // FIN  DU FORMULAIRE DE CANDIDATURE
+
+Flight::route('GET /showCandidature', function(){
+
+
+    $db = flight::get("maBase");
+
+    $testForm = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
+
+    $testForm->execute(array(":id" => $_SESSION['utilisateur']['pseudo']));
+
+    $testForm = $testForm->fetch();
+    Flight::render("showCandidature.tpl", array("data" => $testForm));
+});
 
 Flight::route('GET /profil', function () {
 
