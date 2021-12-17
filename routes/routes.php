@@ -716,27 +716,31 @@ Flight::route('POST /candidature', function () {
 
 Flight::route('GET /showCandidature', function () {
 
+    if(isset($_SESSION['utilisateur'])){
 
-    $db = flight::get("maBase");
-    $datas = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
 
-    // On va récupérer la session de l'utilisateur connecté et l'utiliser comme id
-    $id = $_SESSION['utilisateur']['pseudo'];
+        $db = flight::get("maBase");
+        $datas = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
 
-    // Sauf si l'utilisateur est admin. Alors on va prendre en id l'argument "id" passé en get, s'il existe et n'est pas vide.
-    if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])) {
-        $id = Flight::request()->query['id'];
-    }
+        // On va récupérer la session de l'utilisateur connecté et l'utiliser comme id
+        $id = $_SESSION['utilisateur']['pseudo'];
 
-    $datas->execute(array(":id" => $id));
-    if ($datas->rowCount() >= 1) {
-        $datas = $datas->fetch();
-        Flight::render("showCandidature.tpl", array("data" => $datas));
+        // Sauf si l'utilisateur est admin. Alors on va prendre en id l'argument "id" passé en get, s'il existe et n'est pas vide.
+        if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])) {
+            $id = Flight::request()->query['id'];
+        }
+
+        $datas->execute(array(":id" => $id));
+        if ($datas->rowCount() >= 1) {
+            $datas = $datas->fetch();
+            Flight::render("showCandidature.tpl", array("data" => $datas));
+        } else {
+            Flight::redirect("/");
+        }
+
     } else {
         Flight::redirect("/");
     }
-
-
 });
 
 Flight::route('GET /listCandidatures', function () {
@@ -789,8 +793,8 @@ Flight::route('GET /listUsers', function () {
             $datas = array();
         }
 
-
         Flight::render("listUsers.tpl", array("users" => $datas));
+        
     } else {
         Flight::redirect("/");
     }
