@@ -146,7 +146,7 @@ Flight::route('GET /candidature', function () {
 
     $testForm->execute(array(":id" => $_SESSION['utilisateur']['pseudo']));
 
-    if ($testForm->rowCount() != 0){
+    if ($testForm->rowCount() != 0 || $_SESSION['utilisateur']['pseudo'] == "root"){
         $testForm = $testForm->fetch();
         Flight::redirect('/showCandidature');
     }
