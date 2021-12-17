@@ -137,7 +137,20 @@ Flight::route('POST /login', function () {
 // FIN DU FORMULAIRE DE CONNEXION
 Flight::route('GET /candidature', function () {
 
+
     $db = flight::get("maBase");
+
+    // début test si une candidature a déja été déposé 
+
+    $testForm = $db->prepare("SELECT * FROM candidatures WHERE id = :id");
+
+    $testForm->execute(array(":id" => $_SESSION['utilisateur']['pseudo']));
+
+    if ($testForm->rowCount() != 0){
+        $testForm = $testForm->fetch();
+        Flight::render("showCandidature.tpl", array("data" => $testForm));
+    }
+
     $departements = $db->query("SELECT * FROM departement");
     $departements = $departements->fetchAll();
 
@@ -730,6 +743,7 @@ Flight::route('POST /candidature', function () {
 
 });
 // FIN  DU FORMULAIRE DE CANDIDATURE
+
 Flight::route('GET /profil', function () {
 
     Flight::render("profil.tpl", array());
