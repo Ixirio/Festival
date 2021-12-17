@@ -1,13 +1,17 @@
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{block name=title}Default Page Title{/block}</title>
     {block name=head}
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
-    <style>
-        #main,footer{ padding:1em }
-    </style>
-    <link rel="stylesheet" href="templates\style.css">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+              integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ"
+              crossorigin="anonymous">
+        <style>
+            #main, footer {
+                padding: 1em
+            }
+        </style>
+        <link rel="stylesheet" href="templates\style.css">
     {/block}
 </head>
 {*
@@ -20,21 +24,22 @@
 {block name=menu}
     <div class="nav">
         <a href="./">Accueil</a>
+
         {if isset($utilisateur)}
             <a href="candidature">Candidature</a>
+            {if $utilisateur['admin'] == 1}
+                <a href="listCandidatures">Liste Candidatures</a>
+            {/if}
+            <div style="display: flex;">
+                <a href="logout">Déconnexion</a>
+            </div>
         {else}
             <a href="login">Candidature</a>
+            <div style="display: flex;">
+                <a href="login">Connexion</a>
+                <p> | </p> <a href="register">Inscription</a>
+            </div>
         {/if}
-        <div style="display: flex;">
-        {if isset($utilisateur)}
-    
-            <a href="logout">Déconnexion</a>
-        {else}
-            <a href="login">Connexion</a> <p> | </p> <a href="register">Inscription</a>
-        {/if}
-        
-        </div>
-
     </div>
 {/block}
 {block name=body}Contenu générique{/block}

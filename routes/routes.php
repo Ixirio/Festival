@@ -733,6 +733,29 @@ Flight::route('GET /showCandidature', function(){
 
 });
 
+Flight::route('GET /listCandidatures', function(){
+
+    if ($_SESSION['utilisateur']['admin'] == 1) {
+        $db = flight::get("maBase");
+
+        $datas = $db->query("SELECT * FROM candidature");
+        if ($datas->rowCount()){
+            $datas = $datas->fetchAll();
+        } else {
+            $datas = array();
+        }
+
+
+
+        Flight::render("listCandidatures.tpl", array("candidatures"=>$datas));
+    } else {
+        Flight::redirect("/");
+    }
+
+
+});
+
+
 Flight::route('GET /profil', function () {
 
     Flight::render("profil.tpl", array());
