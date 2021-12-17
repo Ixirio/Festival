@@ -121,7 +121,9 @@ Flight::route('POST /login', function () {
             }
         }
     }
-    // Si le nom d'utilisateur est "admin", l'utilisateur sera défini comme administrateur sur le site.
+    // Si le nom d'utilisateur est "root", l'utilisateur sera défini comme administrateur sur le site.
+    // On avait des doutes, mais c'est safe de procéder comme ça:
+    // https://stackoverflow.com/questions/1181105/how-safe-are-php-session-variables
     if (isset($requete['name']) && $requete['name'] == "root") {
         $admin = "1";
     }
@@ -298,14 +300,17 @@ Flight::route('POST /candidature', function () {
         }
     }
 
-    //Commentaire Loic
+    // On initialise dans notre tableau des éléments à ajouter dans la BDD, les valeurs des 8 membres.
+    // Si les membres n'existe pas, la base sera rempli par un champ vide.
+    // il est tout de même impératif de les initialiser.
     for ($i = 1; $i <= 8; $i++) {
         $toAdd['memberName' . $i] = "";
         $toAdd['memberFName' . $i] = "";
         $toAdd['memberInstrument' . $i] = "";
     }
 
-    //Commentaire Loic
+    // Boucle allant de 1 à (nombre de Membres choisi dans le select).
+    // Permet de faire la vérification des membres sans écrire le code spécifique à chaque fois.
     for ($i = 1; $i <= (int)$form['memberNumber']; $i++) {
 
         if (empty(trim($form['memberName' . $i]))) {
@@ -331,7 +336,11 @@ Flight::route('POST /candidature', function () {
 
     // DEBUT GERER PARTIE FICHIERS MULTIPLES
 
-    // Commentaire Loic (Explique en gros ce que cette partie fait genre comment tu gères la verif et tout)
+    // Ici on gère la vérification des fichiers.
+    // Premièrement, on vérifie si le fichier est vide et si il n'y à pas eu d'erreurs.
+    // Ensuite, on test si la fonction "move_uploaded_file" renvoie vrai, si c'est le cas, c'est que le fichier à bien
+    // été déplacé sur le serveur.
+    // Les noms ont un début aléatoire, puis sont traités pour éviter les noms problématiques.
     if (
         (isset($_FILES['audio1']) && $_FILES["audio1"]["error"] <= 0) &&
         move_uploaded_file($_FILES['audio1']['tmp_name'],
@@ -339,6 +348,11 @@ Flight::route('POST /candidature', function () {
             'files/' .
             basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']))
     ) {
+
+        // Une fois les tests réussi, le fichier est sur le serveur. Il faut maintenant vérifier si il est bien ce qu'il prétend être.
+        // Il suffit de modifier un fichier en mettant ".mp3" pour berner un navigateur.
+        // Si le test est passé, le lien vers le fichier sera ajouté à la BDD
+
         $fileLink = 'files/' .
             basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']);
         if (mime_content_type($fileLink) == "audio/mpeg") {
@@ -385,7 +399,7 @@ Flight::route('POST /candidature', function () {
     } else {
         $messages['audio3'] = "Le fichier n'est pas valide";
     }
-    //Commentaire Loic (parce que facultatif)
+    // C'est exactement le même principe que pour les autre, sauf que si aucun fichier n'est fournis, on met juste "null" dans la bdd.
     if (
         (isset($_FILES['dossierPresse']) && $_FILES["dossierPresse"]["error"] <= 0) &&
         move_uploaded_file($_FILES['dossierPresse']['tmp_name'],
@@ -403,7 +417,10 @@ Flight::route('POST /candidature', function () {
     } else {
         $toAdd['dossierPresse'] = "";;
     }
-    //Commentaire Loic pour les DPI
+
+    // VERIFICATION PHOTO 1
+    //La différence ici est la vérification du DPI. On accepte que jpg/png. En fonction, on va charger l'image dans une variable
+    // puis on récupère sa résolution et on compare.
     if (
         (isset($_FILES['photo1']) && $_FILES["photo1"]["error"] <= 0) &&
         move_uploaded_file($_FILES['photo1']['tmp_name'],
@@ -441,6 +458,7 @@ Flight::route('POST /candidature', function () {
         $messages['photo1'] = "Le fichier n'est pas valide";
     }
 
+    // VERIFICATION PHOTO 2
     if (
         (isset($_FILES['photo2']) && $_FILES["photo2"]["error"] <= 0) &&
         move_uploaded_file($_FILES['photo2']['tmp_name'],
@@ -478,6 +496,7 @@ Flight::route('POST /candidature', function () {
         $messages['photo2'] = "Le fichier n'est pas valide";
     }
 
+    // VERIFICATION PDF FICHE TECHNIQUE
     if (
         (isset($_FILES['ficheTechnique']) && $_FILES["ficheTechnique"]["error"] <= 0) &&
         move_uploaded_file($_FILES['ficheTechnique']['tmp_name'],
@@ -496,6 +515,7 @@ Flight::route('POST /candidature', function () {
         $messages['ficheTechnique'] = "Le fichier n'est pas valide";
     }
 
+    // VERIFICATION PDF SACEM
     if (
         (isset($_FILES['sacemPdf']) && $_FILES["sacemPdf"]["error"] <= 0) &&
         move_uploaded_file($_FILES['sacemPdf']['tmp_name'],
@@ -515,17 +535,20 @@ Flight::route('POST /candidature', function () {
     }
 
 
+    // VERIFICATION CHECKBOX STATUT ASSOCIATIF
     if (isset($_POST['statutAssociatif'])){
         $toAdd['statutAssociatif'] = 1;
     } else {
         $toAdd['statutAssociatif'] = 0;
     }
+    // VERIFICATION CHECKBOX SACEM
 
     if (isset($_POST['sacem'])){
         $toAdd['sacem'] = 1;
     } else {
         $toAdd['sacem'] = 0;
     }
+    // VERIFICATION CHECKBOX PRODUCTEUR
 
     if (isset($_POST['producer'])){
         $toAdd['producer'] = 1;
@@ -533,29 +556,26 @@ Flight::route('POST /candidature', function () {
         $toAdd['producer'] = 0;
     }
 
+    // On ajoute la clé primaire de la table, qui est le pseudo de la personne ayant rempli le formulaire.
     $toAdd['idCandidature'] = $_SESSION['utilisateur']['pseudo'];
 
-/*
-    sacem,
-                                :producteur,
-                                :idCandidature
-*/
+
     // FIN GERER PARTIE FICHIERS MULTIPLES
 
-    //Commentaire Loic Explique ton gros caca là (aussi le commentaire juste au dessus ça dégage non ?)
-    //Wait t'as changé l'ordre des trucs ? Le gros caca il est en bas maintenant avant il était là
-    //Commentaire Loic ptet un dernier commentaire sur les requetes
+    // On a besoin de charger la liste des départements dans un select, ainsi que les scènes.
+    // il faut donc les récupérer dans la BDD, puis les passer au template.
     $departements = $db->query("SELECT * FROM departement");
     $departements = $departements->fetchAll();
 
     $scenes = $db->query("SELECT * FROM scene");
     $scenes = $scenes->fetchAll();
 
-
+    // Si on a une erreur, on recharge la page et on affiche les erreurs.
+    // Sinon, on prépare la requête SQL, rien de compliqué c'est juste très long.
     if (count($messages) > 0) {
         Flight::render("candidature.tpl", array("scenes" => $scenes, "departements" => $departements, "valeurs" => $_POST, "messages" => $messages));
     } else {
-        $registerUser = $db->prepare("INSERT INTO candidature VALUES(
+        $addCandidature = $db->prepare("INSERT INTO candidature VALUES(
                                :groupeName,
                                 :departement,
                                 :sceneType,
@@ -611,8 +631,11 @@ Flight::route('POST /candidature', function () {
                                 :idCandidature
                                 )
                                 ");
+
+        // Puis une fois la requête préparée, on execute la requête en fournissant le contenu de la requête toAdd.
+        // Avec du recul, vu qu'on fournit à la fonction execute() un tableau, il aurait pu être généré automatiquement.
         if (
-            !$registerUser->execute(array(
+            !$addCandidature->execute(array(
             ':groupeName' => $toAdd['groupeName'],
             ':departement' => $toAdd['departement'],
             ':sceneType' => $toAdd['sceneType'],
@@ -666,68 +689,10 @@ Flight::route('POST /candidature', function () {
             ':sacem' => $toAdd['sacem'],
             ':producer' => $toAdd['producer'],
             ':idCandidature' => $toAdd['idCandidature']
-
-
-        /*
-        !$registerUser->execute(array(
-            ':groupeName' => $toAdd['groupeName'],
-            ':departement' => $toAdd['departement'],
-            ':sceneType' => $toAdd['sceneType'],
-            ':repName' => $toAdd['repName'],
-            ':repFName' => $toAdd['repFName'],
-            ':repAddress' => $toAdd['repAddress'],
-            ':repPostCode' => $toAdd['repPostCode'],
-            ':repMail' => $toAdd['repMail'],
-            ':repPhone' => $toAdd['repPhone'],
-            ':musicType' => $toAdd['musicType'],
-            ':yearOfCreation' => $toAdd['yearOfCreation'],
-            ':textPresentation' => $toAdd['textPresentation'],
-            ':scenicExperiences' => $toAdd['scenicExperiences'],
-            ':website' => $toAdd['website'],
-            ':soundcloud' => $toAdd['soundcloud'],
-            ':youtube' => $toAdd['youtube'],
-            ':memberNumber' => $toAdd['memberNumber'],
-            ':memberName1' => $toAdd['memberName1'],
-            ':memberFName1' => $toAdd['memberFName1'],
-            ':memberInstrument1' => $toAdd['memberInstrument1'],
-            ':memberName2' => $toAdd['memberName2'],
-            ':memberFName2' => $toAdd['memberFName2'],
-            ':memberInstrument2' => $toAdd['memberInstrument2'],
-            ':memberName3' => $toAdd['memberName3'],
-            ':memberFName3' => $toAdd['memberFName3'],
-            ':memberInstrument3' => $toAdd['memberInstrument3'],
-            ':memberName4' => $toAdd['memberName4'],
-            ':memberFName4' => $toAdd['memberFName4'],
-            ':memberInstrument4' => $toAdd['memberInstrument4'],
-            ':memberName5' => $toAdd['memberName5'],
-            ':memberFName5' => $toAdd['memberFName5'],
-            ':memberInstrument5' => $toAdd['memberInstrument5'],
-            ':memberName6' => $toAdd['memberName6'],
-            ':memberFName6' => $toAdd['memberFName6'],
-            ':memberInstrument6' => $toAdd['memberInstrument6'],
-            ':memberName7' => $toAdd['memberName7'],
-            ':memberFName7' => $toAdd['memberFName7'],
-            ':memberInstrument7' => $toAdd['memberInstrument7'],
-            ':memberName8' => $toAdd['memberName8'],
-            ':memberFName8' => $toAdd['memberFName8'],
-            ':memberInstrument8' => $toAdd['memberInstrument8'],
-            ':audio1' => "test",
-            ':audio2' => "test",
-            ':audio3' => "test",
-            ':dossierPresse' => "test",
-            ':photo1' => "test",
-            ':photo2' => "test",
-            ':ficheTechnique' => "test",
-            ':sacemPdf' => "test",
-            ':statutAssociatif' => 1,
-            ':sacem' => 1,
-            ':producer' => 1,
-            ':idCandidature' => "test"
-           */
         ))) {
-            echo "Échec lors de l'exécution :" . var_dump($registerUser->errorInfo());
+            echo "Échec lors de l'exécution :" . var_dump($addCandidature->errorInfo());
         } else {
-            Flight::redirect("/");
+            Flight::redirect("/candidature");
         }
 
     }
@@ -744,12 +709,22 @@ Flight::route('GET /showCandidature', function(){
 
     $db = flight::get("maBase");
 
-    $testForm = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
+    $datas = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
 
-    $testForm->execute(array(":id" => $_SESSION['utilisateur']['pseudo']));
+    $id = $_SESSION['utilisateur']['pseudo'];
 
-    $testForm = $testForm->fetch();
-    Flight::render("showCandidature.tpl", array("data" => $testForm));
+
+    if ($_SESSION['utilisateur']['admin'] == 1){
+        $id = Flight::request()->query['id'];
+    }
+
+
+    $datas->execute(array(":id" => $id));
+
+    $datas = $datas->fetch();
+    Flight::render("showCandidature.tpl", array("data" => $datas));
+
+
 });
 
 Flight::route('GET /profil', function () {
