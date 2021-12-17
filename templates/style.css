@@ -76,3 +76,7 @@ body {
     position: relative;
     background-attachment: fixed;
 }
+
+.container table{
+    margin: 0 auto 0 auto;
+}
