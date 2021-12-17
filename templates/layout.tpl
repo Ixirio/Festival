@@ -26,10 +26,11 @@
         <a href="./">Accueil</a>
 
         {if isset($utilisateur)}
-            <a href="candidature">Candidature</a>
             {if $utilisateur['admin'] == 1}
                 <a href="listCandidatures">Liste Candidatures</a>
                 <a href="listUsers">Liste Users</a>
+            {else}
+                <a href="candidature">Candidature</a>
             {/if}
             <div style="display: flex;">
                 <a href="logout">Déconnexion</a>
