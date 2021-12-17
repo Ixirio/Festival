@@ -303,9 +303,9 @@ Flight::route('POST /candidature', function () {
         $toAdd['youtube'] = "";
     }
 
-    // DEBUT GERER PARTIE MEMBRES MULTIPLES
+    // DEBUT GÉRER PARTIE MEMBRES MULTIPLES
 
-    // membres 1
+    // Membres 1
 
     if (empty(trim($form['memberNumber']))) {
         $messages['memberNumber'] = 'memberNumber vide';
@@ -318,8 +318,8 @@ Flight::route('POST /candidature', function () {
     }
 
     // On initialise dans notre tableau des éléments à ajouter dans la BDD, les valeurs des 8 membres.
-    // Si les membres n'existe pas, la base sera rempli par un champ vide.
-    // il est tout de même impératif de les initialiser.
+    // Si les membres n'existent pas, la base sera remplie par un champ vide.
+    // Il est tout de même impératif de les initialiser.
     for ($i = 1; $i <= 8; $i++) {
         $toAdd['memberName' . $i] = "";
         $toAdd['memberFName' . $i] = "";
@@ -354,8 +354,8 @@ Flight::route('POST /candidature', function () {
     // DEBUT GERER PARTIE FICHIERS MULTIPLES
 
     // Ici on gère la vérification des fichiers.
-    // Premièrement, on vérifie si le fichier est vide et si il n'y à pas eu d'erreurs.
-    // Ensuite, on test si la fonction "move_uploaded_file" renvoie vrai, si c'est le cas, c'est que le fichier à bien
+    // Premièrement, on vérifie si le fichier est vide et s'il n'y a pas eu d'erreurs.
+    // Ensuite, on teste si la fonction "move_uploaded_file" renvoie vrai, si c'est le cas, c'est que le fichier a bien
     // été déplacé sur le serveur.
     // Les noms ont un début aléatoire, puis sont traités pour éviter les noms problématiques.
     if (
@@ -366,7 +366,7 @@ Flight::route('POST /candidature', function () {
             basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']))
     ) {
 
-        // Une fois les tests réussi, le fichier est sur le serveur. Il faut maintenant vérifier si il est bien ce qu'il prétend être.
+        // Une fois les tests réussi, le fichier est sur le serveur. Il faut maintenant vérifier s'il est bien ce qu'il prétend être.
         // Il suffit de modifier un fichier en mettant ".mp3" pour berner un navigateur.
         // Si le test est passé, le lien vers le fichier sera ajouté à la BDD
 
@@ -416,7 +416,7 @@ Flight::route('POST /candidature', function () {
     } else {
         $messages['audio3'] = "Le fichier n'est pas valide";
     }
-    // C'est exactement le même principe que pour les autre, sauf que si aucun fichier n'est fournis, on met juste "null" dans la bdd.
+    // C'est exactement le même principe que pour les autres, sauf que si aucun fichier n'est fourni, on met juste "null" dans la BDD.
     if (
         (isset($_FILES['dossierPresse']) && $_FILES["dossierPresse"]["error"] <= 0) &&
         move_uploaded_file($_FILES['dossierPresse']['tmp_name'],
@@ -435,9 +435,9 @@ Flight::route('POST /candidature', function () {
         $toAdd['dossierPresse'] = "";;
     }
 
-    // VERIFICATION PHOTO 1
+    // VÉRIFICATION PHOTO 1
     //La différence ici est la vérification du DPI. On accepte que jpg/png. En fonction, on va charger l'image dans une variable
-    // puis on récupère sa résolution et on compare.
+    // Puis on récupère sa résolution et on compare.
     if (
         (isset($_FILES['photo1']) && $_FILES["photo1"]["error"] <= 0) &&
         move_uploaded_file($_FILES['photo1']['tmp_name'],
@@ -473,7 +473,7 @@ Flight::route('POST /candidature', function () {
         $messages['photo1'] = "Le fichier n'est pas valide";
     }
 
-    // VERIFICATION PHOTO 2
+    // VÉRIFICATION PHOTO 2
     if (
         (isset($_FILES['photo2']) && $_FILES["photo2"]["error"] <= 0) &&
         move_uploaded_file($_FILES['photo2']['tmp_name'],
@@ -509,7 +509,7 @@ Flight::route('POST /candidature', function () {
         $messages['photo2'] = "Le fichier n'est pas valide";
     }
 
-    // VERIFICATION PDF FICHE TECHNIQUE
+    // VÉRIFICATION PDF FICHE TECHNIQUE
     if (
         (isset($_FILES['ficheTechnique']) && $_FILES["ficheTechnique"]["error"] <= 0) &&
         move_uploaded_file($_FILES['ficheTechnique']['tmp_name'],
@@ -528,7 +528,7 @@ Flight::route('POST /candidature', function () {
         $messages['ficheTechnique'] = "Le fichier n'est pas valide";
     }
 
-    // VERIFICATION PDF SACEM
+    // VÉRIFICATION PDF SACEM
     if (
         (isset($_FILES['sacemPdf']) && $_FILES["sacemPdf"]["error"] <= 0) &&
         move_uploaded_file($_FILES['sacemPdf']['tmp_name'],
@@ -548,20 +548,20 @@ Flight::route('POST /candidature', function () {
     }
 
 
-    // VERIFICATION CHECKBOX STATUT ASSOCIATIF
+    // VÉRIFICATION CHECKBOX STATUT ASSOCIATIF
     if (isset($_POST['statutAssociatif'])) {
         $toAdd['statutAssociatif'] = 1;
     } else {
         $toAdd['statutAssociatif'] = 0;
     }
-    // VERIFICATION CHECKBOX SACEM
+    // VÉRIFICATION CHECKBOX SACEM
 
     if (isset($_POST['sacem'])) {
         $toAdd['sacem'] = 1;
     } else {
         $toAdd['sacem'] = 0;
     }
-    // VERIFICATION CHECKBOX PRODUCTEUR
+    // VÉRIFICATION CHECKBOX PRODUCTEUR
 
     if (isset($_POST['producer'])) {
         $toAdd['producer'] = 1;
@@ -576,7 +576,7 @@ Flight::route('POST /candidature', function () {
     // FIN GERER PARTIE FICHIERS MULTIPLES
 
     // On a besoin de charger la liste des départements dans un select, ainsi que les scènes.
-    // il faut donc les récupérer dans la BDD, puis les passer au template.
+    // Il faut donc les récupérer dans la BDD, puis les passer au template.
     $departements = $db->query("SELECT * FROM departement");
     $departements = $departements->fetchAll();
 
@@ -645,7 +645,7 @@ Flight::route('POST /candidature', function () {
                                 )
                                 ");
 
-        // Puis une fois la requête préparée, on execute la requête en fournissant le contenu de la requête toAdd.
+        // Puis une fois la requête préparée, on l'exécute en fournissant le contenu de la requête toAdd.
         // Avec du recul, vu qu'on fournit à la fonction execute() un tableau, il aurait pu être généré automatiquement.
         if (
             !$addCandidature->execute(array(
@@ -720,10 +720,10 @@ Flight::route('GET /showCandidature', function () {
     $db = flight::get("maBase");
     $datas = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
 
-    // on va récupérer la session de l'utilisateur connecté et l'utiliser comme id
+    // On va récupérer la session de l'utilisateur connecté et l'utiliser comme id
     $id = $_SESSION['utilisateur']['pseudo'];
 
-    // sauf si l'utilisateur est admin. Alors on va prendre en id l'argument "id" passé en get, si il existe et n'est pas vide.
+    // Sauf si l'utilisateur est admin. Alors on va prendre en id l'argument "id" passé en get, s'il existe et n'est pas vide.
     if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])) {
         $id = Flight::request()->query['id'];
     }
