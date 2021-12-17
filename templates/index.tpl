@@ -6,9 +6,9 @@
     
     <div class="container">
         <div class="cadre">
-            <h1>Bienvenue au festival de Perpète-les-oies</h1>
+            <h1 style="text-align: center">Bienvenue au festival de Perpète-les-oies</h1>
             
-            <p>Notre festival de musique associatif lance chaque année un appel aux candidatures afin de permettre à des groupes de jouer devant plusieurs milliers
+            <p style="padding: 0 20px 20px 20px;">Notre festival de musique associatif lance chaque année un appel aux candidatures afin de permettre à des groupes de jouer devant plusieurs milliers
             de personnes. Nous nous engageons à tout mettre en oeuvre pour vous garantir des conditions d'accueil technique professionnelles. Ce festival peut représenter
             un tremplin vers des scènes d'envergures nationales, alors n'hésitez pas ! De nombreux groupes de musique extrêmement populaires ont déjà participé à notre 
             festival, comme par exemple Queen, Iron Maiden, ou encore les Fatal Picards</p>
