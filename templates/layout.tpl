@@ -27,16 +27,10 @@
         {/if}
         <div style="display: flex;">
         {if isset($utilisateur)}
-            
-            {if $utilisateur.admin = "1"}
-                {*<a href="./">Admin</a>*}
-            {else}
-                {*<a href="./">userSet</a>*}
-            {/if}
-            
-                <a href="profil">Profil</a> <p> | </p> <a href="logout">Deconnexion</a>
+    
+            <a href="logout">Deconnexion</a>
         {else}
-                <a href="login">Connexion</a> <p> | </p> <a href="register">Inscription</a>
+            <a href="login">Connexion</a> <p> | </p> <a href="register">Inscription</a>
         {/if}
         
         </div>

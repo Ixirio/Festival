@@ -106,14 +106,14 @@
 
                 <div class="pure-control-group">
                     <label for="aligned-name">Présentation du texte </label>
-                    <textarea rows="8" cols="50" name="textPresentation" placeholder="We're no strangers to love"
+                    <textarea rows="4" cols="22" name="textPresentation" placeholder="We're no strangers to love"
                               >{$valeurs.textPresentation|escape|default:''}</textarea>
                     <p class="error">{$messages.textPresentation|default:''} </p>
                 </div>
 
                 <div class="pure-control-group">
                     <label for="aligned-name">Expériences scéniques </label>
-                    <textarea rows="8" cols="50" name="scenicExperiences"
+                    <textarea rows="4" cols="22" name="scenicExperiences"
                               placeholder="Une fois j'ai joué pour la kermesse de l'école primaire de mon village"
                               >{$valeurs.scenicExperiences|escape|default:''}</textarea>
                     <p class="error">{$messages.scenicExperiences|default:''}</p>
