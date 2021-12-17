@@ -708,21 +708,27 @@ Flight::route('GET /showCandidature', function(){
 
 
     $db = flight::get("maBase");
-
     $datas = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
 
+    // on va récupérer la session de l'utilisateur connecté et l'utiliser comme id
     $id = $_SESSION['utilisateur']['pseudo'];
 
-
-    if ($_SESSION['utilisateur']['admin'] == 1){
+    // sauf si l'utilisateur est admin. Alors on va prendre en id l'argument "id" passé en get, si il existe et n'est pas vide.
+    if ($_SESSION['utilisateur']['admin'] == 1 && isset(Flight::request()->query['id']) && !empty(Flight::request()->query['id'])){
         $id = Flight::request()->query['id'];
     }
 
+    var_dump($id);
 
     $datas->execute(array(":id" => $id));
+    if ($datas->rowCount() >=1){
+        $datas = $datas->fetch();
+        Flight::render("showCandidature.tpl", array("data" => $datas));
+    } else {
+        Flight::redirect("/");
+    }
 
-    $datas = $datas->fetch();
-    Flight::render("showCandidature.tpl", array("data" => $datas));
+
 
 
 });

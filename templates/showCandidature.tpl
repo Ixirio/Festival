@@ -6,11 +6,6 @@
     
     <div class="container">
 
-        {*afficher un tableau avec toutes les candidatures si l'utilisateur est un admin*}
-
-        {if $utilisateur.admin == "1"}
-            
-        {else}
             
             <div class="cadre" style="padding: 0 20px 20px 20px">
                 <h1>{$data.NOM_GROUPE}</h1>
@@ -40,7 +35,6 @@
                 <p><a href="{$data.FICHE_TECHNIQUE}">Fiche technique</a> </p>
                     
             </div>
-        {/if}
 
     </div>
 </div>
