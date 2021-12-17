@@ -2,10 +2,12 @@
 {block name=title}userList{/block}
 {block name=body}
 
-    <div class="container">
-        <h1 class="text-center h1-font">Liste des produits</h1>
-        <hr class="divider">
-        <table class="table table-glass table-hover table-borderless">
+<div class="image">
+
+    <div class="container" style="color: #fff;">
+        <h1>Liste des inscrits</h1>
+        <hr>
+        <table class="pure-table pure-table-bordered">
             <thead>
             <tr class="table-title">
                 <th scope="col">Id</th>
@@ -15,16 +17,15 @@
             </thead>
             <tbody>
 
+            {$counter = 1}
+
             {foreach from=$users item=user}
-                {$counter = 1}
 
-            <tr>
-
-
-                <td class="table-cell">{$counter}</td>
-                <td class="table-cell">{$user.name}</td>
-                <td class="table-cell">{$user.mail}</td>
-            </tr>
+                <tr class="pure-table-odd">
+                    <td>{$counter}</td>
+                    <td>{$user.name}</td>
+                    <td>{$user.mail}</td>
+                </tr>
                 {$counter = $counter + 1}
             {/foreach}
 
@@ -33,5 +34,6 @@
         </table>
 
     </div>
+</div>
 
 {/block}
