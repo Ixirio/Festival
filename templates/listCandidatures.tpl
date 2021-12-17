@@ -1,5 +1,5 @@
 {extends file='layout.tpl'}
-{block name=title}Candidature{/block}
+{block name=title}Candidature Liste{/block}
 {block name=body}
 
     <div class="container">
