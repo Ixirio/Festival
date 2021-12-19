@@ -14,8 +14,8 @@ Flight::route('GET /register', function () {
 });
 // DÉBUT DU FORMULAIRE D'INSCRIPTION
 Flight::route('POST /register', function () {
-
-    $form = Flight::request()->data; // Récupération des données du formulaire rempli par l'utilisateur.
+    // Récupération des données du formulaire rempli par l'utilisateur.
+    $form = Flight::request()->data; 
 
     $db = flight::get("maBase");
 
@@ -123,7 +123,7 @@ Flight::route('POST /login', function () {
         }
     }
     // Si le nom d'utilisateur est "root", l'utilisateur sera défini comme administrateur sur le site.
-    // On avait des doutes, mais c'est safe de procéder comme ça:
+    // On avait des doutes, mais c'est sûr de procéder ainsi :
     // https://stackoverflow.com/questions/1181105/how-safe-are-php-session-variables
     if (isset($requete['name']) && $requete['name'] == "root") {
         $admin = "1";
@@ -143,7 +143,7 @@ Flight::route('GET /candidature', function () {
 
     $db = flight::get("maBase");
 
-    // début test si une candidature a déja été déposé 
+    // Début test pour savoir si une candidature a déja été déposée par cet utilisateur.
 
     $testForm = $db->prepare("SELECT * FROM candidature WHERE ID_CANDIDATURE = :id");
 
@@ -212,7 +212,7 @@ Flight::route('POST /candidature', function () {
         $messages['repPostCode'] = "Veuillez saisir le code postal du représentant";
     } else {
         // On vérifie que l'utilisateur a bien entré un nombre, afin de ne pas entrer de texte dans une valeur numérique dans la base de données.
-        // On vérifie que le nombre entré fait bien 5 caractères, sinon ce n'est pas un code postal
+        // On vérifie que le nombre entré fait bien 5 caractères, sinon ce n'est pas un code postal.
         if (is_numeric($form['repPostCode'])) {
             if (strlen($form->repPostCode) != 5) {
                 $messages['repPostCode'] = "Veuillez saisir un code postal valide";
@@ -236,6 +236,8 @@ Flight::route('POST /candidature', function () {
     if (empty(trim($form['repPhone']))) {
         $messages['repPhone'] = "Veuillez saisir le numéro de téléphone du représentant";
     } else {
+        // On vérifie que l'utilisateur a bien entré un nombre, afin de ne pas entrer de texte dans une valeur numérique dans la base de données.
+        // On vérifie que le nombre entré fait bien 10 caractères, sinon ce n'est pas un numéro de téléphone.
         if (is_numeric($form['repPhone'])) {
             if (strlen($form->repPhone) != 10) {
                 $messages['repPhone'] = "Veuillez saisir un numéro de téléphone valide";
@@ -304,8 +306,6 @@ Flight::route('POST /candidature', function () {
     }
 
     // DEBUT GÉRER PARTIE MEMBRES MULTIPLES
-
-    // Membres 1
 
     if (empty(trim($form['memberNumber']))) {
         $messages['memberNumber'] = 'memberNumber vide';
@@ -436,7 +436,7 @@ Flight::route('POST /candidature', function () {
     }
 
     // VÉRIFICATION PHOTO 1
-    //La différence ici est la vérification du DPI. On accepte que jpg/png. En fonction, on va charger l'image dans une variable
+    // La différence ici est la vérification du DPI. On n'accepte que jpg/png. En fonction, on va charger l'image dans une variable,
     // Puis on récupère sa résolution et on compare.
     if (
         (isset($_FILES['photo1']) && $_FILES["photo1"]["error"] <= 0) &&
