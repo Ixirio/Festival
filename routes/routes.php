@@ -15,7 +15,7 @@ Flight::route('GET /register', function () {
 // DÉBUT DU FORMULAIRE D'INSCRIPTION
 Flight::route('POST /register', function () {
     // Récupération des données du formulaire rempli par l'utilisateur.
-    $form = Flight::request()->data; 
+    $form = Flight::request()->data;
 
     $db = flight::get("maBase");
 
@@ -150,7 +150,6 @@ Flight::route('GET /candidature', function () {
     $testForm->execute(array(":id" => $_SESSION['utilisateur']['pseudo']));
 
     if ($testForm->rowCount() != 0 || $_SESSION['utilisateur']['pseudo'] == "root") {
-        $testForm = $testForm->fetch();
         Flight::redirect('/showCandidature');
     }
 
@@ -226,7 +225,7 @@ Flight::route('POST /candidature', function () {
     if (empty(trim($form['repMail']))) {
         $messages['repMail'] = "Veuillez saisir l'adresse mail du représentant";
     } else {
-        if (filter_var($form['repMail'], FILTER_VALIDATE_EMAIL)){
+        if (filter_var($form['repMail'], FILTER_VALIDATE_EMAIL)) {
             $toAdd['repMail'] = $form['repMail'];
         } else {
             $messages['repMail'] = "Mail non-valide";
@@ -278,7 +277,7 @@ Flight::route('POST /candidature', function () {
     if (empty(trim($form['website']))) {
         $messages['website'] = "Veuillez saisir votre site internet / Facebook";
     } else {
-        if (filter_var($form['website'], FILTER_VALIDATE_URL)){
+        if (filter_var($form['website'], FILTER_VALIDATE_URL)) {
             $toAdd['website'] = $form['website'];
         } else {
             $messages['website'] = "l'URL n'est pas valide.";
@@ -286,7 +285,7 @@ Flight::route('POST /candidature', function () {
     }
 
     if (!empty(trim($form['soundcloud']))) {
-        if (filter_var($form['soundcloud'], FILTER_VALIDATE_URL)){
+        if (filter_var($form['soundcloud'], FILTER_VALIDATE_URL)) {
             $toAdd['soundcloud'] = $form['soundcloud'];
         } else {
             $messages['soundcloud'] = "l'URL n'est pas valide.";
@@ -296,7 +295,7 @@ Flight::route('POST /candidature', function () {
     }
 
     if (!empty(trim($form['youtube']))) {
-        if (filter_var($form['youtube'], FILTER_VALIDATE_URL)){
+        if (filter_var($form['youtube'], FILTER_VALIDATE_URL)) {
             $toAdd['youtube'] = $form['youtube'];
         } else {
             $messages['youtube'] = "l'URL n'est pas valide.";
@@ -358,20 +357,15 @@ Flight::route('POST /candidature', function () {
     // Ensuite, on teste si la fonction "move_uploaded_file" renvoie vrai, si c'est le cas, c'est que le fichier a bien
     // été déplacé sur le serveur.
     // Les noms ont un début aléatoire, puis sont traités pour éviter les noms problématiques.
-    if (
-        (isset($_FILES['audio1']) && $_FILES["audio1"]["error"] <= 0) &&
-        move_uploaded_file($_FILES['audio1']['tmp_name'],
+    if ((isset($_FILES['audio1']) && $_FILES["audio1"]["error"] <= 0) && move_uploaded_file($_FILES['audio1']['tmp_name'],
 
-            'files/' .
-            basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']))
-    ) {
+            'files/' . basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']))) {
 
         // Une fois les tests réussi, le fichier est sur le serveur. Il faut maintenant vérifier s'il est bien ce qu'il prétend être.
         // Il suffit de modifier un fichier en mettant ".mp3" pour berner un navigateur.
         // Si le test est passé, le lien vers le fichier sera ajouté à la BDD
 
-        $fileLink = 'files/' .
-            basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']);
+        $fileLink = 'files/' . basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']);
         if (mime_content_type($fileLink) == "audio/mpeg") {
             $toAdd['audio1'] = $fileLink;
         } else {
@@ -381,15 +375,10 @@ Flight::route('POST /candidature', function () {
         $messages['audio1'] = "Le fichier n'est pas valide";
     }
     // Le code suivant est redondant, il n'est donc pas nécéssaire de le commenter
-    if (
-        (isset($_FILES['audio2']) && $_FILES["audio2"]["error"] <= 0) &&
-        move_uploaded_file($_FILES['audio2']['tmp_name'],
+    if ((isset($_FILES['audio2']) && $_FILES["audio2"]["error"] <= 0) && move_uploaded_file($_FILES['audio2']['tmp_name'],
 
-            'files/' .
-            basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']))
-    ) {
-        $fileLink = 'files/' .
-            basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']);
+            'files/' . basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']))) {
+        $fileLink = 'files/' . basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']);
         if (mime_content_type($fileLink) == "audio/mpeg") {
             $toAdd['audio2'] = $fileLink;
         } else {
@@ -399,15 +388,10 @@ Flight::route('POST /candidature', function () {
         $messages['audio2'] = "Le fichier n'est pas valide";
     }
 
-    if (
-        (isset($_FILES['audio3']) && $_FILES["audio3"]["error"] <= 0) &&
-        move_uploaded_file($_FILES['audio3']['tmp_name'],
+    if ((isset($_FILES['audio3']) && $_FILES["audio3"]["error"] <= 0) && move_uploaded_file($_FILES['audio3']['tmp_name'],
 
-            'files/' .
-            basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']))
-    ) {
-        $fileLink = 'files/' .
-            basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']);
+            'files/' . basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']))) {
+        $fileLink = 'files/' . basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']);
         if (mime_content_type($fileLink) == "audio/mpeg") {
             $toAdd['audio3'] = $fileLink;
         } else {
@@ -417,36 +401,26 @@ Flight::route('POST /candidature', function () {
         $messages['audio3'] = "Le fichier n'est pas valide";
     }
     // C'est exactement le même principe que pour les autres, sauf que si aucun fichier n'est fourni, on met juste "null" dans la BDD.
-    if (
-        (isset($_FILES['dossierPresse']) && $_FILES["dossierPresse"]["error"] <= 0) &&
-        move_uploaded_file($_FILES['dossierPresse']['tmp_name'],
+    if ((isset($_FILES['dossierPresse']) && $_FILES["dossierPresse"]["error"] <= 0) && move_uploaded_file($_FILES['dossierPresse']['tmp_name'],
 
-            'files/' .
-            basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']))
-    ) {
-        $fileLink = 'files/' .
-            basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']);
+            'files/' . basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']))) {
+        $fileLink = 'files/' . basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']);
         if (mime_content_type($fileLink) == "application/pdf") {
             $toAdd['dossierPresse'] = $fileLink;
         } else {
             $messages['dossierPresse'] = "Le fichier n'est pas un .pdf";
         }
     } else {
-        $toAdd['dossierPresse'] = "";;
+        $toAdd['dossierPresse'] = "";
     }
 
     // VÉRIFICATION PHOTO 1
     // La différence ici est la vérification du DPI. On n'accepte que jpg/png. En fonction, on va charger l'image dans une variable,
     // Puis on récupère sa résolution et on compare.
-    if (
-        (isset($_FILES['photo1']) && $_FILES["photo1"]["error"] <= 0) &&
-        move_uploaded_file($_FILES['photo1']['tmp_name'],
+    if ((isset($_FILES['photo1']) && $_FILES["photo1"]["error"] <= 0) && move_uploaded_file($_FILES['photo1']['tmp_name'],
 
-            'files/' .
-            basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']))
-    ) {
-        $fileLink = 'files/' .
-            basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']);
+            'files/' . basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']))) {
+        $fileLink = 'files/' . basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']);
 
         if (mime_content_type($fileLink) == "image/png") {
             $image = imagecreatefrompng($fileLink);
@@ -474,15 +448,10 @@ Flight::route('POST /candidature', function () {
     }
 
     // VÉRIFICATION PHOTO 2
-    if (
-        (isset($_FILES['photo2']) && $_FILES["photo2"]["error"] <= 0) &&
-        move_uploaded_file($_FILES['photo2']['tmp_name'],
+    if ((isset($_FILES['photo2']) && $_FILES["photo2"]["error"] <= 0) && move_uploaded_file($_FILES['photo2']['tmp_name'],
 
-            'files/' .
-            basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']))
-    ) {
-        $fileLink = 'files/' .
-            basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']);
+            'files/' . basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']))) {
+        $fileLink = 'files/' . basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']);
 
         if (mime_content_type($fileLink) == "image/png") {
             $image = imagecreatefrompng($fileLink);
@@ -510,15 +479,10 @@ Flight::route('POST /candidature', function () {
     }
 
     // VÉRIFICATION PDF FICHE TECHNIQUE
-    if (
-        (isset($_FILES['ficheTechnique']) && $_FILES["ficheTechnique"]["error"] <= 0) &&
-        move_uploaded_file($_FILES['ficheTechnique']['tmp_name'],
+    if ((isset($_FILES['ficheTechnique']) && $_FILES["ficheTechnique"]["error"] <= 0) && move_uploaded_file($_FILES['ficheTechnique']['tmp_name'],
 
-            'files/' .
-            basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']))
-    ) {
-        $fileLink = 'files/' .
-            basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']);
+            'files/' . basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']))) {
+        $fileLink = 'files/' . basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']);
         if (mime_content_type($fileLink) == "application/pdf") {
             $toAdd['ficheTechnique'] = $fileLink;
         } else {
@@ -529,15 +493,10 @@ Flight::route('POST /candidature', function () {
     }
 
     // VÉRIFICATION PDF SACEM
-    if (
-        (isset($_FILES['sacemPdf']) && $_FILES["sacemPdf"]["error"] <= 0) &&
-        move_uploaded_file($_FILES['sacemPdf']['tmp_name'],
+    if ((isset($_FILES['sacemPdf']) && $_FILES["sacemPdf"]["error"] <= 0) && move_uploaded_file($_FILES['sacemPdf']['tmp_name'],
 
-            'files/' .
-            basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']))
-    ) {
-        $fileLink = 'files/' .
-            basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']);
+            'files/' . basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']))) {
+        $fileLink = 'files/' . basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']);
         if (mime_content_type($fileLink) == "application/pdf") {
             $toAdd['sacemPdf'] = $fileLink;
         } else {
@@ -647,62 +606,7 @@ Flight::route('POST /candidature', function () {
 
         // Puis une fois la requête préparée, on l'exécute en fournissant le contenu de la requête toAdd.
         // Avec du recul, vu qu'on fournit à la fonction execute() un tableau, il aurait pu être généré automatiquement.
-        if (
-            !$addCandidature->execute(array(
-                ':groupeName' => $toAdd['groupeName'],
-                ':departement' => $toAdd['departement'],
-                ':sceneType' => $toAdd['sceneType'],
-                ':repName' => $toAdd['repName'],
-                ':repFName' => $toAdd['repFName'],
-                ':repAddress' => $toAdd['repAddress'],
-                ':repPostCode' => $toAdd['repPostCode'],
-                ':repMail' => $toAdd['repMail'],
-                ':repPhone' => $toAdd['repPhone'],
-                ':musicType' => $toAdd['musicType'],
-                ':yearOfCreation' => $toAdd['yearOfCreation'],
-                ':textPresentation' => $toAdd['textPresentation'],
-                ':scenicExperiences' => $toAdd['scenicExperiences'],
-                ':website' => $toAdd['website'],
-                ':soundcloud' => $toAdd['soundcloud'],
-                ':youtube' => $toAdd['youtube'],
-                ':memberNumber' => $toAdd['memberNumber'],
-                ':memberName1' => $toAdd['memberName1'],
-                ':memberFName1' => $toAdd['memberFName1'],
-                ':memberInstrument1' => $toAdd['memberInstrument1'],
-                ':memberName2' => $toAdd['memberName2'],
-                ':memberFName2' => $toAdd['memberFName2'],
-                ':memberInstrument2' => $toAdd['memberInstrument2'],
-                ':memberName3' => $toAdd['memberName3'],
-                ':memberFName3' => $toAdd['memberFName3'],
-                ':memberInstrument3' => $toAdd['memberInstrument3'],
-                ':memberName4' => $toAdd['memberName4'],
-                ':memberFName4' => $toAdd['memberFName4'],
-                ':memberInstrument4' => $toAdd['memberInstrument4'],
-                ':memberName5' => $toAdd['memberName5'],
-                ':memberFName5' => $toAdd['memberFName5'],
-                ':memberInstrument5' => $toAdd['memberInstrument5'],
-                ':memberName6' => $toAdd['memberName6'],
-                ':memberFName6' => $toAdd['memberFName6'],
-                ':memberInstrument6' => $toAdd['memberInstrument6'],
-                ':memberName7' => $toAdd['memberName7'],
-                ':memberFName7' => $toAdd['memberFName7'],
-                ':memberInstrument7' => $toAdd['memberInstrument7'],
-                ':memberName8' => $toAdd['memberName8'],
-                ':memberFName8' => $toAdd['memberFName8'],
-                ':memberInstrument8' => $toAdd['memberInstrument8'],
-                ':audio1' => $toAdd['audio1'],
-                ':audio2' => $toAdd['audio2'],
-                ':audio3' => $toAdd['audio3'],
-                ':dossierPresse' => $toAdd['dossierPresse'],
-                ':photo1' => $toAdd['photo1'],
-                ':photo2' => $toAdd['photo2'],
-                ':ficheTechnique' => $toAdd['ficheTechnique'],
-                ':sacemPdf' => $toAdd['sacemPdf'],
-                ':statutAssociatif' => $toAdd['statutAssociatif'],
-                ':sacem' => $toAdd['sacem'],
-                ':producer' => $toAdd['producer'],
-                ':idCandidature' => $toAdd['idCandidature']
-            ))) {
+        if (!$addCandidature->execute(array(':groupeName' => $toAdd['groupeName'], ':departement' => $toAdd['departement'], ':sceneType' => $toAdd['sceneType'], ':repName' => $toAdd['repName'], ':repFName' => $toAdd['repFName'], ':repAddress' => $toAdd['repAddress'], ':repPostCode' => $toAdd['repPostCode'], ':repMail' => $toAdd['repMail'], ':repPhone' => $toAdd['repPhone'], ':musicType' => $toAdd['musicType'], ':yearOfCreation' => $toAdd['yearOfCreation'], ':textPresentation' => $toAdd['textPresentation'], ':scenicExperiences' => $toAdd['scenicExperiences'], ':website' => $toAdd['website'], ':soundcloud' => $toAdd['soundcloud'], ':youtube' => $toAdd['youtube'], ':memberNumber' => $toAdd['memberNumber'], ':memberName1' => $toAdd['memberName1'], ':memberFName1' => $toAdd['memberFName1'], ':memberInstrument1' => $toAdd['memberInstrument1'], ':memberName2' => $toAdd['memberName2'], ':memberFName2' => $toAdd['memberFName2'], ':memberInstrument2' => $toAdd['memberInstrument2'], ':memberName3' => $toAdd['memberName3'], ':memberFName3' => $toAdd['memberFName3'], ':memberInstrument3' => $toAdd['memberInstrument3'], ':memberName4' => $toAdd['memberName4'], ':memberFName4' => $toAdd['memberFName4'], ':memberInstrument4' => $toAdd['memberInstrument4'], ':memberName5' => $toAdd['memberName5'], ':memberFName5' => $toAdd['memberFName5'], ':memberInstrument5' => $toAdd['memberInstrument5'], ':memberName6' => $toAdd['memberName6'], ':memberFName6' => $toAdd['memberFName6'], ':memberInstrument6' => $toAdd['memberInstrument6'], ':memberName7' => $toAdd['memberName7'], ':memberFName7' => $toAdd['memberFName7'], ':memberInstrument7' => $toAdd['memberInstrument7'], ':memberName8' => $toAdd['memberName8'], ':memberFName8' => $toAdd['memberFName8'], ':memberInstrument8' => $toAdd['memberInstrument8'], ':audio1' => $toAdd['audio1'], ':audio2' => $toAdd['audio2'], ':audio3' => $toAdd['audio3'], ':dossierPresse' => $toAdd['dossierPresse'], ':photo1' => $toAdd['photo1'], ':photo2' => $toAdd['photo2'], ':ficheTechnique' => $toAdd['ficheTechnique'], ':sacemPdf' => $toAdd['sacemPdf'], ':statutAssociatif' => $toAdd['statutAssociatif'], ':sacem' => $toAdd['sacem'], ':producer' => $toAdd['producer'], ':idCandidature' => $toAdd['idCandidature']))) {
             echo "Échec lors de l'exécution :" . var_dump($addCandidature->errorInfo());
         } else {
             Flight::redirect("/candidature");
@@ -716,7 +620,7 @@ Flight::route('POST /candidature', function () {
 
 Flight::route('GET /showCandidature', function () {
 
-    if(isset($_SESSION['utilisateur'])){
+    if (isset($_SESSION['utilisateur'])) {
 
 
         $db = flight::get("maBase");
@@ -768,7 +672,7 @@ Flight::route('GET /deleteCandidature', function () {
         $id = Flight::request()->query['id'];
         $db = flight::get("maBase");
         $datas = $db->prepare("DELETE FROM candidature WHERE ID_CANDIDATURE = :id ");
-        $datas = $datas->execute(array(":id" => $id));
+        $datas->execute(array(":id" => $id));
 
 
         Flight::redirect("listCandidatures");
@@ -791,7 +695,7 @@ Flight::route('GET /listUsers', function () {
         }
 
         Flight::render("listUsers.tpl", array("users" => $datas));
-        
+
     } else {
         Flight::redirect("/");
     }
@@ -807,61 +711,136 @@ Flight::route('GET /logout', function () {
 
 // DÉBUT PARTIE API
 
+// On récupère simplement les candidatures, on prend le nombre de lignes dans la base, puis on l'affiche au format json.
+
 Flight::route('GET /stats/nombre-candidatures', function () {
 
     $db = flight::get("maBase");
     $datas = $db->query("SELECT * FROM candidature")->rowCount();
 
-    echo "<pre>" . json_encode($datas,JSON_PRETTY_PRINT) ."</pre>";
+    echo "<pre>" . json_encode($datas, JSON_PRETTY_PRINT) . "</pre>";
 
 });
 
+// On récupère la liste des départements présent dans la table CANDIDATURE, on enlève les doublons.
+// Puis pour chaque département trouvé, on va afficher toutes les candidatures associées.
 Flight::route('GET /stats/nombre-candidatures-par-departement', function () {
 
     $db = flight::get("maBase");
 
     $departements = $db->query("SELECT DEPARTEMENT FROM candidature");
 
-    if ($departements->rowCount() >= 1){
+    if ($departements->rowCount() >= 1) {
         $departements = $departements->fetchAll();
-
         $departements = array_unique($departements, SORT_REGULAR);
     }
 
     $result = array();
-    foreach ($departements as $dep){
-
-
+    foreach ($departements as $dep) {
         $data = $db->query("SELECT * FROM candidature WHERE DEPARTEMENT = '$dep[0]'")->fetchAll();
         $result[$dep[0]] = $data;
     }
+    echo "<pre>" . json_encode($result, JSON_PRETTY_PRINT) . "</pre>";
 
-
-    //$datas = $db->prepare("SELECT * FROM candidature WHERE DEPARTEMENT = :dep");
-    //$datas->execute(array(":dep"=>$depName));
-    //if ($datas->rowCount()>=1){
-    //  $datas = $datas->fetchAll();
-    echo "<pre>" . json_encode($result,JSON_PRETTY_PRINT) ."</pre>";
-    //}
 });
+
+// On récupère l'argument passé dans la requête.
+// Le code du département est passé, on doit le "traduire" en sa version "écrite". On se sert de la base "departement" pour ça.
+// Ensuite, on récupère toutes les candidatures qui ont ce département, et on les affiche.
 
 Flight::route('GET /stats/nombre-candidatures-par-departement/@dep', function ($dep) {
 
     $db = flight::get("maBase");
     $depName = $db->prepare("SELECT departement_nom FROM departement WHERE departement_code = :dep");
 
-    if (!empty($depName)){
-        $depName->execute(array(":dep"=>$dep));
-        if ($depName->rowCount() >=1){
+    if (!empty($depName)) {
+        $depName->execute(array(":dep" => $dep));
+        if ($depName->rowCount() >= 1) {
             $depName = $depName->fetchAll()[0][0];
         }
     }
 
     $datas = $db->prepare("SELECT * FROM candidature WHERE DEPARTEMENT = :dep");
-    $datas->execute(array(":dep"=>$depName));
-    if ($datas->rowCount()>=1){
+    $datas->execute(array(":dep" => $depName));
+    if ($datas->rowCount() >= 1) {
         $datas = $datas->fetchAll();
-        echo "<pre>" . json_encode($datas,JSON_PRETTY_PRINT) ."</pre>";
+        echo "<pre>" . json_encode($datas, JSON_PRETTY_PRINT) . "</pre>";
     }
 
 });
+
+// On récupère toute les candidatures qui ont un des départements composant les "Haut-de-france" puis on les affiche.
+
+Flight::route('GET /stats/candidatures-hauts-de-france', function () {
+    $db = flight::get("maBase");
+    $data = $db->query("SELECT * FROM candidature WHERE 
+                                DEPARTEMENT = 'Somme' or 
+                                DEPARTEMENT = 'Aisne' or 
+                                DEPARTEMENT = 'Nord' or 
+                                DEPARTEMENT = 'Oise' or 
+                                DEPARTEMENT = 'Pas-de-Calais'")->fetchAll();
+    $result['Haut De France'] = $data;
+    echo "<pre>" . json_encode($result, JSON_PRETTY_PRINT) . "</pre>";
+});
+
+// On récupère toute les candidatures qui N'ONT PAS un des départements composant les "Haut-de-france" puis on les affiche.
+Flight::route('GET /stats/candidatures-hors-hauts-de-france', function () {
+    $db = flight::get("maBase");
+    $data = $db->query("SELECT * FROM candidature WHERE not(
+                                DEPARTEMENT = 'Somme' or 
+                                DEPARTEMENT = 'Aisne' or 
+                                DEPARTEMENT = 'Nord' or 
+                                DEPARTEMENT = 'Oise' or 
+                                DEPARTEMENT = 'Pas-de-Calais')")->fetchAll();
+    $result['Haut De France'] = $data;
+    echo "<pre>" . json_encode($result, JSON_PRETTY_PRINT) . "</pre>";
+});
+
+// Pareil que pour les départements, mais avec la scène a la place des départements
+Flight::route('GET /stats/candidatures-par-scene', function () {
+
+    $db = flight::get("maBase");
+
+    $scenes = $db->query("SELECT TYPE_SCENE FROM candidature");
+
+    if ($scenes->rowCount() >= 1) {
+        $scenes = $scenes->fetchAll();
+        $scenes = array_unique($scenes, SORT_REGULAR);
+    }
+
+    $result = array();
+    foreach ($scenes as $scene) {
+
+
+        $data = $db->query("SELECT * FROM candidature WHERE TYPE_SCENE = '$scene[0]'")->fetchAll();
+        $result[$scene[0]] = $data;
+    }
+    echo "<pre>" . json_encode($result, JSON_PRETTY_PRINT) . "</pre>";
+
+});
+
+// Pareil que pour les départements, mais avec la scène a la place des départements.
+Flight::route('GET /stats/candidatures-par-scene/@scene', function ($scene) {
+
+    var_dump($scene);
+    if (strtolower($scene) == "acoustique" || strtolower($scene) == "folk") {
+        $scene = "Acoustique/Folk";
+    }
+
+    if (strtolower($scene) == "amplifié" || strtolower($scene) == "amplifie" || strtolower($scene) == "rock") {
+        $scene = "Amplifie/Rock";
+    }
+
+    var_dump($scene);
+    $db = flight::get("maBase");
+
+    $datas = $db->prepare("SELECT * FROM candidature WHERE TYPE_SCENE = :scene");
+    $datas->execute(array(":scene" => $scene));
+    if ($datas->rowCount() >= 1) {
+        $datas = $datas->fetchAll();
+        echo "<pre>" . json_encode($datas, JSON_PRETTY_PRINT) . "</pre>";
+    }
+
+});
+
+// FIN PARTIE API
