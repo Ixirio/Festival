@@ -68,7 +68,7 @@ Flight::route('POST /register', function () {
         Flight::render("register.tpl", array("valeurs" => $_POST, "messages" => $messages));
     } else {
         $registerUser->execute(array(':name' => $_POST['name'], ':mail' => $_POST['mail'], ':pass' => password_hash($_POST['password'], PASSWORD_DEFAULT)));
-        Flight::render("success.tpl", array());
+        Flight::redirect("/");
     }
 
 });
@@ -806,5 +806,76 @@ Flight::route('GET /logout', function () {
 
     $_SESSION = array();
     Flight::redirect("/");
+
+});
+
+
+
+// PARTI API
+
+
+
+Flight::route('GET /stats/nombre-candidatures', function () {
+
+    $db = flight::get("maBase");
+    $datas = $db->query("SELECT * FROM candidature")->rowCount();
+
+    echo "<pre>" . json_encode($datas,JSON_PRETTY_PRINT) ."</pre>";
+
+});
+
+Flight::route('GET /stats/nombre-candidatures-par-departement', function () {
+
+    $db = flight::get("maBase");
+
+    $departements = $db->query("SELECT DEPARTEMENT FROM candidature");
+
+    if ($departements->rowCount() >= 1){
+        $departements = $departements->fetchAll();
+
+        $departements = array_unique($departements, SORT_REGULAR);
+    }
+
+    $result = array();
+    foreach ($departements as $dep){
+
+
+        $data = $db->query("SELECT * FROM candidature WHERE DEPARTEMENT = '$dep[0]'")->fetchAll();
+        $result[$dep[0]] = $data;
+    }
+
+
+    //$datas = $db->prepare("SELECT * FROM candidature WHERE DEPARTEMENT = :dep");
+    //$datas->execute(array(":dep"=>$depName));
+    //if ($datas->rowCount()>=1){
+    //  $datas = $datas->fetchAll();
+    echo "<pre>" . json_encode($result,JSON_PRETTY_PRINT) ."</pre>";
+    //}
+
+
+});
+
+
+Flight::route('GET /stats/nombre-candidatures-par-departement/@dep', function ($dep) {
+
+    $db = flight::get("maBase");
+    $depName = $db->prepare("SELECT departement_nom FROM departement WHERE departement_code = :dep");
+
+    if (!empty($depName)){
+        $depName->execute(array(":dep"=>$dep));
+        if ($depName->rowCount() >=1){
+            $depName = $depName->fetchAll()[0][0];
+        }
+    }
+
+
+
+    $datas = $db->prepare("SELECT * FROM candidature WHERE DEPARTEMENT = :dep");
+    $datas->execute(array(":dep"=>$depName));
+    if ($datas->rowCount()>=1){
+        $datas = $datas->fetchAll();
+        echo "<pre>" . json_encode($datas,JSON_PRETTY_PRINT) ."</pre>";
+    }
+
 
 });
