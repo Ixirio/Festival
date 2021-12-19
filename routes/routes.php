@@ -809,11 +809,7 @@ Flight::route('GET /logout', function () {
 
 });
 
-
-
-// PARTI API
-
-
+// DÉBUT PARTIE API
 
 Flight::route('GET /stats/nombre-candidatures', function () {
 
@@ -851,10 +847,7 @@ Flight::route('GET /stats/nombre-candidatures-par-departement', function () {
     //  $datas = $datas->fetchAll();
     echo "<pre>" . json_encode($result,JSON_PRETTY_PRINT) ."</pre>";
     //}
-
-
 });
-
 
 Flight::route('GET /stats/nombre-candidatures-par-departement/@dep', function ($dep) {
 
@@ -868,14 +861,11 @@ Flight::route('GET /stats/nombre-candidatures-par-departement/@dep', function ($
         }
     }
 
-
-
     $datas = $db->prepare("SELECT * FROM candidature WHERE DEPARTEMENT = :dep");
     $datas->execute(array(":dep"=>$depName));
     if ($datas->rowCount()>=1){
         $datas = $datas->fetchAll();
         echo "<pre>" . json_encode($datas,JSON_PRETTY_PRINT) ."</pre>";
     }
-
 
 });
