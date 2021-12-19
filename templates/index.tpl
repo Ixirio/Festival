@@ -2,10 +2,10 @@
 {block name=title}Accueil{/block}
 {block name=body}
 
-<div class="image">
+<div class="image1">
     <div class="container">
         <div class="cadre">
-            <h1 style="text-align: center">Bienvenue au festival de Perpète-les-oies</h1>
+            <h1 style="text-align: center">Bienvenue au Music Lovers Unite Festival</h1>
             
             <p style="padding: 0 20px 20px 20px;">Notre festival de musique associatif lance chaque année un appel aux candidatures afin de permettre à des groupes de jouer devant plusieurs milliers
             de personnes. Nous nous engageons à tout mettre en oeuvre pour vous garantir des conditions d'accueil technique professionnelles. Ce festival peut représenter

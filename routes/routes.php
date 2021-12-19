@@ -68,6 +68,7 @@ Flight::route('POST /register', function () {
         Flight::render("register.tpl", array("valeurs" => $_POST, "messages" => $messages));
     } else {
         $registerUser->execute(array(':name' => $_POST['name'], ':mail' => $_POST['mail'], ':pass' => password_hash($_POST['password'], PASSWORD_DEFAULT)));
+        $_SESSION['utilisateur'] = array("pseudo" => $_POST['name'], "email" => $_POST['mail'], "admin" => false);
         Flight::redirect("/");
     }
 
@@ -170,6 +171,11 @@ Flight::route('POST /candidature', function () {
     $messages = array();
 
     $toAdd = array();
+
+    // Si l'utilisateur n'as pas son dossier attribué pour les fichiers, alors on lui créer.
+    if (!file_exists('files/$session')) {
+        mkdir('files/$_SESSION["utilisateur"]["pseudo"]', 0777, true);
+    }
 
     // On vérifie que tous les champs nécéssaires sont remplis.
     if (empty(trim($form['groupeName']))) {
@@ -359,13 +365,13 @@ Flight::route('POST /candidature', function () {
     // Les noms ont un début aléatoire, puis sont traités pour éviter les noms problématiques.
     if ((isset($_FILES['audio1']) && $_FILES["audio1"]["error"] <= 0) && move_uploaded_file($_FILES['audio1']['tmp_name'],
 
-            'files/' . basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']))) {
+            'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']))) {
 
         // Une fois les tests réussi, le fichier est sur le serveur. Il faut maintenant vérifier s'il est bien ce qu'il prétend être.
         // Il suffit de modifier un fichier en mettant ".mp3" pour berner un navigateur.
         // Si le test est passé, le lien vers le fichier sera ajouté à la BDD
 
-        $fileLink = 'files/' . basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']);
+        $fileLink = 'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['audio1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio1']['name']);
         if (mime_content_type($fileLink) == "audio/mpeg") {
             $toAdd['audio1'] = $fileLink;
         } else {
@@ -377,8 +383,8 @@ Flight::route('POST /candidature', function () {
     // Le code suivant est redondant, il n'est donc pas nécéssaire de le commenter
     if ((isset($_FILES['audio2']) && $_FILES["audio2"]["error"] <= 0) && move_uploaded_file($_FILES['audio2']['tmp_name'],
 
-            'files/' . basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']))) {
-        $fileLink = 'files/' . basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']);
+            'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']))) {
+        $fileLink = 'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['audio2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio2']['name']);
         if (mime_content_type($fileLink) == "audio/mpeg") {
             $toAdd['audio2'] = $fileLink;
         } else {
@@ -390,8 +396,8 @@ Flight::route('POST /candidature', function () {
 
     if ((isset($_FILES['audio3']) && $_FILES["audio3"]["error"] <= 0) && move_uploaded_file($_FILES['audio3']['tmp_name'],
 
-            'files/' . basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']))) {
-        $fileLink = 'files/' . basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']);
+            'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']))) {
+        $fileLink = 'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['audio3']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['audio3']['name']);
         if (mime_content_type($fileLink) == "audio/mpeg") {
             $toAdd['audio3'] = $fileLink;
         } else {
@@ -403,8 +409,8 @@ Flight::route('POST /candidature', function () {
     // C'est exactement le même principe que pour les autres, sauf que si aucun fichier n'est fourni, on met juste "null" dans la BDD.
     if ((isset($_FILES['dossierPresse']) && $_FILES["dossierPresse"]["error"] <= 0) && move_uploaded_file($_FILES['dossierPresse']['tmp_name'],
 
-            'files/' . basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']))) {
-        $fileLink = 'files/' . basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']);
+            'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']))) {
+        $fileLink = 'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['dossierPresse']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['dossierPresse']['name']);
         if (mime_content_type($fileLink) == "application/pdf") {
             $toAdd['dossierPresse'] = $fileLink;
         } else {
@@ -419,8 +425,8 @@ Flight::route('POST /candidature', function () {
     // Puis on récupère sa résolution et on compare.
     if ((isset($_FILES['photo1']) && $_FILES["photo1"]["error"] <= 0) && move_uploaded_file($_FILES['photo1']['tmp_name'],
 
-            'files/' . basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']))) {
-        $fileLink = 'files/' . basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']);
+            'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']))) {
+        $fileLink = 'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['photo1']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo1']['name']);
 
         if (mime_content_type($fileLink) == "image/png") {
             $image = imagecreatefrompng($fileLink);
@@ -450,8 +456,8 @@ Flight::route('POST /candidature', function () {
     // VÉRIFICATION PHOTO 2
     if ((isset($_FILES['photo2']) && $_FILES["photo2"]["error"] <= 0) && move_uploaded_file($_FILES['photo2']['tmp_name'],
 
-            'files/' . basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']))) {
-        $fileLink = 'files/' . basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']);
+            'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']))) {
+        $fileLink = 'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['photo2']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['photo2']['name']);
 
         if (mime_content_type($fileLink) == "image/png") {
             $image = imagecreatefrompng($fileLink);
@@ -481,8 +487,8 @@ Flight::route('POST /candidature', function () {
     // VÉRIFICATION PDF FICHE TECHNIQUE
     if ((isset($_FILES['ficheTechnique']) && $_FILES["ficheTechnique"]["error"] <= 0) && move_uploaded_file($_FILES['ficheTechnique']['tmp_name'],
 
-            'files/' . basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']))) {
-        $fileLink = 'files/' . basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']);
+            'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']))) {
+        $fileLink = 'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['ficheTechnique']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['ficheTechnique']['name']);
         if (mime_content_type($fileLink) == "application/pdf") {
             $toAdd['ficheTechnique'] = $fileLink;
         } else {
@@ -495,8 +501,8 @@ Flight::route('POST /candidature', function () {
     // VÉRIFICATION PDF SACEM
     if ((isset($_FILES['sacemPdf']) && $_FILES["sacemPdf"]["error"] <= 0) && move_uploaded_file($_FILES['sacemPdf']['tmp_name'],
 
-            'files/' . basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']))) {
-        $fileLink = 'files/' . basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']);
+            'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']))) {
+        $fileLink = 'files/$_SESSION["utilisateur"]["pseudo"]' . basename($_FILES['sacemPdf']['tmp_name']) . "_" . mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $_FILES['sacemPdf']['name']);
         if (mime_content_type($fileLink) == "application/pdf") {
             $toAdd['sacemPdf'] = $fileLink;
         } else {
@@ -708,6 +714,17 @@ Flight::route('GET /logout', function () {
     Flight::redirect("/");
 
 });
+
+// On vérifie que la personne qui tente d'accéder au fichier, est bien celle qui possède ce fichier.
+Flight::route('GET /files/@user/@file', function ($user, $file) {
+    if (isset($_SESSION['utilisateur']) && $user == $_SESSION['utilisateur']['pseudo']){
+        Flight::redirect("/files/$user/$file");
+    } else {
+        Flight::redirect("/");
+    }
+});
+
+
 
 // DÉBUT PARTIE API
 

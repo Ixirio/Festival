@@ -2,7 +2,7 @@
 {block name=title}Candidature{/block}
 {block name=body}
 
-<div class="image">
+<div class="image3">
     <div class="container">
 
         {*
@@ -13,13 +13,14 @@
             <h1>Candidature</h1>
 
             <fieldset>
+                <hr> {*C'est moche, mais nécéssaire pour l'ergonomie, sinon on s'y retrouve pas.*}
                 <div class="pure-control-group">
                     <label for="aligned-name">Nom du groupe</label>
                     <input type="text" name="groupeName" placeholder="Nom du groupe"
                            value="{$valeurs.groupeName|escape|default:''}"required=""/>
                     <p class="error">{$messages.groupeName|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-departement">Département</label>
                     <select name="departement" id="aligned-departement">
@@ -33,7 +34,7 @@
                         <option  value="Autre">Autre</option>
                     </select>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                 <label for="aligned-scene">Type de scène</label>
                     <select name="sceneType" id="aligned-scene">
@@ -46,7 +47,7 @@
                         {/foreach}
                     </select>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <p>Représentant du groupe</p>
                     <label for="aligned-name">Nom </label>
@@ -54,63 +55,63 @@
                            value="{$valeurs.repName|escape|default:''}"/>
                     <p class="error">{$messages.repName|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Prénom </label>
                     <input type="text" name="repFName" placeholder="Claude"
                            value="{$valeurs.repFName|escape|default:''}"/>
                     <p class="error">{$messages.repFName|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Adresse </label>
                     <input type="text" name="repAddress" placeholder="47 rue des robiniers, New York"
                            value="{$valeurs.repAddress|escape|default:''}"/>
                     <p class="error">{$messages.repAddress|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Code postal </label>
                     <input type="text" name="repPostCode" placeholder="80000"
                            value="{$valeurs.repPostCode|escape|default:''}"/>
                     <p class="error">{$messages.repPostCode|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="email">Adresse e-mail </label>
                     <input type="email" name="repMail" placeholder="claude.dupont@gmail.com"
                            value="{$valeurs.repMail|escape|default:''}"/>
                     <p class="error">{$messages.repMail|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Téléphone </label>
                     <input type="text" name="repPhone" placeholder="0607080910"
                            value="{$valeurs.repPhone|escape|default:''}"/>
                     <p class="error">{$messages.repPhone|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Style Musical </label>
                     <input type="text" name="musicType" placeholder="Rock"
                            value="{$valeurs.musicType|escape|default:''}"/>
                     <p class="error">{$messages.musicType|default:''} </p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Année de création </label>
                     <input type="text" name="yearOfCreation" placeholder="2010"
                            value="{$valeurs.yearOfCreation|escape|default:''}"/>
                     <p class="error">{$messages.yearOfCreation|default:''} </p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Présentation du texte </label>
                     <textarea rows="4" cols="22" name="textPresentation" placeholder="We're no strangers to love"
                               >{$valeurs.textPresentation|escape|default:''}</textarea>
                     <p class="error">{$messages.textPresentation|default:''} </p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Expériences scéniques </label>
                     <textarea rows="4" cols="22" name="scenicExperiences"
@@ -118,7 +119,7 @@
                               >{$valeurs.scenicExperiences|escape|default:''}</textarea>
                     <p class="error">{$messages.scenicExperiences|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Site Internet / Facebook </label>
                     <input type="url" name="website" placeholder="https://monsite.fr"
@@ -137,7 +138,7 @@
                            value="{$valeurs.youtube|escape|default:''}"/>
                     <p class="error">{$messages.youtube|default:''}</p>
                 </div>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-memberNumber">Membres du groupe</label>
                     <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
@@ -155,6 +156,7 @@
                             {else}
                                 <option value={$i}>{$i}</option>
                             {/if}
+
                         {/for}
                     </select>
 
@@ -266,7 +268,7 @@
 
                         var text = document.createElement('div');
                         text.className = "pure-control-group";
-                        text.innerHTML = '<label for="aligned-name">Instrument(s) </label><input type="text" name="memberInstrument' + i + '" placeholder="Kazoo, flûte à bec" value = "' + valueMemberInstrument[i - 1] + '" /><p class="error">' + erreursMemberInstrument[i - 1] + '</p> ';
+                        text.innerHTML = '<label for="aligned-name">Instrument(s) </label><input type="text" name="memberInstrument' + i + '" placeholder="Kazoo, flûte à bec" value = "' + valueMemberInstrument[i - 1] + '" /><p class="error">' + erreursMemberInstrument[i - 1] + '</p> <hr>';
                         membreList.appendChild(text);
                     }
 
@@ -294,7 +296,7 @@
 
                             var text = document.createElement('div');
                             text.className = "pure-control-group";
-                            text.innerHTML = '<label for="aligned-name">Instrument(s) </label><input type="text" name="memberInstrument' + i + '" placeholder="Kazoo, flûte à bec" value = "'+valueMemberInstrument[i-1]+'" /><p class="error">'+erreursMemberInstrument[i-1]+'</p> ';
+                            text.innerHTML = '<label for="aligned-name">Instrument(s) </label><input type="text" name="memberInstrument' + i + '" placeholder="Kazoo, flûte à bec" value = "'+valueMemberInstrument[i-1]+'" /><p class="error">'+erreursMemberInstrument[i-1]+'</p> <hr>';
                             membreList.appendChild(text);
                         }
                     });
@@ -306,11 +308,11 @@
                 <p class="error">{$messages.audio2|default:''}</p>
                 <input name="audio3" type="file">
                 <p class="error">{$messages.audio3|default:''}</p>
-
+                <hr>
                 <p>PDF dossier de presse (facultatif)</p>
                 <input name="pdfpresse" type="file">
                 <p class="error">{$messages.pdfpresse|default:''}</p>
-
+                <hr>
                 <p>Photos du groupe (résolution>300DPI)</p>
                 <p>Photo 1</p>
                 <input name="photo1" type="file">
@@ -318,13 +320,15 @@
                 <p>Photo 2</p>
                 <input name="photo2" type="file">
                 <p class="error">{$messages.photo2|default:''}</p>
+                <hr>
                 <p>PDF Fiche technique</p>
                 <input name="ficheTechnique" type="file">
                 <p class="error">{$messages.ficheTechnique|default:''}</p>
+                <hr>
                 <p>PDF SACEM / PDF contenant la liste des noms, compositeurs et durées des morceaux.</p>
                 <input name="sacemPdf" type="file">
                 <p class="error">{$messages.sacemPdf|default:''}</p>
-
+                <hr>
                 <div class="pure-control-group">
                     <label for="aligned-name">Statut associatif</label>
                     <input type="checkbox" name="statutAssociatif"

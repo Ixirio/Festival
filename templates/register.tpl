@@ -2,7 +2,7 @@
 {block name=title}Inscription{/block}
 {block name=body}
 
-<div class="image">
+<div class="image2">
     <div class="container">
         
         {*

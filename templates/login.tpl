@@ -2,7 +2,7 @@
 {block name=title}Login{/block}
 {block name=body}
 
-<div class="image">
+<div class="image2">
     <div class="container">
 
         {*

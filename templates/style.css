@@ -66,8 +66,38 @@ body {
     color: #000;
 }
   
-.image{
-    background-image: url(../images/festival.png);
+.image1{
+    background-image: url(../images/Fond1.jpg);
+    min-height: 100vh;
+    height: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+}
+.image2{
+    background-image: url(../images/Fond2.jpg);
+    min-height: 100vh;
+    height: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+}
+.image3{
+    background-image: url(../images/Fond3.jpg);
+    min-height: 100vh;
+    height: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+}
+.image4{
+    background-image: url(../images/Fond4.jpg);
     min-height: 100vh;
     height: auto;
     background-position: center;
