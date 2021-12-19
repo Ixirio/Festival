@@ -19,7 +19,12 @@
         {$counter = 1}
 
         {foreach from=$users item=user}
-            {* Expliquez ça svp *}
+                       
+            {*
+            On affiche ici un tableau contenant chaque utilisateurs, pour que l'affichage soit plus clair, on utilise l'opérateur modulo
+            pour qu'une fois sur deux on affiche un fond au tableau.
+            *} 
+
             {if $counter mod 2 == 1}
 
                 <tr class="pure-table-odd">
