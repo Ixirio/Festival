@@ -29,8 +29,8 @@
         {foreach from=$candidatures item=candidature}
             
             {*
-            On affiche ici un tableau contenant chaque candidature, pour que l'affichage soit plus clair, on utilise l'opérateur modulo
-            pour qu'une fois sur deux on affiche un fond au tableau.
+                On affiche ici un tableau contenant chaque candidature. Pour que l'affichage soit plus clair, on utilise l'opérateur modulo
+                pour qu'une fois sur deux on affiche un fond au tableau.
             *}
 
             {if $counter mod 2 == 1}

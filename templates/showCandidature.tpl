@@ -22,7 +22,7 @@
                 {/if}
                 
                 {if $data.YOUTUBE != NULL}
-                    <p>Youtube : <a href="{$data.YOUTUBE}"> {$data.YOUTUBE}</p>
+                    <p>Youtube : <a href="{$data.YOUTUBE}"> {$data.YOUTUBE}</a></p>
                 {/if}
                 <p>Site : <a href="{$data.SITE_FACEBOOK}">{$data.SITE_FACEBOOK}</a></p>
 

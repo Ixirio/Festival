@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7deb1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 17 déc. 2021 à 15:48
--- Version du serveur :  8.0.27-0ubuntu0.21.04.1
--- Version de PHP : 7.4.16
+-- Généré le : dim. 19 déc. 2021 à 17:01
+-- Version du serveur : 5.7.33
+-- Version de PHP : 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,59 +28,59 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `candidature` (
-  `NOM_GROUPE` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DEPARTEMENT` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TYPE_SCENE` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `NOM_REP` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `PRENOM_REP` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ADRESSE_REP` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `POSTAL_REP` int NOT NULL,
-  `MAIL_REP` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TEL_REP` int NOT NULL,
-  `STYLE` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ANNEE_CREATION` int NOT NULL,
-  `PRESENTATION_TXT` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `EXP_SCENIQUE` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `SITE_FACEBOOK` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `SOUNDCLOUD` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `YOUTUBE` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NB_MEMBRES` int NOT NULL,
-  `NOM_MEMBRE_1` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `PRENOM_MEMBRE_1` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `INSTRUMENT_MEMBRE_1` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `NOM_MEMBRE_2` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PRENOM_MEMBRE_2` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `INSTRUMENT_MEMBRE_2` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NOM_MEMBRE_3` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PRENOM_MEMBRE_3` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `INSTRUMENT_MEMBRE_3` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NOM_MEMBRE_4` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PRENOM_MEMBRE_4` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `INSTRUMENT_MEMBRE_4` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NOM_MEMBRE_5` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PRENOM_MEMBRE_5` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `INSTRUMENT_MEMBRE_5` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NOM_MEMBRE_6` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PRENOM_MEMBRE_6` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `INSTRUMENT_MEMBRE_6` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NOM_MEMBRE_7` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PRENOM_MEMBRE_7` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `INSTRUMENT_MEMBRE_7` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `NOM_MEMBRE_8` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PRENOM_MEMBRE_8` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `INSTRUMENT_MEMBRE_8` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `AUDIO_1` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `AUDIO_2` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `AUDIO_3` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DOSSIER_PRESSE` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `PHOTO_1` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `PHOTO_2` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `FICHE_TECHNIQUE` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `SACEM_PDF` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `NOM_GROUPE` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DEPARTEMENT` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `TYPE_SCENE` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `NOM_REP` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PRENOM_REP` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ADRESSE_REP` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `POSTAL_REP` int(11) NOT NULL,
+  `MAIL_REP` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `TEL_REP` int(11) NOT NULL,
+  `STYLE` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ANNEE_CREATION` int(11) NOT NULL,
+  `PRESENTATION_TXT` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `EXP_SCENIQUE` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `SITE_FACEBOOK` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `SOUNDCLOUD` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `YOUTUBE` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NB_MEMBRES` int(11) NOT NULL,
+  `NOM_MEMBRE_1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PRENOM_MEMBRE_1` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `INSTRUMENT_MEMBRE_1` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `NOM_MEMBRE_2` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_2` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_2` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_3` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_3` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_3` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_4` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_4` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_4` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_5` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_5` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_5` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_6` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_6` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_6` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_7` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_7` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `INSTRUMENT_MEMBRE_7` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NOM_MEMBRE_8` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PRENOM_MEMBRE_8` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `INSTRUMENT_MEMBRE_8` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `AUDIO_1` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `AUDIO_2` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `AUDIO_3` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DOSSIER_PRESSE` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `PHOTO_1` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PHOTO_2` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `FICHE_TECHNIQUE` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `SACEM_PDF` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `STATUT_ASSOCIATIF` tinyint(1) NOT NULL,
   `INSCRIT_SACEM` tinyint(1) NOT NULL,
   `PRODUCTEUR` tinyint(1) NOT NULL,
-  `ID_CANDIDATURE` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `ID_CANDIDATURE` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -89,7 +88,8 @@ CREATE TABLE `candidature` (
 --
 
 INSERT INTO `candidature` (`NOM_GROUPE`, `DEPARTEMENT`, `TYPE_SCENE`, `NOM_REP`, `PRENOM_REP`, `ADRESSE_REP`, `POSTAL_REP`, `MAIL_REP`, `TEL_REP`, `STYLE`, `ANNEE_CREATION`, `PRESENTATION_TXT`, `EXP_SCENIQUE`, `SITE_FACEBOOK`, `SOUNDCLOUD`, `YOUTUBE`, `NB_MEMBRES`, `NOM_MEMBRE_1`, `PRENOM_MEMBRE_1`, `INSTRUMENT_MEMBRE_1`, `NOM_MEMBRE_2`, `PRENOM_MEMBRE_2`, `INSTRUMENT_MEMBRE_2`, `NOM_MEMBRE_3`, `PRENOM_MEMBRE_3`, `INSTRUMENT_MEMBRE_3`, `NOM_MEMBRE_4`, `PRENOM_MEMBRE_4`, `INSTRUMENT_MEMBRE_4`, `NOM_MEMBRE_5`, `PRENOM_MEMBRE_5`, `INSTRUMENT_MEMBRE_5`, `NOM_MEMBRE_6`, `PRENOM_MEMBRE_6`, `INSTRUMENT_MEMBRE_6`, `NOM_MEMBRE_7`, `PRENOM_MEMBRE_7`, `INSTRUMENT_MEMBRE_7`, `NOM_MEMBRE_8`, `PRENOM_MEMBRE_8`, `INSTRUMENT_MEMBRE_8`, `AUDIO_1`, `AUDIO_2`, `AUDIO_3`, `DOSSIER_PRESSE`, `PHOTO_1`, `PHOTO_2`, `FICHE_TECHNIQUE`, `SACEM_PDF`, `STATUT_ASSOCIATIF`, `INSCRIT_SACEM`, `PRODUCTEUR`, `ID_CANDIDATURE`) VALUES
-('Sexion D\'assault', 'Paris', 'Tribute', 'Maitre', 'Gims', '2 Rue des champs élysées', 75000, 'gims@gmail.com', 629607873, 'Rap', 2005, 'ouais ma direction ouais', 'l\'olympia', 'https://gimspartout.com', '', '', 1, 'Gims', 'Maitre', 'Voix', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'files/phpLKhdOz_Metal_crusher.mp3', 'files/phpvlHesy_Metal_crusher.mp3', 'files/phphIHL0T_Metal_crusher.mp3', '', 'files/phpuxYxFZ_Jojos Bizarre Adventure - Anime Wallpaper 2.jpg', 'files/php4gYJsU_Jojos Bizarre Adventure - Anime Wallpaper 2.jpg', 'files/phpC90tux_dec2018_sujet.pdf', 'files/phpIFg9Qc_dec2018_sujet.pdf', 0, 1, 0, 'user2');
+('1995', 'Paris', 'Tribute', 'Wann', 'Alpha', '74 place Maurice-Charretier', 77420, '1995@contact.com', 607080910, 'rap / hip-hop', 2008, 'Groupe de 6 potes devenus rappeurs issus de la banlieue parisienne, inspirÃ©s de diffÃ©rents groupes de rap/hip-hop comme IAM, NTM ou encore Lunatic. nos textes racontent nos vies, un peu d\'ego-trip aussi.', 'le Bataclan, la maroquinerie, l\'olympia ...', 'https://fr-fr.facebook.com/undoubleneufcinq', '', 'https://www.youtube.com/user/the1995posse', 6, 'Wann', 'Alpha', 'bouche', 'Debrosse', 'Benjamin ', 'bouche', 'Courtine ', 'Louis', 'clavier', 'Samaras', 'Ken', 'bouche', 'GuÃ©na ', 'Antoine', 'clavier', 'Khemissa', 'Mohamed Amine', 'bouche', '', '', '', '', '', '', 'files/php7835.tmp_Nekfeu  Alpha Wann (1995) - Monsieur Sable (Prod. Basement Beatzz).mp3', 'files/php7865.tmp_1995 - Taille de guÃªpe (instru - Freecky-TonJon).mp3', 'files/php78A4.tmp_1995 - La Suite - Clip (Prod. Hologram Lo - RÃ©alisation - Le Garage).mp3', '', 'files/php78D4.tmp_1995-1000x600.png', 'files/php78D5.tmp_La-Suite-EP-8-titres.jpg', 'files/php78D6.tmp_Dossier_admission_AC_Tous_droits_et_territoires_01_2019.pdf', 'files/php78F6.tmp_Dossier_admission_AC_Tous_droits_et_territoires_01_2019.pdf', 0, 1, 1, '1995'),
+('Rick astley', 'Autre', 'Tribute', 'Astley', 'Rick', ' Newton-le-Willows', 69042, 'rickRollGuy@contact.com', 666942000, 'pop, dance-pop ', 1985, 'We\'re no strangers to love\r\nYou know the rules and so do I', 'loads of concerts around the world', 'https://fr-fr.facebook.com/RickAstley', '', 'https://www.youtube.com/channel/UCuAXFkgsw1L7xaCfnd5JJOw', 1, 'Astley', 'Richard Paul', 'micro', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'files/php1601.tmp_Rick Astley - Not a rick roll.mp3', 'files/php1650.tmp_Rick Astley - Keep Singing (Official Music Video).mp3', 'files/php1690.tmp_Rick Astley - Giving Up On Love (Official Video).mp3', '', 'files/php16EF.tmp_rick astley.jpg', 'files/php1700.tmp_huge_avatar.jpg', 'files/php1701.tmp_Dossier_admission_AC_Tous_droits_et_territoires_01_2019.pdf', 'files/php1702.tmp_Dossier_admission_AC_Tous_droits_et_territoires_01_2019.pdf', 0, 1, 1, 'rickAstley');
 
 -- --------------------------------------------------------
 
@@ -98,11 +98,11 @@ INSERT INTO `candidature` (`NOM_GROUPE`, `DEPARTEMENT`, `TYPE_SCENE`, `NOM_REP`,
 --
 
 CREATE TABLE `departement` (
-  `departement_id` int NOT NULL,
-  `departement_code` varchar(3) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `departement_nom` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `departement_nom_uppercase` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `departement_slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `departement_id` int(11) NOT NULL,
+  `departement_code` varchar(3) CHARACTER SET utf8 DEFAULT NULL,
+  `departement_nom` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `departement_nom_uppercase` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `departement_slug` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `departement_nom_soundex` varchar(20) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -220,7 +220,7 @@ INSERT INTO `departement` (`departement_id`, `departement_code`, `departement_no
 --
 
 CREATE TABLE `scene` (
-  `NOM_SCENE` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `NOM_SCENE` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -239,9 +239,9 @@ INSERT INTO `scene` (`NOM_SCENE`) VALUES
 --
 
 CREATE TABLE `users` (
-  `name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mail` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pass` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mail` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pass` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
   `admin` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -250,13 +250,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`name`, `mail`, `pass`, `admin`) VALUES
-('loic', 'loic.recoupe@gmail.com', '$2y$10$m3WItI5x/dPBBp5qtPHNi.O9OLCo3KS6k0T0SL..1G67vEjKw8yt6', 0),
-('root', 'root@gmail.com', '$2y$10$QSc/4cRHS0sAv9CHXtEemet.xk8B1EESAmxbU1XZrkJb1nyIE16Ie', 1),
-('test', 'test@test.com', 'testtest', 0),
-('user', 'user@gmail.com', '$2y$10$H3jgd4MlQ/Aco6i5JFVeBO5rn0BVritA.rfOmcKw6syxVGtxY7dyS', 0),
-('user2', 'user2@gmail.com', '$2y$10$9RFAYM4copAO5PMJM5x9QOVjtTpNFALK6dQ.qAP9hXOflvp0eT2hu', 0),
-('user3', 'user3@gmail.com', '$2y$10$6NqswFo4SCphtKh05KnzBO5TDoWDYKX6TfifZMd.d8ikiOxiNylnW', 0),
-('user4', 'user4@gmail.com', '$2y$10$NO5.GPRB2/Ckrc4fvYOqBOTg049ro5Z09KrIqYNx.1vD5ZkwQ2n9e', 0);
+('1995', '1995@contact.com', '$2y$10$0TY20fmFT6dyrKhsiqxPw.dw3dREk1Rw2asVvk1Hg.5t3ABqioxA2', 1),
+('rickAstley', 'rickRollGuy@contact.com', '$2y$10$e2UI3twEl5WltYqAYNgyxuPG4nkSgq91a0odt8nEHHiR4ybkcri8u', 1),
+('root', 'root@festival.com', '$2y$10$8mRqDkwMnZk3o2Jh8.hhy.6Y/8L9eUNKBGO3GYkycvfl1aI9M.uf.', 1);
 
 --
 -- Index pour les tables déchargées
@@ -291,7 +287,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `departement`
 --
 ALTER TABLE `departement`
-  MODIFY `departement_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `departement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

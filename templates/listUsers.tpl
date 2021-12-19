@@ -21,8 +21,8 @@
         {foreach from=$users item=user}
                        
             {*
-            On affiche ici un tableau contenant chaque utilisateurs, pour que l'affichage soit plus clair, on utilise l'opérateur modulo
-            pour qu'une fois sur deux on affiche un fond au tableau.
+                On affiche ici un tableau contenant chaque utilisateurs. Pour que l'affichage soit plus clair, on utilise l'opérateur modulo
+                pour qu'une fois sur deux on affiche un fond au tableau.
             *} 
 
             {if $counter mod 2 == 1}
