@@ -766,10 +766,9 @@ Flight::route('GET /stats/nombre-candidatures-par-departement/@dep', function ($
         $datas = $datas->fetchAll();
         echo "<pre>" . json_encode($datas, JSON_PRETTY_PRINT) . "</pre>";
     }
-
 });
 
-// On récupère toute les candidatures qui ont un des départements composant les "Haut-de-france" puis on les affiche.
+// On récupère toutes les candidatures qui ont un des départements composant les "Haut-de-france" puis on les affiche.
 
 Flight::route('GET /stats/candidatures-hauts-de-france', function () {
     $db = flight::get("maBase");
@@ -783,7 +782,7 @@ Flight::route('GET /stats/candidatures-hauts-de-france', function () {
     echo "<pre>" . json_encode($result, JSON_PRETTY_PRINT) . "</pre>";
 });
 
-// On récupère toute les candidatures qui N'ONT PAS un des départements composant les "Haut-de-france" puis on les affiche.
+// On récupère toutes les candidatures qui N'ONT PAS un des départements composant les "Hauts-de-france" puis on les affiche.
 Flight::route('GET /stats/candidatures-hors-hauts-de-france', function () {
     $db = flight::get("maBase");
     $data = $db->query("SELECT * FROM candidature WHERE not(
@@ -796,7 +795,7 @@ Flight::route('GET /stats/candidatures-hors-hauts-de-france', function () {
     echo "<pre>" . json_encode($result, JSON_PRETTY_PRINT) . "</pre>";
 });
 
-// Pareil que pour les départements, mais avec la scène a la place des départements
+// Pareil que pour les départements, mais avec la scène à la place des départements
 Flight::route('GET /stats/candidatures-par-scene', function () {
 
     $db = flight::get("maBase");
@@ -819,7 +818,7 @@ Flight::route('GET /stats/candidatures-par-scene', function () {
 
 });
 
-// Pareil que pour les départements, mais avec la scène a la place des départements.
+// Pareil que pour les départements, mais avec la scène à la place des départements.
 Flight::route('GET /stats/candidatures-par-scene/@scene', function ($scene) {
 
     var_dump($scene);
