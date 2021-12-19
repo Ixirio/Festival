@@ -6,6 +6,7 @@
     <h1 style="text-align: center">Liste des inscrits</h1>
     <hr>
     <table class="pure-table pure-table-bordered">
+        {* Création des colonnes du tableau *}
         <thead>
         <tr class="table-title">
             <th scope="col">Id</th>
@@ -18,7 +19,7 @@
         {$counter = 1}
 
         {foreach from=$users item=user}
-
+            {* Expliquez ça svp *}
             {if $counter mod 2 == 1}
 
                 <tr class="pure-table-odd">
@@ -36,9 +37,7 @@
             {$counter = $counter + 1}
         {/foreach}
 
-
         </tbody>
     </table>
 </div>
-
 {/block}

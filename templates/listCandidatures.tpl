@@ -8,6 +8,7 @@
     <h1 style="text-align: center">Liste des candidatures</h1>
     <hr>
     <table class="pure-table">
+        {* Création des colonnes du tableau *}
         <thead>
         <tr>
             <th scope="col">Id</th>
@@ -26,7 +27,7 @@
         
         {$counter = 1}
         {foreach from=$candidatures item=candidature}
-
+            {*Expliquez ça svp*}
             {if $counter mod 2 == 1}
                 <tr class="pure-table-odd">
 

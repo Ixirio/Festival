@@ -3,7 +3,6 @@
 {block name=body}
 
 <div class="image">
-    
     <div class="container">
         <div class="cadre">
             <h1 style="text-align: center">Bienvenue au festival de Perpète-les-oies</h1>
@@ -14,6 +13,5 @@
             festival, comme par exemple Queen, Iron Maiden, ou encore les Fatal Picards</p>
         </div>
     </div>
-
 </div>
 {/block}

@@ -755,12 +755,10 @@ Flight::route('GET /listCandidatures', function () {
             $datas = array();
         }
 
-
         Flight::render("listCandidatures.tpl", array("candidatures" => $datas));
     } else {
         Flight::redirect("/");
     }
-
 
 });
 
@@ -777,7 +775,6 @@ Flight::route('GET /deleteCandidature', function () {
     } else {
         Flight::redirect("/");
     }
-
 
 });
 
@@ -798,7 +795,6 @@ Flight::route('GET /listUsers', function () {
     } else {
         Flight::redirect("/");
     }
-
 
 });
 

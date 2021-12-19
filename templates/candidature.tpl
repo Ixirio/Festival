@@ -5,9 +5,9 @@
 <div class="image">
     <div class="container">
 
-        <!--
+        {*
             Formulaire de candidature, idem que dans register.tpl
-        -->
+        *}
         <form action="candidature" method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
         
             <h1>Candidature</h1>
@@ -23,10 +23,10 @@
                 <div class="pure-control-group">
                     <label for="aligned-departement">Département</label>
                     <select name="departement" id="aligned-departement">
-                    <!--
+                    {*
                         Ici on récupère les différents départements contenus dans la table départements de la base de données, et on affiche chacun d'entre comme option
                         dans notre select. On y ajoute une option "autre" pour les étrangers.
-                    -->
+                    *}
                         {foreach from=$departements item=depart}
                             <option  value="{$depart['departement_nom']}">{$depart['departement_nom']}</option>
                         {/foreach}
@@ -37,10 +37,10 @@
                 <div class="pure-control-group">
                 <label for="aligned-scene">Type de scène</label>
                     <select name="sceneType" id="aligned-scene">
-                    <!--
+                    {*
                         Ici on récupère les différents types de scènes contenus dans la table scenes de la base de données,
                         et on affiche chacun d'entre comme option dans notre select.
-                    -->
+                    *}
                         {foreach from=$scenes item=typedescene}
                             <option value="{$typedescene[0]}">{$typedescene[0]}</option>
                         {/foreach}
@@ -141,14 +141,14 @@
                 <div class="pure-control-group">
                     <label for="aligned-memberNumber">Membres du groupe</label>
                     <select name="memberNumber" class="memberNb" id="aligned-memberNumber">
-                    <!--
+                    {*
                         On génère automatiquement les options du Select.
                         Afin que lorsque l'on charge la page alors qu'il y a déjà des paramètres (valeurs), la valeur choisie précédemment soit sélectionnée de base.
 
                         Exemple: On remplit le formulaire avec 4 membres, mais la candidature échoue pour une raison x ou y (champ non rempli...),
                         la page se recharge, on veut que la valeur précédemment sélectionnée par l'utilisateur (ici 4) soit sélectionnée de base.
                         Et c'est aussi important pour le remplissage des champs "erreurs" des membres en dessous.
-                    -->
+                    *}
                         {for $i=1 to 8}
                             {if $valeurs.memberNumber|intval|escape|default:1 == $i}
                                 <option value={$i} selected="selected">{$i}</option>
@@ -159,7 +159,7 @@
                     </select>
 
                 </div>
-                <!--
+                {*
                     Lorsque l'utilisateur choisit un nombre de membres, il décide combien de formulaires seront affichés.
                     Le script va donc générer l'HTML pour afficher le nombre de champs correspondants.
 
@@ -172,7 +172,7 @@
                     erreurs sont stockées dans un tableau, et les clés d'accès au tableau sont générées avec la boucle for.
 
                     La solution aurait été de coder 8 fois l'input, avec à chaque fois la variable de l'erreur contenant l'erreur écrite en brut.
-                -->
+                *}
                 <div class='form-group col-xs-12 col-md-12 col-lg-10' id="membreInput">
                 </div>
                 <script>

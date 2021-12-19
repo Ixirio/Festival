@@ -7,7 +7,6 @@
             <h1 style="text-align: center">Inscription Réussie</h1>
             <p style="text-align: center">Félicitations !</p>
         </div>
-
     </div>
 </div>
 {/block}
