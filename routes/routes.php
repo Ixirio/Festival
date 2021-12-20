@@ -173,7 +173,7 @@ Flight::route('POST /candidature', function () {
     $toAdd = array();
 
     // Si l'utilisateur n'as pas son dossier attribué pour les fichiers, alors on lui créer.
-    if (!file_exists('files/$session')) {
+    if (!file_exists('files/$_SESSION["utilisateur"]["pseudo"]')) {
         mkdir('files/$_SESSION["utilisateur"]["pseudo"]', 0777, true);
     }
 
@@ -741,7 +741,7 @@ Flight::route('GET /stats/nombre-candidatures', function () {
 
 // On récupère la liste des départements présent dans la table CANDIDATURE, on enlève les doublons.
 // Puis pour chaque département trouvé, on va afficher toutes les candidatures associées.
-Flight::route('GET /stats/nombre-candidatures-par-departement', function () {
+Flight::route('GET /stats/candidatures-par-departement', function () {
 
     $db = flight::get("maBase");
 
@@ -765,7 +765,7 @@ Flight::route('GET /stats/nombre-candidatures-par-departement', function () {
 // Le code du département est passé, on doit le "traduire" en sa version "écrite". On se sert de la base "departement" pour ça.
 // Ensuite, on récupère toutes les candidatures qui ont ce département, et on les affiche.
 
-Flight::route('GET /stats/nombre-candidatures-par-departement/@dep', function ($dep) {
+Flight::route('GET /stats/candidatures-par-departement/@dep', function ($dep) {
 
     $db = flight::get("maBase");
     $depName = $db->prepare("SELECT departement_nom FROM departement WHERE departement_code = :dep");
